@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useState, type FormEvent } from "react";
+import { trackEvent } from "@/lib/mixpanel";
 
 export default function SearchInput({ initialQuery }: { initialQuery: string }) {
   const router = useRouter();
@@ -11,6 +12,7 @@ export default function SearchInput({ initialQuery }: { initialQuery: string }) 
     e.preventDefault();
     const trimmed = query.trim();
     if (!trimmed) return;
+    trackEvent("Search Submitted", { query: trimmed, source: "search_page" });
     router.push(`/search?q=${encodeURIComponent(trimmed)}`);
   }
 

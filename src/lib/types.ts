@@ -5,6 +5,8 @@ export type PricePoint = {
   price: number;
 };
 
+export type DealType = "매매" | "전세" | "월세";
+
 export type Apartment = {
   id: string;
   name: string;
@@ -15,13 +17,17 @@ export type Apartment = {
   builtYear: number;
   households: number;
   areaPy: number; // 전용면적 (평)
-  avgPrice: number; // 억 단위
+  avgPrice: number; // 매매가, 억 단위
   priceMin: number;
   priceMax: number;
+  dealTypes: DealType[]; // 거래 가능 유형
+  jeonsePrice?: number; // 전세가, 억 단위 (dealTypes에 "전세" 포함 시)
   recentChangeRate: number; // 최근 3개월 변동률 (%)
   elementarySchoolWalkMin: number;
   subwayWalkMin: number;
   subwayLine: string;
+  commuteMinutes: number; // 주요 업무지구(강남·여의도·시청권)까지 대중교통 예상 소요시간(분)
+  moveInDate: string; // "즉시입주" 또는 "YYYY-MM"
   transitScore: number; // 1~5
   infraScore: number; // 1~5
   infraFacilities: string[]; // e.g. "대형마트 도보 5분"
@@ -52,11 +58,29 @@ export type ParsedQuery = {
   maxPriceEok: number | null;
   regionKeywords: string[];
   elementaryWalkMaxMin: number | null;
+  commuteMaxMin: number | null;
   lifestyleTags: string[];
+  dealType: DealType | null;
+  moveInBy: string | null; // "YYYY-MM", 이 시점까지 입주 가능해야 함
 };
 
 export type FavoriteItem = {
   id: string;
   type: "apartment";
   savedAt: string;
+};
+
+export type RegionHighlight = {
+  id: string;
+  title: string; // e.g. "여의도·마곡 출퇴근에 좋은 지역"
+  description: string;
+  query: string; // /search로 연결할 자연어 질의
+  regionIds: string[];
+};
+
+export type HousingSupportItem = {
+  id: string;
+  title: string;
+  summary: string;
+  detail: string;
 };

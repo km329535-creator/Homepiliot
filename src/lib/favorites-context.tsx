@@ -8,6 +8,8 @@ import {
   useState,
   type ReactNode,
 } from "react";
+import { trackEvent } from "./mixpanel";
+import { useAuth } from "./auth-context";
 
 const STORAGE_KEY = "homepilot:favorites";
 
@@ -21,6 +23,7 @@ type FavoritesContextValue = {
 const FavoritesContext = createContext<FavoritesContextValue | null>(null);
 
 export function FavoritesProvider({ children }: { children: ReactNode }) {
+  const { requireLogin } = useAuth();
   const [favoriteIds, setFavoriteIds] = useState<string[]>([]);
   const [hydrated, setHydrated] = useState(false);
 
@@ -45,14 +48,21 @@ export function FavoritesProvider({ children }: { children: ReactNode }) {
     () => ({
       favoriteIds,
       isFavorite: (id) => favoriteIds.includes(id),
-      toggleFavorite: (id) =>
-        setFavoriteIds((prev) =>
-          prev.includes(id) ? prev.filter((f) => f !== id) : [...prev, id]
-        ),
+      toggleFavorite: (id) => {
+        if (!requireLogin()) return;
+        setFavoriteIds((prev) => {
+          const isRemoving = prev.includes(id);
+          trackEvent("Favorite Toggled", {
+            apartment_id: id,
+            action: isRemoving ? "remove" : "add",
+          });
+          return isRemoving ? prev.filter((f) => f !== id) : [...prev, id];
+        });
+      },
       removeFavorite: (id) =>
         setFavoriteIds((prev) => prev.filter((f) => f !== id)),
     }),
-    [favoriteIds]
+    [favoriteIds, requireLogin]
   );
 
   return (

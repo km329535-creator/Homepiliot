@@ -1,67 +1,144 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { useState, type FormEvent } from "react";
+import { trackEvent } from "@/lib/mixpanel";
 
-const EXAMPLE_QUERIES = [
-  "성수동에서 8억 이하 아파트 추천해줘",
-  "신혼부부가 살기 좋은 지역 알려줘",
-  "걸어서 15분 이내에 초등학교가 있는 아파트 중 서울에서 7억이하의 아파트를 알려줘",
+const QUICK_TAGS: Array<{ label: string; query: string } | { label: string; href: string }> = [
+  { label: "서울 6억 이하", query: "서울 6억 이하 아파트 알려줘" },
+  { label: "전세 4억 이하", query: "전세 4억 이하 아파트 알려줘" },
+  { label: "직장까지 40분", query: "직장까지 40분 이내 아파트 알려줘" },
+  { label: "신혼희망타운", href: "/guide#newlywed-hope-town" },
 ];
+
+const DEAL_TYPES = ["전체", "매매", "전세", "월세"] as const;
 
 export default function HeroSearch() {
   const router = useRouter();
-  const [query, setQuery] = useState("");
+  const [location, setLocation] = useState("");
+  const [dealType, setDealType] = useState<(typeof DEAL_TYPES)[number]>("전체");
+  const [maxPrice, setMaxPrice] = useState("");
+  const [moveInDate, setMoveInDate] = useState("");
+
+  function buildQuery() {
+    const parts: string[] = [];
+    if (location.trim()) parts.push(location.trim());
+    if (dealType !== "전체") parts.push(dealType);
+    if (maxPrice.trim()) parts.push(`${maxPrice.trim()}억 이하`);
+    if (moveInDate) parts.push(`${moveInDate} 입주`);
+    parts.push("아파트 알려줘");
+    return parts.join(" ");
+  }
 
   function handleSubmit(e: FormEvent) {
     e.preventDefault();
-    const trimmed = query.trim();
-    if (!trimmed) return;
-    router.push(`/search?q=${encodeURIComponent(trimmed)}`);
+    const query = buildQuery();
+    trackEvent("Condition Search Submitted", {
+      location: location.trim() || null,
+      deal_type: dealType,
+      max_price_eok: maxPrice.trim() || null,
+      move_in_date: moveInDate || null,
+      source: "home_hero",
+    });
+    router.push(`/search?q=${encodeURIComponent(query)}`);
+  }
+
+  function handleQuickTag(query: string) {
+    trackEvent("Quick Tag Clicked", { query });
+    router.push(`/search?q=${encodeURIComponent(query)}`);
   }
 
   return (
-    <div className="w-full max-w-2xl">
+    <div id="condition-search" className="w-full max-w-3xl scroll-mt-24">
       <form
         onSubmit={handleSubmit}
-        className="flex w-full items-center gap-2 rounded-full border border-border bg-surface p-2 pl-5 shadow-sm focus-within:border-accent"
+        className="grid gap-3 rounded-3xl border border-border bg-surface p-4 shadow-sm sm:grid-cols-2 sm:p-5"
       >
-        <svg
-          aria-hidden
-          viewBox="0 0 24 24"
-          className="h-5 w-5 flex-none text-subtle-foreground"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth={2}
-        >
-          <circle cx="11" cy="11" r="7" />
-          <path d="m20 20-3.5-3.5" strokeLinecap="round" />
-        </svg>
-        <input
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          placeholder="예: 성수동에서 8억 이하 아파트 추천해줘"
-          className="h-10 flex-1 bg-transparent text-sm text-foreground outline-none placeholder:text-subtle-foreground sm:text-base"
-        />
+        <label className="flex flex-col gap-1.5 sm:col-span-2">
+          <span className="text-xs font-medium text-muted-foreground">
+            희망 지역 또는 직장 위치
+          </span>
+          <input
+            value={location}
+            onChange={(e) => setLocation(e.target.value)}
+            placeholder="서울 영등포구, 강남역, 판교역 등"
+            className="h-11 rounded-xl border border-border bg-background px-3.5 text-sm text-foreground outline-none placeholder:text-subtle-foreground focus:border-accent"
+          />
+        </label>
+
+        <label className="flex flex-col gap-1.5">
+          <span className="text-xs font-medium text-muted-foreground">거래 유형</span>
+          <select
+            value={dealType}
+            onChange={(e) => setDealType(e.target.value as (typeof DEAL_TYPES)[number])}
+            className="h-11 rounded-xl border border-border bg-background px-3.5 text-sm text-foreground outline-none focus:border-accent"
+          >
+            {DEAL_TYPES.map((type) => (
+              <option key={type} value={type}>
+                {type}
+              </option>
+            ))}
+          </select>
+        </label>
+
+        <label className="flex flex-col gap-1.5">
+          <span className="text-xs font-medium text-muted-foreground">
+            최대 예산 (억원)
+          </span>
+          <input
+            type="number"
+            min={0}
+            step={0.5}
+            inputMode="decimal"
+            value={maxPrice}
+            onChange={(e) => setMaxPrice(e.target.value)}
+            placeholder="예: 6"
+            className="h-11 rounded-xl border border-border bg-background px-3.5 text-sm text-foreground outline-none placeholder:text-subtle-foreground focus:border-accent"
+          />
+        </label>
+
+        <label className="flex flex-col gap-1.5 sm:col-span-2">
+          <span className="text-xs font-medium text-muted-foreground">
+            입주 예정일
+          </span>
+          <input
+            type="month"
+            value={moveInDate}
+            onChange={(e) => setMoveInDate(e.target.value)}
+            className="h-11 rounded-xl border border-border bg-background px-3.5 text-sm text-foreground outline-none focus:border-accent"
+          />
+        </label>
+
         <button
           type="submit"
-          className="flex h-10 flex-none items-center justify-center gap-1.5 rounded-full bg-primary px-4 text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90 sm:px-5"
+          className="flex h-11 items-center justify-center gap-1.5 rounded-xl bg-primary px-5 text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90 sm:col-span-2"
         >
-          AI 검색
+          아파트 찾아보기
         </button>
       </form>
 
-      <div className="mt-4 flex flex-wrap gap-2">
-        {EXAMPLE_QUERIES.map((example) => (
-          <button
-            key={example}
-            type="button"
-            onClick={() => setQuery(example)}
-            className="rounded-full border border-border bg-surface px-3.5 py-1.5 text-xs text-muted-foreground transition-colors hover:border-accent hover:text-accent sm:text-sm"
-          >
-            {example}
-          </button>
-        ))}
+      <div className="mt-4 flex flex-wrap justify-center gap-2">
+        {QUICK_TAGS.map((tag) =>
+          "href" in tag ? (
+            <Link
+              key={tag.label}
+              href={tag.href}
+              className="rounded-full border border-border bg-surface px-3.5 py-1.5 text-xs text-muted-foreground transition-colors hover:border-accent hover:text-accent sm:text-sm"
+            >
+              {tag.label}
+            </Link>
+          ) : (
+            <button
+              key={tag.label}
+              type="button"
+              onClick={() => handleQuickTag(tag.query)}
+              className="rounded-full border border-border bg-surface px-3.5 py-1.5 text-xs text-muted-foreground transition-colors hover:border-accent hover:text-accent sm:text-sm"
+            >
+              {tag.label}
+            </button>
+          )
+        )}
       </div>
     </div>
   );

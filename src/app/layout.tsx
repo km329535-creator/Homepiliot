@@ -3,6 +3,9 @@ import { Noto_Sans_KR, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/layout/navbar";
 import Footer from "@/components/layout/footer";
+import MixpanelProvider from "@/components/analytics/mixpanel-provider";
+import LoginSheet from "@/components/auth/login-sheet";
+import { AuthProvider } from "@/lib/auth-context";
 import { FavoritesProvider } from "@/lib/favorites-context";
 
 const notoSansKr = Noto_Sans_KR({
@@ -33,11 +36,15 @@ export default function RootLayout({
       className={`${notoSansKr.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-background text-foreground font-sans">
-        <FavoritesProvider>
-          <Navbar />
-          <main className="flex-1 flex flex-col">{children}</main>
-          <Footer />
-        </FavoritesProvider>
+        <MixpanelProvider />
+        <AuthProvider>
+          <FavoritesProvider>
+            <Navbar />
+            <main className="flex-1 flex flex-col">{children}</main>
+            <Footer />
+            <LoginSheet />
+          </FavoritesProvider>
+        </AuthProvider>
       </body>
     </html>
   );
