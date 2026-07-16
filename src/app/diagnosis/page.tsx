@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import DiagnosisWizard from "@/components/diagnosis/diagnosis-wizard";
 import DiagnosisResultView from "@/components/diagnosis/diagnosis-result";
 import { analyzeDiagnosis, type DiagnosisAnswers, type DiagnosisResult } from "@/lib/diagnosis";
+import { getLatestSavedDiagnosis } from "@/lib/diagnosis-store";
 import { trackEvent } from "@/lib/mixpanel";
 
 type Phase = "quiz" | "analyzing" | "result";
@@ -17,7 +18,8 @@ export default function DiagnosisPage() {
   useEffect(() => {
     if (phase !== "analyzing" || !answers) return;
     const timer = setTimeout(() => {
-      setResult(analyzeDiagnosis(answers));
+      const previous = getLatestSavedDiagnosis();
+      setResult(analyzeDiagnosis(answers, previous?.result.readinessScore ?? null));
       setPhase("result");
     }, 1200);
     return () => clearTimeout(timer);
@@ -27,6 +29,12 @@ export default function DiagnosisPage() {
     trackEvent("Diagnosis Completed", { ...finalAnswers });
     setAnswers(finalAnswers);
     setPhase("analyzing");
+  }
+
+  function handleEdit() {
+    trackEvent("Diagnosis Edit Started");
+    setWizardKey((k) => k + 1);
+    setPhase("quiz");
   }
 
   function handleRestart() {
@@ -40,7 +48,11 @@ export default function DiagnosisPage() {
   return (
     <div className="mx-auto flex w-full max-w-6xl flex-1 flex-col items-center px-6 py-16">
       {phase === "quiz" && (
-        <DiagnosisWizard key={wizardKey} onComplete={handleComplete} />
+        <DiagnosisWizard
+          key={wizardKey}
+          initialAnswers={answers ?? undefined}
+          onComplete={handleComplete}
+        />
       )}
 
       {phase === "analyzing" && (
@@ -53,7 +65,11 @@ export default function DiagnosisPage() {
       )}
 
       {phase === "result" && result && (
-        <DiagnosisResultView result={result} onRestart={handleRestart} />
+        <DiagnosisResultView
+          result={result}
+          onEdit={handleEdit}
+          onRestart={handleRestart}
+        />
       )}
     </div>
   );

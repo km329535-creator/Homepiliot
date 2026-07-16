@@ -1,12 +1,13 @@
 import type { ReactNode } from "react";
 
-type Tone = "neutral" | "accent" | "positive" | "negative";
+type Tone = "neutral" | "accent" | "positive" | "negative" | "warning";
 
 const toneClasses: Record<Tone, string> = {
   neutral: "bg-surface-muted text-muted-foreground",
   accent: "bg-accent/10 text-accent",
   positive: "bg-positive/10 text-positive",
   negative: "bg-negative/10 text-negative",
+  warning: "bg-warning/10 text-warning",
 };
 
 export function Badge({

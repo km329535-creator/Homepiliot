@@ -11,7 +11,7 @@ export default function Home() {
       <section className="border-b border-border bg-surface-muted/40">
         <div className="mx-auto flex w-full max-w-6xl flex-col items-center px-6 py-20 text-center sm:py-28">
           <Badge tone="accent" className="mb-5">
-            신혼부부를 위한 AI 첫 집 준비 컨설턴트
+            부부를 위한 로드맵 설계
           </Badge>
           <h1 className="max-w-2xl text-3xl font-bold tracking-tight text-foreground sm:text-5xl">
             우리 부부, 지금

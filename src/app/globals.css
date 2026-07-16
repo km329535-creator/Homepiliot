@@ -10,7 +10,7 @@
 
   --primary: #10233f;
   --primary-foreground: #ffffff;
-  --accent: #1d4ed8;
+  --accent: #3661eb;
   --accent-foreground: #ffffff;
 
   --muted-foreground: #5c6470;
@@ -18,6 +18,8 @@
 
   --positive: #157a4a;
   --negative: #b3261e;
+  --warning: #b5690a;
+  --warning-foreground: #ffffff;
 
   --shadow-color: 220 20% 10%;
 }
@@ -40,6 +42,8 @@
 
   --color-positive: var(--positive);
   --color-negative: var(--negative);
+  --color-warning: var(--warning);
+  --color-warning-foreground: var(--warning-foreground);
 
   --font-sans: var(--font-noto-sans-kr);
   --font-mono: var(--font-geist-mono);
@@ -64,6 +68,8 @@
 
     --positive: #3fbf85;
     --negative: #e5665c;
+    --warning: #e0a94c;
+    --warning-foreground: #1a1200;
   }
 }
 

@@ -30,14 +30,26 @@ export type DiagnosisAnswers = {
   income: IncomeRange;
 };
 
+export type PolicyStatus = "priority" | "check_required";
+
 export type RecommendedPolicy = {
   id: string;
   title: string;
   reason: string;
+  status: PolicyStatus;
+  checks: string[];
+};
+
+export type RoadmapStep = {
+  timeframe: string;
+  title: string;
 };
 
 export type FundPlan = {
   savingsLabel: string;
+  savingsManwon: number;
+  targetManwon: number;
+  additionalNeededManwon: number;
   estimatedLoanLimit: string;
   policyEligible: boolean;
   note: string;
@@ -45,11 +57,17 @@ export type FundPlan = {
 
 export type DiagnosisResult = {
   readinessScore: number; // 0~100
+  readinessTier: "아직 이른 단계" | "준비 단계" | "실행 단계";
   readinessSummary: string;
+  scoreDelta: number | null;
+  readinessGood: string[];
+  readinessGaps: string[];
   policies: RecommendedPolicy[];
   fundPlan: FundPlan;
-  roadmap: string[];
+  roadmap: RoadmapStep[];
   topConcern: TopConcern;
+  answers: DiagnosisAnswers;
+  analyzedAt: string; // ISO date
 };
 
 const SAVINGS_MIDPOINT_MANWON: Record<SavingsRange, number> = {
@@ -66,7 +84,30 @@ const INCOME_MIDPOINT_MANWON: Record<IncomeRange, number> = {
   "1억원 이상": 11000,
 };
 
-function formatManwon(manwon: number): string {
+const POLICY_CHECKS: Record<string, string[]> = {
+  "newlywed-jeonse-loan": [
+    "혼인 7년 이내 조건 충족 가능",
+    "부부 합산 소득 구간 확인 필요",
+  ],
+  "didimdol-bogeumjari": [
+    "무주택 세대주 조건 충족 가능",
+    "부부 합산 소득 구간 확인 필요",
+  ],
+  "newlywed-hope-town": [
+    "특별공급 소득 기준 확인 필요",
+    "무주택 기간 조건 확인 필요",
+  ],
+  "local-deposit-support": [
+    "거주(예정) 지역 조건 확인 필요",
+    "지자체별 지원 한도 상이",
+  ],
+  "subscription-score": [
+    "혼인 기간·자녀 수에 따라 가점 상이",
+    "청약통장 가입 기간 확인 필요",
+  ],
+};
+
+export function formatManwon(manwon: number): string {
   const eok = Math.floor(manwon / 10000);
   const remainder = Math.round(manwon % 10000);
   if (eok === 0) return `${remainder.toLocaleString()}만원`;
@@ -79,7 +120,10 @@ function formatManwon(manwon: number): string {
  * 정책 자격 판단과 서술을 더 정교하게 생성합니다. 지금은 데모를 위해
  * 규칙 기반 로직으로 준비도·추천·로드맵을 산출합니다.
  */
-export function analyzeDiagnosis(answers: DiagnosisAnswers): DiagnosisResult {
+export function analyzeDiagnosis(
+  answers: DiagnosisAnswers,
+  previousScore: number | null = null
+): DiagnosisResult {
   const funds = SAVINGS_MIDPOINT_MANWON[answers.savings];
   const income = INCOME_MIDPOINT_MANWON[answers.income];
 
@@ -94,6 +138,9 @@ export function analyzeDiagnosis(answers: DiagnosisAnswers): DiagnosisResult {
   const incomeScore = Math.min(1, income / 8000) * 40;
   const readinessScore = Math.max(5, Math.min(100, Math.round(fundsScore + incomeScore)));
 
+  const readinessTier: DiagnosisResult["readinessTier"] =
+    readinessScore >= 80 ? "실행 단계" : readinessScore >= 50 ? "준비 단계" : "아직 이른 단계";
+
   const readinessSummary =
     readinessScore >= 80
       ? "필요 자금과 소득 기준을 잘 갖추고 있어, 지금 바로 다음 단계를 진행해도 좋은 상태예요."
@@ -101,87 +148,135 @@ export function analyzeDiagnosis(answers: DiagnosisAnswers): DiagnosisResult {
       ? "기본적인 준비는 되어 있지만, 목표 자금까지는 조금 더 보완이 필요한 상태예요."
       : "아직 초기 단계예요. 지금부터 차근차근 자금 계획을 세우면 충분히 따라잡을 수 있어요.";
 
+  const scoreDelta = previousScore !== null ? readinessScore - previousScore : null;
+
+  const readinessGood: string[] = [];
+  const readinessGaps: string[] = [];
+
+  if (answers.timeline !== "6개월 이내") {
+    readinessGood.push("결혼까지 준비할 시간이 남아있어요.");
+  } else {
+    readinessGaps.push("결혼까지 남은 시간이 촉박해 서두를 필요가 있어요.");
+  }
+
+  if (funds >= targetFunds * 0.5) {
+    readinessGood.push("일정 수준의 초기 자금을 확보했어요.");
+  } else {
+    readinessGaps.push("목표 자금 대비 보유 자금이 아직 부족해요.");
+  }
+
+  if (income >= 6000) {
+    readinessGood.push("부부 합산 소득이 안정적인 편이에요.");
+  } else {
+    readinessGaps.push("소득 기준에 따라 정책 자격이 달라질 수 있어 확인이 필요해요.");
+  }
+
+  if (answers.preference !== "전세") {
+    readinessGaps.push("청약통장 가입 기간과 납입 횟수 확인이 필요해요.");
+  }
+  readinessGaps.push("기존 부채 여부는 별도로 확인이 필요해요.");
+
   const policies: RecommendedPolicy[] = [];
   const findItem = (id: string) =>
     housingSupportItems.find((item) => item.id === id)!;
 
-  if (answers.preference !== "매매") {
-    const item = findItem("newlywed-jeonse-loan");
+  const pushPolicy = (id: string, reason: string) => {
+    const item = findItem(id);
     policies.push({
       id: item.id,
       title: item.title,
-      reason: `${answers.preference === "전세" ? "전세" : "전월세"}를 고려 중이고 보유 자금이 ${formatManwon(
-        funds
-      )} 수준이라, 낮은 금리로 보증금을 보완할 수 있는 이 대출이 우선적으로 도움이 돼요.`,
+      reason,
+      status: policies.length === 0 ? "priority" : "check_required",
+      checks: POLICY_CHECKS[id] ?? [],
     });
+  };
+
+  if (answers.preference !== "매매") {
+    pushPolicy(
+      "newlywed-jeonse-loan",
+      `${answers.preference === "전세" ? "전세" : "전월세"}를 고려 중이고 보유 자금이 ${formatManwon(
+        funds
+      )} 수준이라, 낮은 금리로 보증금을 보완할 수 있는 이 대출이 우선적으로 도움이 돼요.`
+    );
   }
 
   if (answers.preference === "매매") {
-    const item = findItem("didimdol-bogeumjari");
-    policies.push({
-      id: item.id,
-      title: item.title,
-      reason: "매매를 목표로 하고 있어, 시세보다 낮은 고정금리로 자금 부담을 줄일 수 있는 정책모기지가 적합해요.",
-    });
+    pushPolicy(
+      "didimdol-bogeumjari",
+      "매매를 목표로 하고 있어, 시세보다 낮은 고정금리로 자금 부담을 줄일 수 있는 정책모기지가 적합해요."
+    );
   }
 
   if (income <= 10000) {
-    const item = findItem("newlywed-hope-town");
-    policies.push({
-      id: item.id,
-      title: item.title,
-      reason: `부부합산 연소득이 ${answers.income} 구간으로 특별공급 소득 기준에 해당할 가능성이 높아, 시세보다 저렴한 공공분양·임대를 확인해볼 만해요.`,
-    });
+    pushPolicy(
+      "newlywed-hope-town",
+      `부부합산 연소득이 ${answers.income} 구간으로 특별공급 소득 기준에 해당할 가능성이 높아, 시세보다 저렴한 공공분양·임대를 확인해볼 만해요.`
+    );
   }
 
   if (answers.preference === "전세" || answers.preference === "아직 고민중") {
-    const item = findItem("local-deposit-support");
-    policies.push({
-      id: item.id,
-      title: item.title,
-      reason: "거주 예정 지역 지자체의 임차보증금 이자 지원까지 더하면 초기 자금 부담을 추가로 줄일 수 있어요.",
-    });
+    pushPolicy(
+      "local-deposit-support",
+      "거주 예정 지역 지자체의 임차보증금 이자 지원까지 더하면 초기 자금 부담을 추가로 줄일 수 있어요."
+    );
   }
 
   if (answers.preference !== "전세") {
-    const item = findItem("subscription-score");
-    policies.push({
-      id: item.id,
-      title: item.title,
-      reason: `${answers.timeline} 내 결혼을 앞두고 있다면, 신혼부부 특별공급 가점을 미리 확인해두는 것이 유리해요.`,
-    });
+    pushPolicy(
+      "subscription-score",
+      `${answers.timeline} 내 결혼을 앞두고 있다면, 신혼부부 특별공급 가점을 미리 확인해두는 것이 유리해요.`
+    );
   }
 
   const estimatedLoanLimit = Math.round(Math.min(funds * 2.5, income * 4) / 100) * 100;
 
   const fundPlan: FundPlan = {
     savingsLabel: answers.savings,
+    savingsManwon: funds,
+    targetManwon: targetFunds,
+    additionalNeededManwon: Math.max(0, targetFunds - funds),
     estimatedLoanLimit: formatManwon(estimatedLoanLimit),
     policyEligible: income <= 10000,
     note: "실제 대출 한도는 신용 상태와 금융기관 심사 결과에 따라 달라질 수 있어요. 위 금액은 참고용 추정치예요.",
   };
 
-  const roadmap: string[] = [];
-  if (answers.preference !== "전세") {
-    roadmap.push("청약통장 가입 여부와 납입 기간 확인하기");
-  }
-  if (answers.preference === "전세" || answers.preference === "아직 고민중") {
-    roadmap.push("희망 지역의 전월세 시세와 계약 조건 확인하기");
-  }
-  roadmap.push("주택도시기금·은행에서 대출 사전상담 받아보기");
-  if (answers.timeline === "6개월 이내") {
-    roadmap.push("예식 전 계약을 목표로 예산 범위 내 후보지 좁히기");
-  } else {
-    roadmap.push("자금 계획을 보완하며 예산 범위 내 후보지 리서치 시작하기");
-  }
-  roadmap.push("계약 시 필요한 서류(소득·재직 증빙 등) 미리 정리해두기");
+  const roadmap: RoadmapStep[] = [
+    {
+      timeframe: "이번 주",
+      title:
+        answers.preference !== "전세"
+          ? "청약통장 가입 기간과 납입 횟수 확인하기"
+          : "희망 지역의 전월세 시세와 계약 조건 확인하기",
+    },
+    {
+      timeframe: "이번 달",
+      title: "대출 사전상담에 필요한 부부 합산 소득 증빙 자료 준비하기",
+    },
+    {
+      timeframe: "1개월 이내",
+      title: "정책대출·특별공급 자격 조건 사전 확인하기",
+    },
+    {
+      timeframe: "주거 형태 결정 후",
+      title:
+        answers.preference === "아직 고민중"
+          ? "전세·매매별 필요 자금 다시 계산하기"
+          : "계약 시 필요한 서류(소득·재직 증빙 등) 미리 정리해두기",
+    },
+  ];
 
   return {
     readinessScore,
+    readinessTier,
     readinessSummary,
+    scoreDelta,
+    readinessGood,
+    readinessGaps,
     policies,
     fundPlan,
     roadmap,
     topConcern: answers.concern,
+    answers,
+    analyzedAt: new Date().toISOString(),
   };
 }

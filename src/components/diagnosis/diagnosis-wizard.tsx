@@ -63,12 +63,16 @@ const STEPS: StepConfig[] = [
 ];
 
 export default function DiagnosisWizard({
+  initialAnswers,
   onComplete,
 }: {
+  initialAnswers?: Partial<DiagnosisAnswers>;
   onComplete: (answers: DiagnosisAnswers) => void;
 }) {
   const [stepIndex, setStepIndex] = useState(0);
-  const [answers, setAnswers] = useState<Partial<DiagnosisAnswers>>({});
+  const [answers, setAnswers] = useState<Partial<DiagnosisAnswers>>(
+    initialAnswers ?? {}
+  );
 
   const step = STEPS[stepIndex];
   const isLast = stepIndex === STEPS.length - 1;

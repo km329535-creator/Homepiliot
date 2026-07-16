@@ -20,9 +20,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "HomePilot | AI 부동산 의사결정 플랫폼",
+  title: "HomePilot | 우리 부부 신혼 로드맵",
   description:
-    "지역별 아파트 시세와 주변 데이터를 분석하여 실거주 및 구매 의사결정을 돕는 플랫폼, HomePilot.",
+    "5개 질문으로 우리 부부의 첫 집 준비도를 진단하고, 맞춤 금융·정책과 다음 단계를 안내받는 AI 로드맵 설계 서비스, HomePilot.",
 };
 
 export default function RootLayout({
