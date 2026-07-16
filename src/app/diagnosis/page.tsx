@@ -7,7 +7,7 @@ import { analyzeDiagnosis, type DiagnosisAnswers, type DiagnosisResult } from "@
 import { getLatestSavedDiagnosis } from "@/lib/diagnosis-store";
 import { trackEvent } from "@/lib/mixpanel";
 
-type Phase = "quiz" | "analyzing" | "result";
+type Phase = "quiz" | "analyzing" | "result" | "error";
 
 export default function DiagnosisPage() {
   const [phase, setPhase] = useState<Phase>("quiz");
@@ -18,9 +18,13 @@ export default function DiagnosisPage() {
   useEffect(() => {
     if (phase !== "analyzing" || !answers) return;
     const timer = setTimeout(() => {
-      const previous = getLatestSavedDiagnosis();
-      setResult(analyzeDiagnosis(answers, previous?.result.readinessScore ?? null));
-      setPhase("result");
+      try {
+        const previous = getLatestSavedDiagnosis();
+        setResult(analyzeDiagnosis(answers, previous?.result.readinessScore ?? null));
+        setPhase("result");
+      } catch {
+        setPhase("error");
+      }
     }, 1200);
     return () => clearTimeout(timer);
   }, [phase, answers]);
@@ -45,6 +49,10 @@ export default function DiagnosisPage() {
     setPhase("quiz");
   }
 
+  if (phase === "result" && result) {
+    return <DiagnosisResultView result={result} onEdit={handleEdit} onRestart={handleRestart} />;
+  }
+
   return (
     <div className="mx-auto flex w-full max-w-6xl flex-1 flex-col items-center px-6 py-16">
       {phase === "quiz" && (
@@ -64,12 +72,20 @@ export default function DiagnosisPage() {
         </div>
       )}
 
-      {phase === "result" && result && (
-        <DiagnosisResultView
-          result={result}
-          onEdit={handleEdit}
-          onRestart={handleRestart}
-        />
+      {phase === "error" && (
+        <div className="flex flex-col items-center gap-4 py-20 text-center">
+          <span className="text-3xl">⚠️</span>
+          <p className="text-sm font-medium text-foreground">
+            분석 중 문제가 발생했어요. 다시 시도해주세요.
+          </p>
+          <button
+            type="button"
+            onClick={handleRestart}
+            className="rounded-full bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground"
+          >
+            다시 진단하기
+          </button>
+        </div>
       )}
     </div>
   );
