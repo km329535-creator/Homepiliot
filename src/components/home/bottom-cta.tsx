@@ -5,19 +5,19 @@ export default function BottomCta() {
     <section className="border-t border-border bg-primary">
       <div className="mx-auto flex w-full max-w-6xl flex-col items-center px-6 py-16 text-center sm:py-20">
         <h2 className="text-2xl font-bold tracking-tight text-primary-foreground sm:text-3xl">
-          우리 둘의 첫 집, 조건부터 맞춰볼까요?
+          우리 부부, 지금부터 뭐부터 준비하면 될까요?
         </h2>
         <p className="mt-3 max-w-xl text-sm leading-relaxed text-primary-foreground/80 sm:text-base">
-          예산과 출퇴근 조건을 입력하면 우리 부부에게 맞는 아파트를
-          찾아드려요.
+          5개 질문에 답하면 AI가 지금 상황에 맞는 준비도와 다음 단계를
+          알려드려요.
         </p>
 
         <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
           <Link
-            href="#condition-search"
+            href="/diagnosis"
             className="inline-flex items-center justify-center rounded-full bg-surface px-6 py-3 text-sm font-medium text-foreground transition-opacity hover:opacity-90"
           >
-            아파트 찾아보기
+            무료 진단 시작
           </Link>
           <Link
             href="/guide"

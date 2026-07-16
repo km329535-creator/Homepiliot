@@ -1,0 +1,67 @@
+import Link from "next/link";
+
+const PREVIEW_ITEMS = [
+  {
+    icon: "📊",
+    title: "첫 집 준비도",
+    description: "지금 자금·소득 상태로 첫 집 마련까지 얼마나 준비되었는지 점수로 확인해요.",
+  },
+  {
+    icon: "🏦",
+    title: "추천 금융·정책",
+    description: "신혼부부 전세자금 대출, 신혼희망타운 등 우리 상황에 맞는 정책을 추천받아요.",
+  },
+  {
+    icon: "💰",
+    title: "자금 계획",
+    description: "보유 자금 대비 추정 대출 한도와 정책 활용 가능 여부를 확인해요.",
+  },
+  {
+    icon: "🗺️",
+    title: "스텝 로드맵",
+    description: "지금부터 계약까지 무엇을, 어떤 순서로 준비해야 하는지 안내받아요.",
+  },
+];
+
+export default function DiagnosisPreview() {
+  return (
+    <section className="border-t border-border bg-surface-muted/40">
+      <div className="mx-auto w-full max-w-6xl px-6 py-16 sm:py-20">
+        <div className="mb-10 text-center">
+          <h2 className="text-2xl font-bold tracking-tight sm:text-3xl">
+            진단 결과에서 확인할 수 있어요
+          </h2>
+          <p className="mt-2 text-sm text-muted-foreground sm:text-base">
+            5개 질문에 답하면 아래 4가지를 한 번에 확인할 수 있어요.
+          </p>
+        </div>
+
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {PREVIEW_ITEMS.map((item) => (
+            <div
+              key={item.title}
+              className="rounded-2xl border border-border bg-surface p-5"
+            >
+              <span className="text-2xl">{item.icon}</span>
+              <h3 className="mt-3 text-sm font-semibold text-foreground">
+                {item.title}
+              </h3>
+              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                {item.description}
+              </p>
+            </div>
+          ))}
+        </div>
+
+        <div className="mt-8 flex justify-center">
+          <Link
+            href="/diagnosis"
+            className="inline-flex items-center justify-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90"
+          >
+            무료 진단 시작하기
+          </Link>
+        </div>
+      </div>
+    </section>
+  );
+}
