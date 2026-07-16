@@ -1,3 +1,5 @@
+import ScrollReveal from "@/components/ui/scroll-reveal";
+
 const STEPS = [
   {
     step: "1",
@@ -23,16 +25,16 @@ const STEPS = [
 
 export default function HowItWorks() {
   return (
-    <section className="mx-auto w-full max-w-6xl px-6 py-16 sm:py-20">
-      <div className="mb-10 text-center">
-        <h2 className="text-2xl font-bold tracking-tight sm:text-3xl">
+    <section className="mx-auto w-full max-w-6xl px-6 py-20 sm:py-28">
+      <ScrollReveal className="mb-12 text-center">
+        <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
           이용 방법
         </h2>
-      </div>
+      </ScrollReveal>
 
-      <div className="grid gap-6 sm:grid-cols-4">
-        {STEPS.map((item) => (
-          <div key={item.step} className="text-center sm:text-left">
+      <div className="grid gap-8 sm:grid-cols-4">
+        {STEPS.map((item, i) => (
+          <ScrollReveal key={item.step} delay={i * 100} className="text-center sm:text-left">
             <span className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-primary text-sm font-bold text-primary-foreground">
               {item.step}
             </span>
@@ -42,7 +44,7 @@ export default function HowItWorks() {
             <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
               {item.description}
             </p>
-          </div>
+          </ScrollReveal>
         ))}
       </div>
     </section>

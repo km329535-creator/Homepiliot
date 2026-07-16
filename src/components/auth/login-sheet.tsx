@@ -16,12 +16,11 @@ export default function LoginSheet() {
         onClick={closeLoginSheet}
         className="absolute inset-0 cursor-default"
       />
-      <div className="glass-strong relative w-full max-w-sm rounded-t-[20px] p-6 pb-8 sm:rounded-[20px] sm:pb-6">
+      <div className="relative w-full max-w-sm rounded-t-[20px] border border-border bg-surface p-6 pb-8 shadow-xl sm:rounded-[20px] sm:pb-6">
         <div className="mx-auto mb-4 h-1 w-10 rounded-full bg-border sm:hidden" />
-        <h2 className="text-lg font-bold">로그인하고 계속하기</h2>
+        <h2 className="text-lg font-bold">로그인</h2>
         <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-          로그인하면 진단 결과를 저장하고, 나중에 다시 방문해서 지난 결과와
-          비교해볼 수 있어요.
+          로그인하면 진단 결과를 저장할 수 있어요.
         </p>
 
         <div className="mt-6 flex flex-col gap-2">

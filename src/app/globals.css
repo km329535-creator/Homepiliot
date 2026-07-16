@@ -1,17 +1,17 @@
 @import "tailwindcss";
 
 :root {
-  /* Brand (Master Design System 4.1) */
-  --brand-50: #f1fbf5;
-  --brand-100: #ddf6e7;
-  --brand-200: #b9ebcb;
-  --brand-300: #86dda5;
-  --brand-400: #50c77c;
-  --brand-500: #2fae63;
-  --brand-600: #218c4d;
-  --brand-700: #1b713f;
-  --brand-800: #175b35;
-  --brand-900: #144a2e;
+  /* Brand — trustworthy blue */
+  --brand-50: #eff6ff;
+  --brand-100: #dbeafe;
+  --brand-200: #bfdbfe;
+  --brand-300: #93c5fd;
+  --brand-400: #5b9df9;
+  --brand-500: #3b7dee;
+  --brand-600: #295fd9;
+  --brand-700: #1f49ad;
+  --brand-800: #1c3c87;
+  --brand-900: #1a336c;
 
   /* Neutral (4.2) */
   --gray-0: #ffffff;
@@ -64,7 +64,7 @@
   --glass-bg: rgba(255, 255, 255, 0.68);
   --glass-bg-strong: rgba(255, 255, 255, 0.82);
   --glass-border: rgba(255, 255, 255, 0.72);
-  --glass-shadow: 0 16px 50px rgba(23, 91, 53, 0.1);
+  --glass-shadow: 0 16px 50px rgba(26, 51, 108, 0.1);
   --glass-blur: 18px;
   --glass-saturate: 135%;
 }

@@ -1,31 +1,34 @@
 import Link from "next/link";
+import ScrollReveal from "@/components/ui/scroll-reveal";
 
 export default function BottomCta() {
   return (
     <section className="border-t border-border bg-primary">
-      <div className="mx-auto flex w-full max-w-6xl flex-col items-center px-6 py-16 text-center sm:py-20">
-        <h2 className="text-2xl font-bold tracking-tight text-primary-foreground sm:text-3xl">
-          우리 부부, 지금부터 뭐부터 준비하면 될까요?
-        </h2>
-        <p className="mt-3 max-w-xl text-sm leading-relaxed text-primary-foreground/80 sm:text-base">
-          5개 질문에 답하면 AI가 지금 상황에 맞는 준비도와 다음 단계를
-          알려드려요.
-        </p>
+      <div className="mx-auto flex w-full max-w-6xl flex-col items-center px-6 py-20 text-center sm:py-28">
+        <ScrollReveal className="flex flex-col items-center">
+          <h2 className="text-3xl font-bold tracking-tight text-primary-foreground sm:text-4xl">
+            우리 부부, 지금부터 뭐부터 준비하면 될까요?
+          </h2>
+          <p className="mt-4 max-w-xl text-sm leading-relaxed text-primary-foreground/80 sm:text-lg">
+            5개 질문에 답하면 AI가 지금 상황에 맞는 준비도와 다음 단계를
+            알려드려요.
+          </p>
 
-        <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-          <Link
-            href="/diagnosis"
-            className="inline-flex h-12 items-center justify-center rounded-xl bg-surface px-6 text-sm font-medium text-foreground transition-opacity hover:opacity-90"
-          >
-            무료 진단 시작
-          </Link>
-          <Link
-            href="/guide"
-            className="inline-flex h-12 items-center justify-center rounded-xl border border-primary-foreground/30 px-6 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary-foreground/10"
-          >
-            신혼부부 주거 가이드 보기
-          </Link>
-        </div>
+          <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
+            <Link
+              href="/diagnosis"
+              className="inline-flex h-12 items-center justify-center rounded-xl bg-surface px-6 text-sm font-medium text-foreground transition-opacity hover:opacity-90"
+            >
+              무료 진단 시작
+            </Link>
+            <Link
+              href="/guide"
+              className="inline-flex h-12 items-center justify-center rounded-xl border border-primary-foreground/30 px-6 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary-foreground/10"
+            >
+              신혼부부 주거 가이드 보기
+            </Link>
+          </div>
+        </ScrollReveal>
       </div>
     </section>
   );

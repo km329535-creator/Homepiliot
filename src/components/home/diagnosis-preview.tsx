@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { BarChart3, Landmark, Map, Wallet } from "lucide-react";
+import ScrollReveal from "@/components/ui/scroll-reveal";
 
 const PREVIEW_ITEMS = [
   {
@@ -27,20 +28,21 @@ const PREVIEW_ITEMS = [
 export default function DiagnosisPreview() {
   return (
     <section className="border-t border-border bg-surface-muted/40">
-      <div className="mx-auto w-full max-w-6xl px-6 py-16 sm:py-20">
-        <div className="mb-10 text-center">
-          <h2 className="text-2xl font-bold tracking-tight sm:text-3xl">
+      <div className="mx-auto w-full max-w-6xl px-6 py-20 sm:py-28">
+        <ScrollReveal className="mb-12 text-center">
+          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
             진단 결과에서 확인할 수 있어요
           </h2>
-          <p className="mt-2 text-sm text-muted-foreground sm:text-base">
+          <p className="mt-3 text-sm text-muted-foreground sm:text-lg">
             5개 질문에 답하면 아래 4가지를 한 번에 확인할 수 있어요.
           </p>
-        </div>
+        </ScrollReveal>
 
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {PREVIEW_ITEMS.map((item) => (
-            <div
+          {PREVIEW_ITEMS.map((item, i) => (
+            <ScrollReveal
               key={item.title}
+              delay={i * 100}
               className="rounded-2xl border border-border bg-surface p-5"
             >
               <item.icon className="h-6 w-6 text-brand-600" strokeWidth={1.75} aria-hidden />
@@ -50,11 +52,11 @@ export default function DiagnosisPreview() {
               <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
                 {item.description}
               </p>
-            </div>
+            </ScrollReveal>
           ))}
         </div>
 
-        <div className="mt-8 flex justify-center">
+        <div className="mt-10 flex justify-center">
           <Link
             href="/diagnosis"
             className="inline-flex h-12 items-center justify-center gap-2 rounded-xl bg-primary px-6 text-sm font-medium text-primary-foreground transition-colors hover:bg-brand-700"

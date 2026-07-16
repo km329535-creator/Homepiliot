@@ -1,13 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import { MessageSquareText } from "lucide-react";
 import { useAuth } from "@/lib/auth-context";
 import { useFeedback } from "@/lib/feedback-context";
-import GoogleLoginButton from "@/components/auth/google-login-button";
 
 export default function Navbar() {
-  const { isLoggedIn, logout } = useAuth();
+  const { isLoggedIn, logout, openLoginSheet } = useAuth();
   const { open: openFeedback } = useFeedback();
 
   return (
@@ -26,9 +24,8 @@ export default function Navbar() {
           <button
             type="button"
             onClick={openFeedback}
-            className="hidden items-center gap-1.5 rounded-xl px-3 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground sm:flex sm:h-10"
+            className="hidden h-10 items-center rounded-xl px-3 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground sm:flex"
           >
-            <MessageSquareText className="h-4 w-4" strokeWidth={1.75} aria-hidden />
             의견 보내기
           </button>
 
@@ -41,7 +38,13 @@ export default function Navbar() {
               로그아웃
             </button>
           ) : (
-            <GoogleLoginButton compact className="hidden sm:inline-flex" />
+            <button
+              type="button"
+              onClick={openLoginSheet}
+              className="hidden h-10 items-center rounded-xl px-3 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground sm:flex"
+            >
+              로그인
+            </button>
           )}
 
           <Link
