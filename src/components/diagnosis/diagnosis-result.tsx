@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { CircleCheck } from "lucide-react";
 import type { DiagnosisResult } from "@/lib/diagnosis";
 import { useAuth } from "@/lib/auth-context";
 import { saveDiagnosisResult } from "@/lib/diagnosis-store";
@@ -39,7 +40,7 @@ export default function DiagnosisResultView({
   }
 
   return (
-    <div className="w-full bg-surface-muted/40">
+    <div className="aurora-bg w-full">
       <div className="mx-auto w-full max-w-[1280px] px-5 py-10 sm:px-8 lg:px-10">
         <ResultHeader analyzedAt={result.analyzedAt} onEdit={onEdit} onRestart={onRestart} />
 
@@ -112,13 +113,14 @@ export default function DiagnosisResultView({
             type="button"
             onClick={handleSave}
             disabled={saved}
-            className={`inline-flex w-full items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-medium transition-opacity sm:w-auto ${
+            className={`inline-flex h-12 w-full items-center justify-center gap-2 rounded-xl px-6 text-sm font-medium transition-colors sm:w-auto ${
               saved
                 ? "cursor-default bg-positive/10 text-positive"
-                : "bg-primary text-primary-foreground hover:opacity-90"
+                : "bg-primary text-primary-foreground hover:bg-brand-700"
             }`}
           >
-            {saved ? "저장 완료 ✓" : isLoggedIn ? "결과 저장하기" : "로그인하고 내 결과 저장하기"}
+            {saved && <CircleCheck className="h-4 w-4" strokeWidth={1.75} aria-hidden />}
+            {saved ? "저장 완료" : isLoggedIn ? "결과 저장하기" : "로그인하고 내 결과 저장하기"}
           </button>
         </div>
 
@@ -127,14 +129,14 @@ export default function DiagnosisResultView({
           <button
             type="button"
             onClick={onEdit}
-            className="w-full rounded-full border border-border bg-surface px-4 py-3 text-sm font-medium text-foreground"
+            className="h-12 w-full rounded-xl border border-border bg-surface px-4 text-sm font-medium text-foreground"
           >
             조건 수정
           </button>
           <button
             type="button"
             onClick={onRestart}
-            className="w-full rounded-full bg-primary px-4 py-3 text-sm font-medium text-primary-foreground"
+            className="h-12 w-full rounded-xl bg-primary px-4 text-sm font-medium text-primary-foreground"
           >
             다시 진단하기
           </button>

@@ -46,7 +46,7 @@ export default function PolicyRecommendationCard({
 
       <Link
         href={`/guide#${policy.id}`}
-        className="mt-4 inline-flex w-full items-center justify-center rounded-full border border-border px-4 py-2 text-xs font-medium text-foreground transition-colors hover:border-accent hover:text-accent"
+        className="mt-4 inline-flex h-10 w-full items-center justify-center rounded-xl border border-border px-4 text-xs font-medium text-foreground transition-colors hover:border-accent hover:text-accent"
       >
         자격 조건 확인하기
       </Link>

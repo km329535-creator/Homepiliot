@@ -1,3 +1,4 @@
+import { ClipboardList } from "lucide-react";
 import type { RoadmapStep } from "@/lib/diagnosis";
 
 export default function NextActionCard({ roadmap }: { roadmap: RoadmapStep[] }) {
@@ -6,7 +7,9 @@ export default function NextActionCard({ roadmap }: { roadmap: RoadmapStep[] }) 
     <div className="rounded-2xl border border-border bg-surface p-5">
       <p className="text-xs text-muted-foreground">다음 행동</p>
       <div className="mt-3 flex items-center gap-3">
-        <span className="text-2xl">📋</span>
+        <span className="flex h-9 w-9 flex-none items-center justify-center rounded-full bg-brand-100 text-brand-700">
+          <ClipboardList className="h-5 w-5" strokeWidth={1.75} aria-hidden />
+        </span>
         <span className="text-3xl font-bold tracking-tight">
           {roadmap.length}
           <span className="text-base font-medium text-muted-foreground">단계</span>

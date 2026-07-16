@@ -1,3 +1,5 @@
+import { Info } from "lucide-react";
+
 function formatDate(iso: string): string {
   const d = new Date(iso);
   const y = d.getFullYear();
@@ -17,9 +19,7 @@ export default function AnalysisDisclaimer({ analyzedAt }: { analyzedAt: string 
   return (
     <div className="rounded-2xl border border-border bg-surface-muted/40 p-5">
       <div className="flex items-start gap-2">
-        <span className="mt-0.5 text-sm text-subtle-foreground" aria-hidden>
-          ⓘ
-        </span>
+        <Info className="mt-0.5 h-4 w-4 flex-none text-subtle-foreground" strokeWidth={1.75} aria-hidden />
         <div>
           <ul className="space-y-1 text-xs leading-relaxed text-muted-foreground">
             {items.map((item) => (

@@ -15,13 +15,13 @@ export default function BottomCta() {
         <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
           <Link
             href="/diagnosis"
-            className="inline-flex items-center justify-center rounded-full bg-surface px-6 py-3 text-sm font-medium text-foreground transition-opacity hover:opacity-90"
+            className="inline-flex h-12 items-center justify-center rounded-xl bg-surface px-6 text-sm font-medium text-foreground transition-opacity hover:opacity-90"
           >
             무료 진단 시작
           </Link>
           <Link
             href="/guide"
-            className="inline-flex items-center justify-center rounded-full border border-primary-foreground/30 px-6 py-3 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary-foreground/10"
+            className="inline-flex h-12 items-center justify-center rounded-xl border border-primary-foreground/30 px-6 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary-foreground/10"
           >
             신혼부부 주거 가이드 보기
           </Link>

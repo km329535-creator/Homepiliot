@@ -1,3 +1,4 @@
+import { CircleCheck } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 
 function formatDate(iso: string): string {
@@ -20,8 +21,8 @@ export default function ResultHeader({
   return (
     <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
       <div>
-        <Badge tone="positive" className="mb-2">
-          ✓ 분석 완료
+        <Badge tone="positive" icon={CircleCheck} className="mb-2">
+          분석 완료
         </Badge>
         <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">
           우리 부부의 첫 집 준비 분석
@@ -39,14 +40,14 @@ export default function ResultHeader({
           <button
             type="button"
             onClick={onEdit}
-            className="rounded-full border border-border bg-surface px-4 py-2 text-sm font-medium text-foreground transition-colors hover:border-accent hover:text-accent"
+            className="h-10 rounded-xl border border-border bg-surface px-4 text-sm font-medium text-foreground transition-colors hover:border-accent hover:text-accent"
           >
             조건 수정
           </button>
           <button
             type="button"
             onClick={onRestart}
-            className="rounded-full bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90"
+            className="h-10 rounded-xl bg-primary px-4 text-sm font-medium text-primary-foreground transition-colors hover:bg-brand-700"
           >
             다시 진단하기
           </button>

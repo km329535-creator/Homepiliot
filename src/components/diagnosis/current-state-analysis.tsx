@@ -1,3 +1,5 @@
+import { CheckCircle2, TriangleAlert } from "lucide-react";
+
 export default function CurrentStateAnalysis({
   good,
   gaps,
@@ -14,7 +16,7 @@ export default function CurrentStateAnalysis({
           <ul className="space-y-1.5">
             {good.map((item) => (
               <li key={item} className="flex items-start gap-1.5 text-sm text-muted-foreground">
-                <span className="mt-0.5 text-positive">✓</span>
+                <CheckCircle2 className="mt-0.5 h-4 w-4 flex-none text-positive" strokeWidth={1.75} aria-hidden />
                 {item}
               </li>
             ))}
@@ -25,7 +27,7 @@ export default function CurrentStateAnalysis({
           <ul className="space-y-1.5">
             {gaps.map((item) => (
               <li key={item} className="flex items-start gap-1.5 text-sm text-muted-foreground">
-                <span className="mt-0.5 text-warning">!</span>
+                <TriangleAlert className="mt-0.5 h-4 w-4 flex-none text-warning" strokeWidth={1.75} aria-hidden />
                 {item}
               </li>
             ))}

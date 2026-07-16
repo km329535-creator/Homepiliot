@@ -1,23 +1,13 @@
 import type { Metadata } from "next";
-import { Noto_Sans_KR, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/layout/navbar";
 import Footer from "@/components/layout/footer";
 import MixpanelProvider from "@/components/analytics/mixpanel-provider";
 import LoginSheet from "@/components/auth/login-sheet";
+import FeedbackModal from "@/components/feedback/feedback-modal";
 import { AuthProvider } from "@/lib/auth-context";
 import { FavoritesProvider } from "@/lib/favorites-context";
-
-const notoSansKr = Noto_Sans_KR({
-  variable: "--font-noto-sans-kr",
-  subsets: ["latin"],
-  weight: ["400", "500", "700", "900"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+import { FeedbackProvider } from "@/lib/feedback-context";
 
 export const metadata: Metadata = {
   title: "HomePilot | 우리 부부 신혼 로드맵",
@@ -31,18 +21,27 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="ko"
-      className={`${notoSansKr.variable} ${geistMono.variable} h-full antialiased`}
-    >
+    <html lang="ko" className="h-full antialiased">
+      <head>
+        {/* HomePilot Master Design System 6.1: 웹폰트 로딩만 사용, 폰트 파일은 번들하지 않는다. */}
+        <link
+          rel="stylesheet"
+          as="style"
+          crossOrigin="anonymous"
+          href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css"
+        />
+      </head>
       <body className="min-h-full flex flex-col bg-background text-foreground font-sans">
         <MixpanelProvider />
         <AuthProvider>
           <FavoritesProvider>
-            <Navbar />
-            <main className="flex-1 flex flex-col">{children}</main>
-            <Footer />
-            <LoginSheet />
+            <FeedbackProvider>
+              <Navbar />
+              <main className="flex-1 flex flex-col">{children}</main>
+              <Footer />
+              <LoginSheet />
+              <FeedbackModal />
+            </FeedbackProvider>
           </FavoritesProvider>
         </AuthProvider>
       </body>
