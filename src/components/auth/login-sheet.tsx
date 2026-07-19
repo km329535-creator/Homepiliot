@@ -4,7 +4,7 @@ import { useAuth } from "@/lib/auth-context";
 import GoogleLoginButton from "./google-login-button";
 
 export default function LoginSheet() {
-  const { isSheetOpen, closeLoginSheet, login } = useAuth();
+  const { isSheetOpen, closeLoginSheet } = useAuth();
 
   if (!isSheetOpen) return null;
 
@@ -27,13 +27,6 @@ export default function LoginSheet() {
           <GoogleLoginButton className="w-full" />
           <button
             type="button"
-            onClick={login}
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-primary px-5 text-sm font-medium text-primary-foreground transition-colors hover:bg-brand-700"
-          >
-            이메일로 계속하기
-          </button>
-          <button
-            type="button"
             onClick={closeLoginSheet}
             className="flex h-12 w-full items-center justify-center rounded-xl px-5 text-sm text-muted-foreground hover:text-foreground"
           >
@@ -42,7 +35,7 @@ export default function LoginSheet() {
         </div>
 
         <p className="mt-3 text-center text-xs text-subtle-foreground">
-          프로토타입 단계로 실제 계정 인증 없이 로그인 상태만 시뮬레이션합니다.
+          Google 계정으로 안전하게 로그인해요. 비밀번호를 별도로 저장하지 않아요.
         </p>
       </div>
     </div>

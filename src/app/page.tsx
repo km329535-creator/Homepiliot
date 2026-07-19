@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { BarChart3, Landmark, ListChecks } from "lucide-react";
+import { Home as HomeIcon, Landmark, ListChecks, PiggyBank } from "lucide-react";
 import HowItWorks from "@/components/home/how-it-works";
 import DiagnosisPreview from "@/components/home/diagnosis-preview";
 import HousingSupportPreview from "@/components/home/housing-support-preview";
@@ -38,43 +38,90 @@ export default function Home() {
             </p>
           </div>
 
-          <ScrollReveal className="glass mt-6 w-full max-w-2xl overflow-hidden rounded-[20px] text-left">
-            <div className="flex items-center gap-2 border-b border-border/60 px-4 py-2.5">
-              <span className="h-2 w-2 rounded-full bg-negative/50" />
-              <span className="h-2 w-2 rounded-full bg-warning/50" />
-              <span className="h-2 w-2 rounded-full bg-positive/50" />
-              <span className="ml-2 text-xs text-subtle-foreground">
-                HomePilot · 첫 집 준비 분석
+          <ScrollReveal className="glass mt-10 w-full max-w-3xl rounded-[24px] p-5 text-left sm:p-8">
+            <div className="mb-5 flex items-center gap-2">
+              <span className="flex h-8 w-8 flex-none items-center justify-center rounded-full bg-brand-100">
+                <HomeIcon className="h-4 w-4 text-brand-600" strokeWidth={1.75} aria-hidden />
               </span>
+              <p className="text-sm font-semibold text-foreground">
+                AI 분석 결과 미리보기
+              </p>
             </div>
 
-            <div className="grid gap-4 p-4 sm:grid-cols-[auto_1fr] sm:items-center sm:p-5">
-              <div className="flex items-center gap-3">
-                <ScoreRing score={78} size={76} />
-                <div>
-                  <Badge tone="positive">준비 단계</Badge>
-                  <p className="mt-1 text-xs text-muted-foreground">
-                    첫 집 준비도
-                  </p>
+            <div className="grid grid-cols-3 gap-2.5 sm:gap-4">
+              <div className="rounded-2xl border border-border bg-surface p-3 text-center sm:p-5">
+                <p className="text-[11px] text-muted-foreground sm:text-xs">
+                  첫 집 준비도
+                </p>
+                <div className="mt-2 flex justify-center sm:mt-4">
+                  <ScoreRing score={82} size={64} />
+                </div>
+                <p className="mt-2 text-xs font-semibold text-positive sm:mt-4 sm:text-sm">
+                  양호해요! 👍
+                </p>
+                <p className="mt-1 text-[10px] text-subtle-foreground sm:text-xs">
+                  평균 대비 상위 35%
+                </p>
+              </div>
+
+              <div className="rounded-2xl border border-border bg-surface p-3 text-center sm:p-5">
+                <p className="text-[11px] text-muted-foreground sm:text-xs">
+                  추천 혜택
+                </p>
+                <p className="mt-2 text-2xl font-bold text-warning sm:mt-4 sm:text-4xl">
+                  3<span className="text-xs font-medium text-muted-foreground sm:text-base">개</span>
+                </p>
+                <p className="mt-1 text-[10px] text-subtle-foreground sm:text-xs">
+                  맞춤 정책 추천
+                </p>
+                <div className="mt-2 flex justify-center gap-1.5 sm:mt-4 sm:gap-2">
+                  <span className="flex h-6 w-6 items-center justify-center rounded-full bg-brand-100 sm:h-8 sm:w-8">
+                    <HomeIcon className="h-3 w-3 text-brand-600 sm:h-4 sm:w-4" strokeWidth={1.75} aria-hidden />
+                  </span>
+                  <span className="flex h-6 w-6 items-center justify-center rounded-full bg-positive/10 sm:h-8 sm:w-8">
+                    <Landmark className="h-3 w-3 text-positive sm:h-4 sm:w-4" strokeWidth={1.75} aria-hidden />
+                  </span>
+                  <span className="flex h-6 w-6 items-center justify-center rounded-full bg-warning/10 sm:h-8 sm:w-8">
+                    <PiggyBank className="h-3 w-3 text-warning sm:h-4 sm:w-4" strokeWidth={1.75} aria-hidden />
+                  </span>
                 </div>
               </div>
 
-              <div className="grid grid-cols-3 gap-2.5">
-                <div className="rounded-lg bg-surface/70 p-2.5">
-                  <BarChart3 className="h-4 w-4 text-brand-600" strokeWidth={1.75} aria-hidden />
-                  <p className="mt-1 text-[11px] text-muted-foreground">준비도</p>
-                  <p className="text-sm font-bold">준비 단계</p>
+              <div className="rounded-2xl border border-border bg-surface p-3 text-center sm:p-5">
+                <p className="text-[11px] text-muted-foreground sm:text-xs">
+                  다음 스텝
+                </p>
+                <p className="mt-2 text-2xl font-bold text-brand-600 sm:mt-4 sm:text-4xl">
+                  4<span className="text-xs font-medium text-muted-foreground sm:text-base">단계</span>
+                </p>
+                <p className="mt-1 text-[10px] text-subtle-foreground sm:text-xs">
+                  맞춤 로드맵 제공
+                </p>
+                <div className="mt-2 flex justify-center sm:mt-4">
+                  <span className="flex h-6 w-6 items-center justify-center rounded-full bg-brand-100 sm:h-8 sm:w-8">
+                    <ListChecks className="h-3 w-3 text-brand-600 sm:h-4 sm:w-4" strokeWidth={1.75} aria-hidden />
+                  </span>
                 </div>
-                <div className="rounded-lg bg-surface/70 p-2.5">
-                  <Landmark className="h-4 w-4 text-brand-600" strokeWidth={1.75} aria-hidden />
-                  <p className="mt-1 text-[11px] text-muted-foreground">추천 정책</p>
-                  <p className="text-sm font-bold">최대 3개</p>
+              </div>
+            </div>
+
+            <div className="mt-4 rounded-2xl bg-surface-muted p-4 sm:mt-6 sm:p-5">
+              <p className="mb-2 text-xs font-semibold text-foreground sm:mb-3 sm:text-sm">
+                예상 자금 계획 요약
+              </p>
+              <div className="divide-y divide-border">
+                <div className="flex items-center justify-between py-2 text-xs sm:py-2.5 sm:text-sm">
+                  <span className="text-muted-foreground">예상 대출</span>
+                  <span className="font-semibold text-foreground">3억 2,000만원</span>
                 </div>
-                <div className="rounded-lg bg-surface/70 p-2.5">
-                  <ListChecks className="h-4 w-4 text-brand-600" strokeWidth={1.75} aria-hidden />
-                  <p className="mt-1 text-[11px] text-muted-foreground">다음 행동</p>
-                  <p className="text-sm font-bold">4단계</p>
+                <div className="flex items-center justify-between py-2 text-xs sm:py-2.5 sm:text-sm">
+                  <span className="text-muted-foreground">예상 지원금</span>
+                  <span className="font-semibold text-foreground">2,600만원</span>
                 </div>
+              </div>
+              <div className="mt-2 flex items-center justify-between rounded-xl bg-positive/10 px-3 py-2.5 text-xs sm:text-sm">
+                <span className="font-medium text-foreground">예상 필요 자금</span>
+                <span className="font-bold text-positive">4억 7,400만원</span>
               </div>
             </div>
           </ScrollReveal>
