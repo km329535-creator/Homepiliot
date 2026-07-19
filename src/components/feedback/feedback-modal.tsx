@@ -4,11 +4,14 @@ import { useState } from "react";
 import { MessageSquareText, CircleCheck } from "lucide-react";
 import { useFeedback } from "@/lib/feedback-context";
 import { trackEvent } from "@/lib/mixpanel";
+import { submitFeedback } from "@/lib/feedback-store";
 
 export default function FeedbackModal() {
   const { isOpen, close } = useFeedback();
   const [message, setMessage] = useState("");
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   if (!isOpen) return null;
 
@@ -17,14 +20,28 @@ export default function FeedbackModal() {
     setTimeout(() => {
       setMessage("");
       setSubmitted(false);
+      setError(null);
     }, 200);
   }
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     const trimmed = message.trim();
-    if (!trimmed) return;
-    trackEvent("Feedback Submitted", { message: trimmed });
+    if (!trimmed || submitting) return;
+
+    setSubmitting(true);
+    setError(null);
+    const result = await submitFeedback(trimmed);
+    setSubmitting(false);
+
+    // Supabase 미설정 시에는 저장을 건너뛰고 정상 흐름으로 처리한다.
+    // 설정되어 있는데도 저장에 실패한 경우에만 사용자에게 알린다.
+    if (!result.ok && result.reason === "insert_failed") {
+      setError("의견을 저장하지 못했어요. 잠시 후 다시 시도해주세요.");
+      return;
+    }
+
+    trackEvent("Feedback Submitted", { message: trimmed, persisted: result.ok });
     setSubmitted(true);
   }
 
@@ -75,6 +92,10 @@ export default function FeedbackModal() {
               />
             </label>
 
+            {error && (
+              <p className="mt-2 text-xs text-negative">{error}</p>
+            )}
+
             <div className="mt-4 flex gap-2">
               <button
                 type="button"
@@ -85,10 +106,10 @@ export default function FeedbackModal() {
               </button>
               <button
                 type="submit"
-                disabled={!message.trim()}
+                disabled={!message.trim() || submitting}
                 className="h-11 flex-1 rounded-xl bg-primary text-sm font-medium text-primary-foreground transition-colors hover:bg-brand-700 disabled:bg-gray-100 disabled:text-gray-400"
               >
-                보내기
+                {submitting ? "보내는 중..." : "보내기"}
               </button>
             </div>
           </form>

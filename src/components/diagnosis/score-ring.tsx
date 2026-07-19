@@ -1,55 +1,60 @@
-const SIZE = 120;
-const STROKE = 10;
-const RADIUS = (SIZE - STROKE) / 2;
-const CIRCUMFERENCE = 2 * Math.PI * RADIUS;
-
 function colorForScore(score: number): string {
   if (score >= 80) return "var(--positive)";
   if (score >= 50) return "var(--accent)";
   return "var(--warning)";
 }
 
-export default function ScoreRing({ score }: { score: number }) {
-  const offset = CIRCUMFERENCE * (1 - score / 100);
+export default function ScoreRing({
+  score,
+  size = 120,
+}: {
+  score: number;
+  size?: number;
+}) {
+  const stroke = Math.max(6, Math.round(size * 0.083));
+  const radius = (size - stroke) / 2;
+  const circumference = 2 * Math.PI * radius;
+  const offset = circumference * (1 - score / 100);
   const color = colorForScore(score);
+  const fontSize = Math.round(size * 0.23);
 
   return (
     <svg
-      viewBox={`0 0 ${SIZE} ${SIZE}`}
-      width={SIZE}
-      height={SIZE}
+      viewBox={`0 0 ${size} ${size}`}
+      width={size}
+      height={size}
       className="flex-none -rotate-90"
       role="img"
       aria-label={`준비도 점수 ${score}점`}
     >
       <circle
-        cx={SIZE / 2}
-        cy={SIZE / 2}
-        r={RADIUS}
+        cx={size / 2}
+        cy={size / 2}
+        r={radius}
         fill="none"
         stroke="var(--surface-muted)"
-        strokeWidth={STROKE}
+        strokeWidth={stroke}
       />
       <circle
-        cx={SIZE / 2}
-        cy={SIZE / 2}
-        r={RADIUS}
+        cx={size / 2}
+        cy={size / 2}
+        r={radius}
         fill="none"
         stroke={color}
-        strokeWidth={STROKE}
+        strokeWidth={stroke}
         strokeLinecap="round"
-        strokeDasharray={CIRCUMFERENCE}
+        strokeDasharray={circumference}
         strokeDashoffset={offset}
         style={{ transition: "stroke-dashoffset 0.6s ease" }}
       />
       <text
-        x={SIZE / 2}
-        y={SIZE / 2}
+        x={size / 2}
+        y={size / 2}
         textAnchor="middle"
         dominantBaseline="central"
-        transform={`rotate(90 ${SIZE / 2} ${SIZE / 2})`}
+        transform={`rotate(90 ${size / 2} ${size / 2})`}
         fill="var(--foreground)"
-        fontSize={28}
+        fontSize={fontSize}
         fontWeight={700}
       >
         {score}
