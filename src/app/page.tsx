@@ -47,10 +47,7 @@ export default function Home() {
 
       <section className="border-b border-border">
         <div className="mx-auto w-full max-w-6xl px-6 py-20 sm:py-28">
-          <div className="mx-auto mb-8 flex w-full max-w-3xl items-center gap-3">
-            <span className="flex h-11 w-11 flex-none items-center justify-center rounded-full bg-brand-100">
-              <HomeIcon className="h-5 w-5 text-brand-600" strokeWidth={1.75} aria-hidden />
-            </span>
+          <div className="mx-auto mb-8 w-full max-w-3xl text-center">
             <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
               분석 결과 미리보기
             </h2>
