@@ -9,10 +9,10 @@ export default function InputConditionChips({
 }) {
   return (
     <div className="flex flex-wrap gap-2.5">
-      <Badge icon={Heart} size="md">결혼 {answers.timeline}</Badge>
-      <Badge icon={Home} size="md">{answers.preference} 고려</Badge>
-      <Badge icon={Wallet} size="md">보유 자금 {answers.savings}</Badge>
-      <Badge icon={BarChart3} size="md">합산 연소득 {answers.income}</Badge>
+      <Badge icon={Heart} size="md" tone="accent">결혼 {answers.timeline}</Badge>
+      <Badge icon={Home} size="md" tone="accent">{answers.preference} 고려</Badge>
+      <Badge icon={Wallet} size="md" tone="accent">보유 자금 {answers.savings}</Badge>
+      <Badge icon={BarChart3} size="md" tone="accent">합산 연소득 {answers.income}</Badge>
     </div>
   );
 }
