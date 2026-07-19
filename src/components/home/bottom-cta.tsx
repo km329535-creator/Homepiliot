@@ -21,12 +21,6 @@ export default function BottomCta() {
             >
               무료 진단 시작
             </Link>
-            <Link
-              href="/guide"
-              className="inline-flex h-12 items-center justify-center rounded-xl border border-primary-foreground/30 px-6 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary-foreground/10"
-            >
-              신혼부부 주거 가이드 보기
-            </Link>
           </div>
         </ScrollReveal>
       </div>

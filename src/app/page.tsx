@@ -11,7 +11,7 @@ import ScoreRing from "@/components/diagnosis/score-ring";
 export default function Home() {
   return (
     <div className="flex flex-col">
-      <section className="aurora-bg border-b border-border">
+      <section className="aurora-bg flex min-h-[calc(100svh-4rem)] items-center border-b border-border">
         <div className="mx-auto flex w-full max-w-6xl flex-col items-center px-6 py-8 text-center sm:py-10">
           <Badge tone="accent" className="mb-4">
             예비 부부를 위한 로드맵 설계
@@ -22,8 +22,9 @@ export default function Home() {
             어디서부터 시작할까요?
           </h1>
           <p className="mt-3 max-w-xl text-sm leading-relaxed text-muted-foreground sm:text-lg">
-            현재 자금과 결혼 계획을 바탕으로 첫 집 준비 상태를 진단하고,
-            지금 가장 필요한 준비를 알려드려요.
+            현재 자금과 결혼 계획을 바탕으로
+            <br />
+            첫 집 준비 상태를 진단하고, 지금 가장 필요한 준비를 알려드려요.
           </p>
 
           <div className="mt-5 flex flex-col items-center gap-2">
@@ -37,7 +38,7 @@ export default function Home() {
 
           <div className="mt-12 flex flex-col items-center gap-1.5 text-subtle-foreground sm:mt-16">
             <p className="text-xs font-medium sm:text-sm">
-              스크롤하고 예상 결과값 확인하기
+              스크롤하고 더 알아보기
             </p>
             <ChevronDown className="h-5 w-5 animate-bounce" strokeWidth={1.75} aria-hidden />
           </div>
@@ -46,16 +47,16 @@ export default function Home() {
 
       <section className="border-b border-border">
         <div className="mx-auto w-full max-w-6xl px-6 py-20 sm:py-28">
-          <ScrollReveal className="glass mx-auto w-full max-w-3xl rounded-[24px] p-5 text-left sm:p-8">
-            <div className="mb-5 flex items-center gap-2">
-              <span className="flex h-8 w-8 flex-none items-center justify-center rounded-full bg-brand-100">
-                <HomeIcon className="h-4 w-4 text-brand-600" strokeWidth={1.75} aria-hidden />
-              </span>
-              <p className="text-sm font-semibold text-foreground">
-                AI 분석 결과 미리보기
-              </p>
-            </div>
+          <div className="mx-auto mb-5 flex w-full max-w-3xl items-center gap-2">
+            <span className="flex h-8 w-8 flex-none items-center justify-center rounded-full bg-brand-100">
+              <HomeIcon className="h-4 w-4 text-brand-600" strokeWidth={1.75} aria-hidden />
+            </span>
+            <p className="text-sm font-semibold text-foreground">
+              분석 결과 미리보기
+            </p>
+          </div>
 
+          <ScrollReveal className="glass mx-auto w-full max-w-3xl rounded-[24px] p-5 text-left sm:p-8">
             <div className="grid grid-cols-3 gap-2.5 sm:gap-4">
               <div className="rounded-2xl border border-border bg-surface p-3 text-center sm:p-5">
                 <p className="text-[11px] text-muted-foreground sm:text-xs">
