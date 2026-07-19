@@ -40,6 +40,7 @@ export type RecommendedPolicy = {
   status: PolicyStatus;
   reasons: string[];
   checks: string[];
+  nextStep: string;
 };
 
 export type StrategyStep = {
@@ -146,6 +147,7 @@ type PolicyMeta = {
   reasons: (a: DiagnosisAnswers, funds: number) => string[];
   checks: string[];
   incomeCeilingManwon: number; // 이 소득을 넘으면 "현재 조건으로는 어려움"
+  nextStep: (a: DiagnosisAnswers, status: PolicyStatus) => string;
 };
 
 const POLICY_META: PolicyMeta[] = [
@@ -158,6 +160,10 @@ const POLICY_META: PolicyMeta[] = [
     ],
     checks: ["혼인 7년 이내 조건 충족 여부", "부부 합산 소득 구간"],
     incomeCeilingManwon: 10000,
+    nextStep: (_a, status) =>
+      status === "difficult"
+        ? "소득 기준을 초과할 가능성이 높아요. 대신 일반 전세자금 대출 상품을 함께 비교해보세요."
+        : "이번 주 안에 주택도시기금 홈페이지에서 혼인 기간·소득 기준으로 사전 자격을 확인해보세요.",
   },
   {
     id: "didimdol-bogeumjari",
@@ -168,6 +174,10 @@ const POLICY_META: PolicyMeta[] = [
     ],
     checks: ["대상 주택 가격 기준", "기존 부채 여부"],
     incomeCeilingManwon: 8500,
+    nextStep: (_a, status) =>
+      status === "difficult"
+        ? "소득 기준을 초과할 가능성이 높아요. 보금자리론이나 일반 주택담보대출 조건을 함께 비교해보세요."
+        : "한국주택금융공사 홈페이지에서 대상 주택 가격 기준(수도권 6억원 이하)에 해당하는지 확인해보세요.",
   },
   {
     id: "newlywed-hope-town",
@@ -178,6 +188,10 @@ const POLICY_META: PolicyMeta[] = [
     ],
     checks: ["특별공급 소득 기준", "무주택 기간 조건"],
     incomeCeilingManwon: 10000,
+    nextStep: (_a, status) =>
+      status === "difficult"
+        ? "특별공급 소득 기준을 초과할 가능성이 높아요. 일반공급 청약 전략을 함께 검토해보세요."
+        : "LH 청약센터에서 신혼희망타운 입주자 모집 공고와 소득 기준을 확인해보세요.",
   },
   {
     id: "local-deposit-support",
@@ -188,6 +202,8 @@ const POLICY_META: PolicyMeta[] = [
     ],
     checks: ["거주(예정) 지역 조건", "지자체별 지원 한도"],
     incomeCeilingManwon: 12000,
+    nextStep: () =>
+      "거주(예정) 지역 구청 홈페이지에서 신혼부부 임차보증금 이자 지원 제도가 있는지 확인해보세요.",
   },
   {
     id: "subscription-score",
@@ -198,6 +214,8 @@ const POLICY_META: PolicyMeta[] = [
     ],
     checks: ["혼인 기간·자녀 수 기준", "청약통장 가입 기간"],
     incomeCeilingManwon: 12000,
+    nextStep: () =>
+      "청약홈에서 신혼부부 특별공급 예상 가점을 계산해보고, 청약통장 가입 기간을 함께 확인해보세요.",
   },
 ];
 
@@ -228,6 +246,7 @@ function buildPolicies(
       status,
       reasons: meta.reasons(answers, funds),
       checks: meta.checks,
+      nextStep: meta.nextStep(answers, status),
     };
   });
 }

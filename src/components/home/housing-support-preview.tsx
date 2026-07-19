@@ -8,8 +8,8 @@ export default function HousingSupportPreview() {
 
   return (
     <section className="border-t border-border bg-surface-muted/40">
-      <div className="mx-auto w-full max-w-6xl px-6 py-20 sm:py-28">
-        <ScrollReveal className="mb-10 text-center">
+      <div className="mx-auto w-full max-w-6xl px-6 py-24 sm:py-32">
+        <ScrollReveal className="mb-14 text-center">
           <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
             놓치기 쉬운 신혼부부 주거 혜택도 확인하세요
           </h2>

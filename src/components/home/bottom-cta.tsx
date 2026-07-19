@@ -4,7 +4,7 @@ import ScrollReveal from "@/components/ui/scroll-reveal";
 export default function BottomCta() {
   return (
     <section className="border-t border-border bg-primary">
-      <div className="mx-auto flex w-full max-w-6xl flex-col items-center px-6 py-20 text-center sm:py-28">
+      <div className="mx-auto flex w-full max-w-6xl flex-col items-center px-6 py-24 text-center sm:py-32">
         <ScrollReveal className="flex flex-col items-center">
           <h2 className="text-3xl font-bold tracking-tight text-primary-foreground sm:text-4xl">
             우리 부부, 지금부터 뭐부터 준비하면 될까요?

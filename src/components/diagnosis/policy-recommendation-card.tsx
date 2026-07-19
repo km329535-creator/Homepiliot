@@ -1,4 +1,7 @@
-import Link from "next/link";
+"use client";
+
+import { useState } from "react";
+import { ChevronDown, Lightbulb } from "lucide-react";
 import type { PolicyStatus, RecommendedPolicy } from "@/lib/diagnosis";
 import { Badge } from "@/components/ui/badge";
 
@@ -19,6 +22,8 @@ export default function PolicyRecommendationCard({
 }: {
   policy: RecommendedPolicy;
 }) {
+  const [open, setOpen] = useState(false);
+
   return (
     <div className="flex h-full flex-col rounded-2xl border border-border bg-surface p-5">
       <Badge tone={STATUS_TONE[policy.status]}>{STATUS_LABEL[policy.status]}</Badge>
@@ -44,12 +49,27 @@ export default function PolicyRecommendationCard({
         ))}
       </ul>
 
-      <Link
-        href={`/guide#${policy.id}`}
-        className="mt-4 inline-flex h-10 w-full items-center justify-center rounded-xl border border-border px-4 text-xs font-medium text-foreground transition-colors hover:border-accent hover:text-accent"
+      <button
+        type="button"
+        onClick={() => setOpen((v) => !v)}
+        className="mt-4 flex h-10 w-full items-center justify-center gap-1.5 rounded-xl border border-border px-4 text-xs font-medium text-foreground transition-colors hover:border-accent hover:text-accent"
       >
-        자격 조건 확인하기
-      </Link>
+        우리 부부의 다음 단계 보기
+        <ChevronDown
+          className={`h-3.5 w-3.5 transition-transform ${open ? "rotate-180" : ""}`}
+          strokeWidth={1.75}
+          aria-hidden
+        />
+      </button>
+
+      {open && (
+        <div className="mt-3 rounded-xl bg-brand-50 p-3">
+          <p className="flex items-start gap-1.5 text-xs leading-relaxed text-brand-800">
+            <Lightbulb className="mt-0.5 h-3.5 w-3.5 flex-none" strokeWidth={1.75} aria-hidden />
+            {policy.nextStep}
+          </p>
+        </div>
+      )}
     </div>
   );
 }

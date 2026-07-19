@@ -42,7 +42,7 @@ export default function DiagnosisResultView({
   return (
     <div className="aurora-bg w-full">
       <div className="mx-auto w-full max-w-[1280px] px-5 py-10 sm:px-8 lg:px-10">
-        <ResultHeader analyzedAt={result.analyzedAt} onEdit={onEdit} onRestart={onRestart} />
+        <ResultHeader analyzedAt={result.analyzedAt} onRestart={onRestart} />
 
         <div className="mt-4">
           <InputConditionChips answers={result.answers} />
@@ -125,14 +125,7 @@ export default function DiagnosisResultView({
         </div>
 
         {/* 모바일 전용 하단 액션 버튼 */}
-        <div className="mt-6 flex flex-col gap-3 sm:hidden">
-          <button
-            type="button"
-            onClick={onEdit}
-            className="h-12 w-full rounded-xl border border-border bg-surface px-4 text-sm font-medium text-foreground"
-          >
-            조건 수정
-          </button>
+        <div className="mt-6 sm:hidden">
           <button
             type="button"
             onClick={onRestart}

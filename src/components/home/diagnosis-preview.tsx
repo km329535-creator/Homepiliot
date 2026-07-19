@@ -28,8 +28,8 @@ const PREVIEW_ITEMS = [
 export default function DiagnosisPreview() {
   return (
     <section className="border-t border-border bg-surface-muted/40">
-      <div className="mx-auto w-full max-w-6xl px-6 py-20 sm:py-28">
-        <ScrollReveal className="mb-12 text-center">
+      <div className="mx-auto w-full max-w-6xl px-6 py-24 sm:py-32">
+        <ScrollReveal className="mb-14 text-center">
           <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
             진단 결과에서 확인할 수 있어요
           </h2>
@@ -38,15 +38,17 @@ export default function DiagnosisPreview() {
           </p>
         </ScrollReveal>
 
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {PREVIEW_ITEMS.map((item, i) => (
             <ScrollReveal
               key={item.title}
               delay={i * 100}
-              className="rounded-2xl border border-border bg-surface p-5"
+              className="rounded-2xl border border-border bg-surface p-6 transition-shadow hover:shadow-md"
             >
-              <item.icon className="h-6 w-6 text-brand-600" strokeWidth={1.75} aria-hidden />
-              <h3 className="mt-3 text-sm font-semibold text-foreground">
+              <span className="flex h-10 w-10 items-center justify-center rounded-full bg-brand-100">
+                <item.icon className="h-5 w-5 text-brand-600" strokeWidth={1.75} aria-hidden />
+              </span>
+              <h3 className="mt-4 text-sm font-semibold text-foreground">
                 {item.title}
               </h3>
               <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
@@ -56,7 +58,7 @@ export default function DiagnosisPreview() {
           ))}
         </div>
 
-        <div className="mt-10 flex justify-center">
+        <div className="mt-12 flex justify-center">
           <Link
             href="/diagnosis"
             className="inline-flex h-12 items-center justify-center gap-2 rounded-xl bg-primary px-6 text-sm font-medium text-primary-foreground transition-colors hover:bg-brand-700"

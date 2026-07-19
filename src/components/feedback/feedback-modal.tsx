@@ -53,7 +53,7 @@ export default function FeedbackModal() {
         onClick={handleClose}
         className="absolute inset-0 cursor-default"
       />
-      <div className="glass-strong relative w-full max-w-sm rounded-t-[20px] p-6 pb-8 sm:rounded-[20px] sm:pb-6">
+      <div className="relative w-full max-w-sm rounded-t-[20px] border border-border bg-surface p-6 pb-8 shadow-xl sm:rounded-[20px] sm:pb-6">
         <div className="mx-auto mb-4 h-1 w-10 rounded-full bg-border sm:hidden" />
 
         {submitted ? (

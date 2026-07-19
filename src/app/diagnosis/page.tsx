@@ -4,6 +4,9 @@ import { useEffect, useState } from "react";
 import { TriangleAlert } from "lucide-react";
 import DiagnosisWizard from "@/components/diagnosis/diagnosis-wizard";
 import DiagnosisResultView from "@/components/diagnosis/diagnosis-result";
+import AnalyzingAnimation, {
+  ANALYZING_TOTAL_MS,
+} from "@/components/diagnosis/analyzing-animation";
 import { analyzeDiagnosis, type DiagnosisAnswers, type DiagnosisResult } from "@/lib/diagnosis";
 import { getLatestSavedDiagnosis } from "@/lib/diagnosis-store";
 import { trackEvent } from "@/lib/mixpanel";
@@ -26,7 +29,7 @@ export default function DiagnosisPage() {
       } catch {
         setPhase("error");
       }
-    }, 1200);
+    }, ANALYZING_TOTAL_MS);
     return () => clearTimeout(timer);
   }, [phase, answers]);
 
@@ -64,14 +67,7 @@ export default function DiagnosisPage() {
         />
       )}
 
-      {phase === "analyzing" && (
-        <div className="flex flex-col items-center gap-4 py-20 text-center">
-          <span className="h-10 w-10 animate-spin rounded-full border-2 border-border border-t-accent" />
-          <p className="text-sm font-medium text-muted-foreground">
-            AI가 우리 부부의 상황을 분석하고 있어요...
-          </p>
-        </div>
-      )}
+      {phase === "analyzing" && <AnalyzingAnimation />}
 
       {phase === "error" && (
         <div className="flex flex-col items-center gap-4 py-20 text-center">

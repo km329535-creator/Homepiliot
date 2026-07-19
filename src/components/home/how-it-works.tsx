@@ -25,25 +25,27 @@ const STEPS = [
 
 export default function HowItWorks() {
   return (
-    <section className="mx-auto w-full max-w-6xl px-6 py-20 sm:py-28">
-      <ScrollReveal className="mb-12 text-center">
+    <section className="mx-auto w-full max-w-6xl px-6 py-24 sm:py-32">
+      <ScrollReveal className="mb-14 text-center">
         <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
           이용 방법
         </h2>
       </ScrollReveal>
 
-      <div className="grid gap-8 sm:grid-cols-4">
+      <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
         {STEPS.map((item, i) => (
-          <ScrollReveal key={item.step} delay={i * 100} className="text-center sm:text-left">
-            <span className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-primary text-sm font-bold text-primary-foreground">
-              {item.step}
-            </span>
-            <h3 className="mt-4 text-base font-semibold text-foreground">
-              {item.title}
-            </h3>
-            <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-              {item.description}
-            </p>
+          <ScrollReveal key={item.step} delay={i * 100}>
+            <div className="h-full rounded-2xl border border-border bg-surface p-6 transition-shadow hover:shadow-md">
+              <span className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-primary text-sm font-bold text-primary-foreground">
+                {item.step}
+              </span>
+              <h3 className="mt-4 text-base font-semibold text-foreground">
+                {item.title}
+              </h3>
+              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                {item.description}
+              </p>
+            </div>
           </ScrollReveal>
         ))}
       </div>

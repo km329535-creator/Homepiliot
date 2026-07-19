@@ -11,11 +11,9 @@ function formatDate(iso: string): string {
 
 export default function ResultHeader({
   analyzedAt,
-  onEdit,
   onRestart,
 }: {
   analyzedAt: string;
-  onEdit: () => void;
   onRestart: () => void;
 }) {
   return (
@@ -36,14 +34,7 @@ export default function ResultHeader({
         <p className="text-xs text-subtle-foreground">
           분석 기준일 {formatDate(analyzedAt)}
         </p>
-        <div className="hidden flex-wrap gap-2 sm:flex">
-          <button
-            type="button"
-            onClick={onEdit}
-            className="h-10 rounded-xl border border-border bg-surface px-4 text-sm font-medium text-foreground transition-colors hover:border-accent hover:text-accent"
-          >
-            조건 수정
-          </button>
+        <div className="hidden sm:flex">
           <button
             type="button"
             onClick={onRestart}
