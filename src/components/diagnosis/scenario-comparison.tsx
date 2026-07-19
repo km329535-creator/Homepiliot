@@ -50,12 +50,15 @@ export default function ScenarioComparison({
         </button>
       </div>
 
-      <div className="space-y-5">
+      <div className="grid gap-4 sm:grid-cols-3">
+        <ScenarioCardView title="현재 계획" bullets={currentPlanBullets} />
         {scenarios.map((scenario) => (
-          <div key={scenario.id} className="grid gap-4 sm:grid-cols-2">
-            <ScenarioCardView title="현재 계획" bullets={currentPlanBullets} />
-            <ScenarioCardView title={scenario.title} bullets={scenario.bullets} emphasis />
-          </div>
+          <ScenarioCardView
+            key={scenario.id}
+            title={scenario.title}
+            bullets={scenario.bullets}
+            emphasis
+          />
         ))}
       </div>
 

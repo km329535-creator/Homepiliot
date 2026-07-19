@@ -7,15 +7,17 @@ function colorForScore(score: number): string {
 export default function ScoreRing({
   score,
   size = 120,
+  color: colorOverride,
 }: {
   score: number;
   size?: number;
+  color?: string;
 }) {
   const stroke = Math.max(6, Math.round(size * 0.083));
   const radius = (size - stroke) / 2;
   const circumference = 2 * Math.PI * radius;
   const offset = circumference * (1 - score / 100);
-  const color = colorForScore(score);
+  const color = colorOverride ?? colorForScore(score);
   const fontSize = Math.round(size * 0.23);
 
   return (

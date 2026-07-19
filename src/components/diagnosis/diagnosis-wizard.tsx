@@ -129,7 +129,7 @@ export default function DiagnosisWizard({
               className={`rounded-2xl border px-5 py-4 text-left text-sm font-medium transition-colors sm:text-base ${
                 selected
                   ? "border-accent bg-accent/10 text-accent"
-                  : "border-border bg-surface text-foreground hover:border-accent"
+                  : "border-border bg-surface text-foreground hover:border-accent hover:bg-brand-50"
               }`}
             >
               {option}
