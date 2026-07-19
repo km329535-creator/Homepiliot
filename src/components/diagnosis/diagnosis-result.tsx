@@ -61,9 +61,13 @@ export default function DiagnosisResultView({
           <ReadinessScoreCard
             score={result.readinessScore}
             tier={result.readinessTier}
+            tierSummary={result.readinessTierSummary}
             scoreDelta={result.scoreDelta}
           />
-          <PriorityTaskCard task={result.priorityTask} />
+          <PriorityTaskCard
+            task={result.priorityTask}
+            description={result.priorityTaskDescription}
+          />
           <NextActionCard roadmap={result.roadmap} />
         </div>
 
@@ -80,12 +84,7 @@ export default function DiagnosisResultView({
 
         {/* 추천 금융·정책 */}
         <div className="mt-4 rounded-2xl border border-border bg-surface p-6">
-          <div className="mb-4 flex items-center justify-between">
-            <h2 className="text-base font-semibold">추천 금융·정책</h2>
-            <a href="/guide" className="text-xs font-medium text-accent hover:underline">
-              더 자세히 보기 →
-            </a>
-          </div>
+          <h2 className="mb-4 text-base font-semibold">추천 금융·정책</h2>
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
             {result.policies.map((policy) => (
               <PolicyRecommendationCard key={policy.id} policy={policy} />

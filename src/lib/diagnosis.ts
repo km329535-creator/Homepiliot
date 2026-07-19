@@ -70,6 +70,8 @@ export type DiagnosisResult = {
   scoreDelta: number | null;
   executiveSummary: string;
   priorityTask: string;
+  priorityTaskDescription: string;
+  readinessTierSummary: string;
   readinessGood: string[];
   readinessGaps: string[];
   strategySteps: StrategyStep[];
@@ -400,16 +402,40 @@ function buildCurrentPlanBullets(
   return bullets;
 }
 
+const PRIORITY_TASK_DESCRIPTIONS: Record<string, string> = {
+  "초기 필요 자금 구체화":
+    "목표 자금까지 얼마가 더 필요한지 계산해두면, 대출과 정책 활용 범위가 명확해져요.",
+  "전세·매매 방향 결정":
+    "방향이 정해져야 필요 자금과 정책 조건을 구체적으로 계산할 수 있어요.",
+  "청약통장 조건 확인":
+    "가입 기간과 납입 횟수에 따라 특별공급 자격이 달라질 수 있어요.",
+  "정책대출 자격 조건 확인":
+    "소득·자산 기준을 먼저 확인하면 이용 가능한 정책 범위를 좁힐 수 있어요.",
+};
+
 function buildPriorityTask(
   answers: DiagnosisAnswers,
   score: number,
   additionalNeeded: number
-): string {
-  if (additionalNeeded > 0 && score < 70) return "초기 필요 자금 구체화";
-  if (answers.preference === "아직 고민중") return "전세·매매 방향 결정";
-  if (answers.preference !== "전세") return "청약통장 조건 확인";
-  return "정책대출 자격 조건 확인";
+): { task: string; description: string } {
+  const task =
+    additionalNeeded > 0 && score < 70
+      ? "초기 필요 자금 구체화"
+      : answers.preference === "아직 고민중"
+      ? "전세·매매 방향 결정"
+      : answers.preference !== "전세"
+      ? "청약통장 조건 확인"
+      : "정책대출 자격 조건 확인";
+
+  return { task, description: PRIORITY_TASK_DESCRIPTIONS[task] };
 }
+
+const READINESS_TIER_SUMMARY: Record<ReadinessTier, string> = {
+  "준비 필요": "지금부터 자금 계획을 하나씩 세워보세요.",
+  "준비 중": "기본기는 갖췄지만 보완할 부분이 남아 있어요.",
+  "준비 단계": "핵심 조건 몇 가지만 더 다지면 돼요.",
+  "실행 가능": "바로 다음 단계로 넘어가도 좋아요.",
+};
 
 /**
  * NOTE: 아래 텍스트 생성 함수는 실제 서비스에서 Claude API 호출로 대체될 자리다.
@@ -419,7 +445,7 @@ function buildPriorityTask(
 function buildExecutiveSummary(
   answers: DiagnosisAnswers,
   tier: ReadinessTier,
-  priorityTask: string,
+  priorityTaskTitle: string,
   firstRoadmapTitle: string
 ): string {
   const openings: Record<ReadinessTier, string> = {
@@ -429,7 +455,7 @@ function buildExecutiveSummary(
     "실행 가능": "필요 자금과 소득 조건을 잘 갖추고 있어 바로 다음 단계로 넘어가도 좋아요.",
   };
 
-  return `${openings[tier]} ${answers.timeline} 내 결혼을 앞두고 있어 ${priorityTask}이(가) 우선 과제예요. 지금은 ${firstRoadmapTitle.replace(/하기$/, "")}부터 시작해보세요.`;
+  return `${openings[tier]} ${answers.timeline} 내 결혼을 앞두고 있어 ${priorityTaskTitle}이(가) 우선 과제예요. 지금은 ${firstRoadmapTitle.replace(/하기$/, "")}부터 시작해보세요.`;
 }
 
 export function analyzeDiagnosis(
@@ -454,28 +480,44 @@ export function analyzeDiagnosis(
     readinessGaps.push("결혼까지 남은 시간이 촉박해 서두를 필요가 있어요.");
   }
 
-  if (funds >= targetFunds * 0.5) {
-    readinessGood.push("일정 수준의 초기 자금을 확보했어요.");
+  if (funds >= targetFunds * 0.8) {
+    readinessGood.push("목표 자금의 대부분을 이미 확보했어요.");
+  } else if (funds >= targetFunds * 0.4) {
+    readinessGood.push("목표 자금의 절반 가까이를 준비했어요.");
   } else {
     readinessGaps.push("목표 자금 대비 보유 자금이 아직 부족해요.");
   }
 
-  if (income >= 6000) {
+  if (income >= 8000) {
+    readinessGood.push("부부 합산 소득이 넉넉한 편이에요.");
+  } else if (income >= 5000) {
     readinessGood.push("부부 합산 소득이 안정적인 편이에요.");
   } else {
     readinessGaps.push("소득 기준에 따라 정책 자격이 달라질 수 있어 확인이 필요해요.");
+  }
+
+  if (answers.preference !== "아직 고민중") {
+    readinessGood.push("희망하는 주거 형태를 이미 정하셨어요.");
+  } else {
+    readinessGaps.push("전세와 매매 중 최종 방향을 아직 정하지 못했어요.");
   }
 
   if (answers.preference !== "전세") {
     readinessGaps.push("청약통장 가입 기간과 납입 횟수 확인이 필요해요.");
   }
   readinessGaps.push("기존 부채와 월 상환 부담은 별도로 확인이 필요해요.");
-  if (answers.preference === "아직 고민중") {
-    readinessGaps.push("전세와 매매 중 최종 방향을 아직 정하지 못했어요.");
-  }
   readinessGaps.push("계약 시 필요한 초기 비용(중개보수·이사비 등)도 함께 준비해야 해요.");
 
-  const priorityTask = buildPriorityTask(answers, readinessScore, additionalNeeded);
+  if (readinessGood.length === 0) {
+    readinessGood.push("이번 진단으로 지금 상황을 명확히 파악하신 것부터가 시작이에요.");
+  }
+
+  const { task: priorityTask, description: priorityTaskDescription } = buildPriorityTask(
+    answers,
+    readinessScore,
+    additionalNeeded
+  );
+  const readinessTierSummary = READINESS_TIER_SUMMARY[readinessTier];
   const roadmap = buildRoadmap(answers);
   const strategySteps = buildStrategySteps(answers);
   const policies = buildPolicies(answers, funds);
@@ -494,6 +536,8 @@ export function analyzeDiagnosis(
     scoreDelta,
     executiveSummary,
     priorityTask,
+    priorityTaskDescription,
+    readinessTierSummary,
     readinessGood,
     readinessGaps,
     strategySteps,
