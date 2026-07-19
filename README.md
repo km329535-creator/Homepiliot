@@ -26,10 +26,10 @@
 ### Supabase 설정 (의견 보내기 저장)
 
 1. [supabase.com](https://supabase.com)에서 무료 프로젝트를 생성합니다.
-2. 프로젝트 설정 → API 메뉴에서 **Project URL**과 **anon public key**를 복사해 `.env.local`에 넣습니다.
+2. 프로젝트 설정 → API 메뉴에서 **Project URL**과 **Publishable key**를 복사해 `.env.local`에 넣습니다.
    ```
    NEXT_PUBLIC_SUPABASE_URL=https://xxxxx.supabase.co
-   NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJ...
+   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=sb_publishable_...
    ```
 3. Supabase SQL Editor에서 아래 스키마를 실행해 `feedback` 테이블을 만듭니다.
    ```sql
