@@ -1,5 +1,12 @@
 import { housingSupportItems } from "./housing-support";
 
+function pickJosa(word: string, withBatchim: string, withoutBatchim: string): string {
+  const lastChar = word.charCodeAt(word.length - 1);
+  if (lastChar < 0xac00 || lastChar > 0xd7a3) return withoutBatchim;
+  const hasBatchim = (lastChar - 0xac00) % 28 !== 0;
+  return hasBatchim ? withBatchim : withoutBatchim;
+}
+
 export type TopConcern =
   | "매매 여부"
   | "받을 수 있는 지원"
@@ -455,7 +462,8 @@ function buildExecutiveSummary(
     "실행 가능": "필요 자금과 소득 조건을 잘 갖추고 있어 바로 다음 단계로 넘어가도 좋아요.",
   };
 
-  return `${openings[tier]} ${answers.timeline} 내 결혼을 앞두고 있어 ${priorityTaskTitle}이(가) 우선 과제예요. 지금은 ${firstRoadmapTitle.replace(/하기$/, "")}부터 시작해보세요.`;
+  const josa = pickJosa(priorityTaskTitle, "이", "가");
+  return `${openings[tier]} ${answers.timeline} 내 결혼을 앞두고 있어 ${priorityTaskTitle}${josa} 우선 과제예요. 지금은 ${firstRoadmapTitle.replace(/하기$/, "")}부터 시작해보세요.`;
 }
 
 export function analyzeDiagnosis(

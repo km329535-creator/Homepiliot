@@ -84,7 +84,7 @@ export default function DiagnosisResultView({
 
         {/* 추천 금융·정책 */}
         <div className="mt-4 rounded-2xl border border-border bg-surface p-6">
-          <h2 className="mb-4 text-base font-semibold">추천 금융·정책</h2>
+          <h2 className="mb-5 text-xl font-bold tracking-tight">추천 금융·정책</h2>
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
             {result.policies.map((policy) => (
               <PolicyRecommendationCard key={policy.id} policy={policy} />

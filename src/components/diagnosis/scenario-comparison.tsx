@@ -15,8 +15,8 @@ function ScenarioCardView({
         emphasis ? "border-accent/30 bg-accent/[0.04]" : "border-border bg-surface"
       }`}
     >
-      <h3 className="text-sm font-semibold text-foreground">{title}</h3>
-      <ul className="mt-3 space-y-1.5">
+      <h3 className="text-base font-semibold text-foreground">{title}</h3>
+      <ul className="mt-3 space-y-2">
         {bullets.map((bullet) => (
           <li key={bullet} className="flex items-start gap-1.5 text-sm text-muted-foreground">
             <span className="mt-0.5 text-accent">·</span>
@@ -39,12 +39,12 @@ export default function ScenarioComparison({
 }) {
   return (
     <div className="rounded-2xl border border-border bg-surface p-6">
-      <div className="mb-4 flex items-center justify-between">
-        <h2 className="text-base font-semibold">조건을 바꾸면 어떻게 달라질까요?</h2>
+      <div className="mb-5 flex items-center justify-between">
+        <h2 className="text-xl font-bold tracking-tight">조건을 바꾸면 어떻게 달라질까요?</h2>
         <button
           type="button"
           onClick={onEdit}
-          className="text-xs font-medium text-accent hover:underline"
+          className="text-sm font-medium text-accent hover:underline"
         >
           조건 바꿔보기
         </button>

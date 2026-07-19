@@ -11,7 +11,7 @@ const STATUS_TONE: Record<RoadmapStatusTag, "positive" | "accent" | "neutral"> =
 export default function ActionRoadmap({ roadmap }: { roadmap: RoadmapStep[] }) {
   return (
     <div className="rounded-2xl border border-border bg-surface p-6">
-      <h2 className="mb-4 text-base font-semibold">실행 로드맵</h2>
+      <h2 className="mb-5 text-xl font-bold tracking-tight">실행 로드맵</h2>
       <ol className="space-y-5">
         {roadmap.map((step, i) => (
           <li key={step.title} className="relative flex gap-3 pl-1">
@@ -23,10 +23,10 @@ export default function ActionRoadmap({ roadmap }: { roadmap: RoadmapStep[] }) {
             </span>
             <div>
               <div className="flex flex-wrap items-center gap-2">
-                <p className="text-xs font-medium text-accent">{step.timeframe}</p>
-                <Badge tone={STATUS_TONE[step.statusTag]}>{step.statusTag}</Badge>
+                <p className="text-sm font-medium text-accent">{step.timeframe}</p>
+                <Badge tone={STATUS_TONE[step.statusTag]} size="md">{step.statusTag}</Badge>
               </div>
-              <p className="mt-1 text-sm leading-relaxed text-foreground">
+              <p className="mt-1 text-base leading-relaxed text-foreground">
                 {step.title}
               </p>
             </div>
