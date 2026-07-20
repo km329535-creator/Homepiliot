@@ -19,6 +19,7 @@ import PolicyRecommendationCard from "./policy-recommendation-card";
 import ScenarioComparison from "./scenario-comparison";
 import AnalysisDisclaimer from "./analysis-disclaimer";
 import ResultShareActions from "./result-share-actions";
+import ShareableResultCard from "./shareable-result-card";
 
 export default function DiagnosisResultView({
   result,
@@ -45,33 +46,31 @@ export default function DiagnosisResultView({
       <div className="mx-auto w-full max-w-[1280px] px-5 py-10 sm:px-8 lg:px-10">
         <ResultHeader analyzedAt={result.analyzedAt} onRestart={onRestart} />
 
-        <div ref={shareCardRef} className="bg-background">
-          <div className="mt-4">
-            <InputConditionChips answers={result.answers} />
-          </div>
+        <div className="mt-4">
+          <InputConditionChips answers={result.answers} />
+        </div>
 
-          <p className="mt-4 text-xs font-medium text-accent">
-            &ldquo;{result.topConcern}&rdquo;에 대한 답변을 가장 먼저 보여드릴게요.
-          </p>
+        <p className="mt-4 text-xs font-medium text-accent">
+          &ldquo;{result.topConcern}&rdquo;에 대한 답변을 가장 먼저 보여드릴게요.
+        </p>
 
-          <div className="mt-6">
-            <AIExecutiveSummary summary={result.executiveSummary} />
-          </div>
+        <div className="mt-6">
+          <AIExecutiveSummary summary={result.executiveSummary} />
+        </div>
 
-          {/* 핵심 상태 카드 */}
-          <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-            <ReadinessScoreCard
-              score={result.readinessScore}
-              tier={result.readinessTier}
-              tierSummary={result.readinessTierSummary}
-              scoreDelta={result.scoreDelta}
-            />
-            <PriorityTaskCard
-              task={result.priorityTask}
-              description={result.priorityTaskDescription}
-            />
-            <NextActionCard roadmap={result.roadmap} />
-          </div>
+        {/* 핵심 상태 카드 */}
+        <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+          <ReadinessScoreCard
+            score={result.readinessScore}
+            tier={result.readinessTier}
+            tierSummary={result.readinessTierSummary}
+            scoreDelta={result.scoreDelta}
+          />
+          <PriorityTaskCard
+            task={result.priorityTask}
+            description={result.priorityTaskDescription}
+          />
+          <NextActionCard roadmap={result.roadmap} />
         </div>
 
         {/* 현재 상황 분석 */}
@@ -108,6 +107,14 @@ export default function DiagnosisResultView({
         <div className="mt-4">
           <AnalysisDisclaimer analyzedAt={result.analyzedAt} />
         </div>
+
+        <ShareableResultCard
+          ref={shareCardRef}
+          score={result.readinessScore}
+          tier={result.readinessTier}
+          tierSummary={result.readinessTierSummary}
+          priorityTask={result.priorityTask}
+        />
 
         {/* 공유 및 저장 */}
         <div className="mt-6 flex flex-col items-center gap-3">
