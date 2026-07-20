@@ -3,9 +3,7 @@ import "./globals.css";
 import Navbar from "@/components/layout/navbar";
 import Footer from "@/components/layout/footer";
 import MixpanelProvider from "@/components/analytics/mixpanel-provider";
-import LoginSheet from "@/components/auth/login-sheet";
 import FeedbackModal from "@/components/feedback/feedback-modal";
-import { AuthProvider } from "@/lib/auth-context";
 import { FavoritesProvider } from "@/lib/favorites-context";
 import { FeedbackProvider } from "@/lib/feedback-context";
 
@@ -33,17 +31,14 @@ export default function RootLayout({
       </head>
       <body className="min-h-full flex flex-col bg-background text-foreground font-sans">
         <MixpanelProvider />
-        <AuthProvider>
-          <FavoritesProvider>
-            <FeedbackProvider>
-              <Navbar />
-              <main className="flex-1 flex flex-col">{children}</main>
-              <Footer />
-              <LoginSheet />
-              <FeedbackModal />
-            </FeedbackProvider>
-          </FavoritesProvider>
-        </AuthProvider>
+        <FavoritesProvider>
+          <FeedbackProvider>
+            <Navbar />
+            <main className="flex-1 flex flex-col">{children}</main>
+            <Footer />
+            <FeedbackModal />
+          </FeedbackProvider>
+        </FavoritesProvider>
       </body>
     </html>
   );

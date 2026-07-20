@@ -1,11 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { useAuth } from "@/lib/auth-context";
 import { useFeedback } from "@/lib/feedback-context";
 
 export default function Navbar() {
-  const { isLoggedIn, logout, openLoginSheet } = useAuth();
   const { open: openFeedback } = useFeedback();
 
   return (
@@ -28,24 +26,6 @@ export default function Navbar() {
           >
             의견 보내기
           </button>
-
-          {isLoggedIn ? (
-            <button
-              type="button"
-              onClick={logout}
-              className="h-10 rounded-xl px-3 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
-            >
-              로그아웃
-            </button>
-          ) : (
-            <button
-              type="button"
-              onClick={openLoginSheet}
-              className="hidden h-10 items-center rounded-xl px-3 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground sm:flex"
-            >
-              로그인
-            </button>
-          )}
 
           <Link
             href="/diagnosis"

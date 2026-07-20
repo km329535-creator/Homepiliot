@@ -51,21 +51,6 @@
    위 정책은 익명 사용자의 **저장(insert)만** 허용하고 조회(select)는 막아, 다른 사람이 anon key로 남의 의견을 읽을 수 없게 합니다.
 4. 환경 변수를 설정하지 않으면 "의견 보내기"는 저장 없이 Mixpanel 이벤트로만 기록되며, 제출 UX는 그대로 정상 동작합니다.
 
-### Google 로그인 설정
-
-1. [Google Cloud Console](https://console.cloud.google.com/)에서 프로젝트를 만들고 **API 및 서비스 → OAuth 동의 화면**을 구성합니다(외부, 테스트 단계로 시작 가능).
-2. **사용자 인증 정보 → OAuth 클라이언트 ID 만들기**를 선택하고 애플리케이션 유형은 "웹 애플리케이션"으로 지정합니다.
-3. **승인된 자바스크립트 원본**에 아래 두 URL을 등록합니다.
-   ```
-   http://localhost:3000
-   https://homepiliot.vercel.app
-   ```
-4. 발급된 Client ID를 `.env.local`(및 Vercel 프로젝트 환경 변수)에 추가합니다.
-   ```
-   NEXT_PUBLIC_GOOGLE_CLIENT_ID=xxxxxxxx.apps.googleusercontent.com
-   ```
-5. 값이 없으면 "Google로 로그인" 버튼은 목업 로그인으로 동작하고, 값을 넣으면 자동으로 실제 Google 로그인으로 전환됩니다.
-
 ## 폴더 구조
 
 ```

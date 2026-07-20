@@ -1,9 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { CircleCheck } from "lucide-react";
 import type { DiagnosisResult } from "@/lib/diagnosis";
-import { useAuth } from "@/lib/auth-context";
 import { saveDiagnosisResult } from "@/lib/diagnosis-store";
 import { trackEvent } from "@/lib/mixpanel";
 
@@ -19,6 +18,7 @@ import ActionRoadmap from "./action-roadmap";
 import PolicyRecommendationCard from "./policy-recommendation-card";
 import ScenarioComparison from "./scenario-comparison";
 import AnalysisDisclaimer from "./analysis-disclaimer";
+import ResultShareActions from "./result-share-actions";
 
 export default function DiagnosisResultView({
   result,
@@ -29,46 +29,49 @@ export default function DiagnosisResultView({
   onEdit: () => void;
   onRestart: () => void;
 }) {
-  const { isLoggedIn, requireLogin } = useAuth();
   const [saved, setSaved] = useState(false);
+  const shareCardRef = useRef<HTMLDivElement>(null);
 
   function handleSave() {
-    if (!requireLogin()) return;
     saveDiagnosisResult(result.answers, result);
     setSaved(true);
     trackEvent("Diagnosis Result Saved", { readiness_score: result.readinessScore });
   }
+
+  const shareText = `우리 부부 첫 집 준비도는 ${result.readinessScore}점(${result.readinessTier})이에요. 지금 가장 중요한 과제는 "${result.priorityTask}"! HomePilot에서 무료로 진단해보세요.`;
 
   return (
     <div className="aurora-bg w-full">
       <div className="mx-auto w-full max-w-[1280px] px-5 py-10 sm:px-8 lg:px-10">
         <ResultHeader analyzedAt={result.analyzedAt} onRestart={onRestart} />
 
-        <div className="mt-4">
-          <InputConditionChips answers={result.answers} />
-        </div>
+        <div ref={shareCardRef} className="bg-background">
+          <div className="mt-4">
+            <InputConditionChips answers={result.answers} />
+          </div>
 
-        <p className="mt-4 text-xs font-medium text-accent">
-          &ldquo;{result.topConcern}&rdquo;에 대한 답변을 가장 먼저 보여드릴게요.
-        </p>
+          <p className="mt-4 text-xs font-medium text-accent">
+            &ldquo;{result.topConcern}&rdquo;에 대한 답변을 가장 먼저 보여드릴게요.
+          </p>
 
-        <div className="mt-6">
-          <AIExecutiveSummary summary={result.executiveSummary} />
-        </div>
+          <div className="mt-6">
+            <AIExecutiveSummary summary={result.executiveSummary} />
+          </div>
 
-        {/* 핵심 상태 카드 */}
-        <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-          <ReadinessScoreCard
-            score={result.readinessScore}
-            tier={result.readinessTier}
-            tierSummary={result.readinessTierSummary}
-            scoreDelta={result.scoreDelta}
-          />
-          <PriorityTaskCard
-            task={result.priorityTask}
-            description={result.priorityTaskDescription}
-          />
-          <NextActionCard roadmap={result.roadmap} />
+          {/* 핵심 상태 카드 */}
+          <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+            <ReadinessScoreCard
+              score={result.readinessScore}
+              tier={result.readinessTier}
+              tierSummary={result.readinessTierSummary}
+              scoreDelta={result.scoreDelta}
+            />
+            <PriorityTaskCard
+              task={result.priorityTask}
+              description={result.priorityTaskDescription}
+            />
+            <NextActionCard roadmap={result.roadmap} />
+          </div>
         </div>
 
         {/* 현재 상황 분석 */}
@@ -106,8 +109,9 @@ export default function DiagnosisResultView({
           <AnalysisDisclaimer analyzedAt={result.analyzedAt} />
         </div>
 
-        {/* 저장 */}
+        {/* 공유 및 저장 */}
         <div className="mt-6 flex flex-col items-center gap-3">
+          <ResultShareActions targetRef={shareCardRef} shareText={shareText} />
           <button
             type="button"
             onClick={handleSave}
@@ -119,7 +123,7 @@ export default function DiagnosisResultView({
             }`}
           >
             {saved && <CircleCheck className="h-4 w-4" strokeWidth={1.75} aria-hidden />}
-            {saved ? "저장 완료" : isLoggedIn ? "결과 저장하기" : "로그인하고 내 결과 저장하기"}
+            {saved ? "저장 완료" : "결과 저장하기"}
           </button>
         </div>
 

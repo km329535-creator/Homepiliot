@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { useFavorites } from "@/lib/favorites-context";
-import { useAuth } from "@/lib/auth-context";
 
 const COMPARE_ITEMS = [
   "평균 시세",
@@ -13,7 +12,6 @@ const COMPARE_ITEMS = [
 ];
 
 export default function ComparePreview() {
-  const { isLoggedIn, openLoginSheet } = useAuth();
   const { favoriteIds } = useFavorites();
 
   return (
@@ -28,27 +26,17 @@ export default function ComparePreview() {
             2개 이상을 한 화면에서 나란히 비교할 수 있어요.
           </p>
 
-          {isLoggedIn ? (
-            <Link
-              href="/compare"
-              className="mt-6 inline-flex items-center justify-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90"
-            >
-              저장한 아파트 보기
-              {favoriteIds.length > 0 && (
-                <span className="inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-accent-foreground/20 px-1 text-[11px] font-semibold">
-                  {favoriteIds.length}
-                </span>
-              )}
-            </Link>
-          ) : (
-            <button
-              type="button"
-              onClick={openLoginSheet}
-              className="mt-6 inline-flex items-center justify-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90"
-            >
-              로그인하고 아파트 저장하기
-            </button>
-          )}
+          <Link
+            href="/compare"
+            className="mt-6 inline-flex items-center justify-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90"
+          >
+            저장한 아파트 보기
+            {favoriteIds.length > 0 && (
+              <span className="inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-accent-foreground/20 px-1 text-[11px] font-semibold">
+                {favoriteIds.length}
+              </span>
+            )}
+          </Link>
         </div>
 
         <div className="rounded-2xl border border-border bg-surface-muted p-5">

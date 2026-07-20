@@ -1,5 +1,4 @@
 import { housingSupportItems } from "@/lib/housing-support";
-import { ButtonLink } from "@/components/ui/button";
 
 export default function GuidePage() {
   return (
@@ -32,15 +31,6 @@ export default function GuidePage() {
             </p>
           </section>
         ))}
-      </div>
-
-      <div className="mt-10 rounded-2xl border border-dashed border-border p-6 text-center">
-        <p className="text-sm text-muted-foreground">
-          조건에 맞는 아파트가 궁금하다면 지금 바로 검색해보세요.
-        </p>
-        <ButtonLink href="/search" className="mt-4">
-          아파트 찾아보기
-        </ButtonLink>
       </div>
     </div>
   );
