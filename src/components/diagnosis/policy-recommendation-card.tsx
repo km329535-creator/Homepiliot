@@ -35,9 +35,9 @@ export default function PolicyRecommendationCard({
       </p>
       <ul className="mt-1.5 space-y-1.5">
         {policy.reasons.map((reason) => (
-          <li key={reason} className="flex items-start gap-1.5 break-keep text-sm text-muted-foreground">
+          <li key={reason} className="flex items-start gap-1.5 text-sm text-muted-foreground">
             <span className="mt-0.5 text-accent">·</span>
-            {highlightNumbers(reason, "accent")}
+            <span className="break-keep">{highlightNumbers(reason, "accent")}</span>
           </li>
         ))}
       </ul>
@@ -47,9 +47,9 @@ export default function PolicyRecommendationCard({
       </p>
       <ul className="mt-1.5 space-y-1.5">
         {policy.checks.map((check) => (
-          <li key={check} className="flex items-start gap-1.5 break-keep text-sm text-muted-foreground">
+          <li key={check} className="flex items-start gap-1.5 text-sm text-muted-foreground">
             <span className="mt-0.5 text-warning">·</span>
-            {highlightNumbers(check, "warning")}
+            <span className="break-keep">{highlightNumbers(check, "warning")}</span>
           </li>
         ))}
       </ul>
@@ -71,9 +71,9 @@ export default function PolicyRecommendationCard({
 
       {open && (
         <div className="mt-3 rounded-xl bg-brand-50 p-3">
-          <p className="flex items-start gap-1.5 break-keep text-sm leading-relaxed text-brand-800">
+          <p className="flex items-start gap-1.5 text-sm leading-relaxed text-brand-800">
             <Lightbulb className="mt-0.5 h-4 w-4 flex-none" strokeWidth={1.75} aria-hidden />
-            {highlightNumbers(policy.nextStep)}
+            <span className="break-keep">{highlightNumbers(policy.nextStep)}</span>
           </p>
         </div>
       )}

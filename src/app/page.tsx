@@ -5,7 +5,6 @@ import {
   Home as HomeIcon,
   KeyRound,
   Landmark,
-  ListChecks,
   PiggyBank,
   Sparkles,
 } from "lucide-react";
@@ -122,11 +121,11 @@ export default async function Home() {
             {/* 보조 카드 2단 */}
             <div className="mt-3 grid grid-cols-2 gap-3 sm:mt-4 sm:gap-4">
               <div className="rounded-2xl border border-border bg-surface-muted/40 p-3 text-center sm:p-5">
-                <p className="text-[11px] text-muted-foreground sm:text-xs">
+                <p className="text-sm text-muted-foreground sm:text-base">
                   추천 혜택
                 </p>
-                <p className="mt-2 text-2xl font-bold text-brand-600 sm:mt-3 sm:text-3xl">
-                  3<span className="text-xs font-medium text-muted-foreground sm:text-base">개</span>
+                <p className="mt-2 text-3xl font-bold text-brand-600 sm:mt-3 sm:text-4xl">
+                  3<span className="text-sm font-medium text-muted-foreground sm:text-lg">개</span>
                 </p>
                 <div className="mt-2 flex justify-center gap-1.5 sm:mt-3">
                   <span className="flex h-6 w-6 items-center justify-center rounded-full bg-brand-100 sm:h-7 sm:w-7">
@@ -142,17 +141,12 @@ export default async function Home() {
               </div>
 
               <div className="rounded-2xl border border-border bg-surface-muted/40 p-3 text-center sm:p-5">
-                <p className="text-[11px] text-muted-foreground sm:text-xs">
+                <p className="text-sm text-muted-foreground sm:text-base">
                   다음 스텝
                 </p>
-                <p className="mt-2 text-2xl font-bold text-brand-600 sm:mt-3 sm:text-3xl">
-                  4<span className="text-xs font-medium text-muted-foreground sm:text-base">단계</span>
+                <p className="mt-2 text-3xl font-bold text-brand-600 sm:mt-3 sm:text-4xl">
+                  4<span className="text-sm font-medium text-muted-foreground sm:text-lg">단계</span>
                 </p>
-                <div className="mt-2 flex justify-center sm:mt-3">
-                  <span className="flex h-6 w-6 items-center justify-center rounded-full bg-brand-100 sm:h-7 sm:w-7">
-                    <ListChecks className="h-3 w-3 text-brand-600 sm:h-3.5 sm:w-3.5" strokeWidth={1.75} aria-hidden />
-                  </span>
-                </div>
               </div>
             </div>
 

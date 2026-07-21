@@ -37,11 +37,21 @@ export default function DiagnosisResultView({
   return (
     <div className="w-full bg-[var(--gray-100)]">
       <div className="mx-auto w-full max-w-[1280px] px-5 py-10 sm:px-8 lg:px-10">
-        <ResultHeader
-          shareActions={
-            <ResultShareActions targetRef={shareCardRef} shareText={shareText} />
-          }
-        />
+        <div className="rounded-2xl border border-border bg-surface p-6 shadow-sm sm:p-7">
+          <ResultHeader
+            shareActions={
+              <ResultShareActions targetRef={shareCardRef} shareText={shareText} />
+            }
+          />
+
+          <div className="mt-6">
+            <InputConditionChips answers={result.answers} />
+          </div>
+
+          <p className="mt-4 text-xs font-medium text-accent">
+            &ldquo;{result.topConcern}&rdquo;에 대한 답변을 가장 먼저 보여드릴게요.
+          </p>
+        </div>
 
         <ShareableResultCard
           ref={shareCardRef}
@@ -51,15 +61,7 @@ export default function DiagnosisResultView({
           priorityTask={result.priorityTask}
         />
 
-        <div className="mt-6">
-          <InputConditionChips answers={result.answers} />
-        </div>
-
-        <p className="mt-4 text-xs font-medium text-accent">
-          &ldquo;{result.topConcern}&rdquo;에 대한 답변을 가장 먼저 보여드릴게요.
-        </p>
-
-        <div className="mt-6">
+        <div className="mt-4">
           <AIExecutiveSummary
             summary={result.executiveSummary}
             action={result.executiveSummaryAction}
