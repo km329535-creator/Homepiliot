@@ -29,13 +29,13 @@ export default function NextActionCard({ roadmap }: { roadmap: RoadmapStep[] }) 
               <Badge tone="accent">{first.timeframe}</Badge>
             </div>
             <p className="mt-1.5 text-sm leading-relaxed text-foreground">
-              {highlightNumbers(first.title)}
+              {highlightNumbers(first.title, "accent")}
             </p>
           </div>
         )}
         {next && (
           <p className="text-sm leading-relaxed text-subtle-foreground">
-            다음: {highlightNumbers(next.title)}
+            다음: {highlightNumbers(next.title, "neutral")}
           </p>
         )}
       </div>

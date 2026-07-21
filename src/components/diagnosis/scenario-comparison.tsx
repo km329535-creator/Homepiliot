@@ -25,7 +25,7 @@ function ScenarioCardView({
         {bullets.map((bullet) => (
           <li key={bullet} className="flex items-start gap-1.5 text-sm text-muted-foreground">
             <span className="mt-0.5 text-accent">·</span>
-            {highlightNumbers(bullet)}
+            {highlightNumbers(bullet, emphasis ? "accent" : "neutral")}
           </li>
         ))}
       </ul>

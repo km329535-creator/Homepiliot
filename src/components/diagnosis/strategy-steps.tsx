@@ -18,7 +18,7 @@ export default function StrategySteps({ steps }: { steps: StrategyStep[] }) {
               {step.title}
             </p>
             <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">
-              {highlightNumbers(step.description)}
+              {highlightNumbers(step.description, "neutral")}
             </p>
           </div>
         ))}

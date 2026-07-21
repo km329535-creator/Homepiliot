@@ -37,7 +37,7 @@ export default function PolicyRecommendationCard({
         {policy.reasons.map((reason) => (
           <li key={reason} className="flex items-start gap-1.5 text-sm text-muted-foreground">
             <span className="mt-0.5 text-accent">·</span>
-            {highlightNumbers(reason)}
+            {highlightNumbers(reason, "accent")}
           </li>
         ))}
       </ul>
@@ -49,7 +49,7 @@ export default function PolicyRecommendationCard({
         {policy.checks.map((check) => (
           <li key={check} className="flex items-start gap-1.5 text-sm text-muted-foreground">
             <span className="mt-0.5 text-warning">·</span>
-            {highlightNumbers(check)}
+            {highlightNumbers(check, "warning")}
           </li>
         ))}
       </ul>

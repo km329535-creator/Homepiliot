@@ -1,4 +1,4 @@
-function colorForScore(score: number): string {
+export function colorForScore(score: number): string {
   if (score >= 80) return "var(--positive)";
   if (score >= 50) return "var(--accent)";
   return "var(--warning)";

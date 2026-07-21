@@ -28,7 +28,7 @@ export default function ActionRoadmap({ roadmap }: { roadmap: RoadmapStep[] }) {
                 <Badge tone={STATUS_TONE[step.statusTag]} size="md">{step.statusTag}</Badge>
               </div>
               <p className="mt-1 text-base leading-relaxed text-foreground">
-                {highlightNumbers(step.title)}
+                {highlightNumbers(step.title, STATUS_TONE[step.statusTag])}
               </p>
             </div>
           </li>

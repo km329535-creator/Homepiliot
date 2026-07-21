@@ -68,13 +68,17 @@ export default function DiagnosisResultView({
           />
         </div>
 
-        {/* 핵심 상태 카드 */}
-        <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+        {/* 첫 집 준비도 (핵심 지표) */}
+        <div className="mt-4">
           <ReadinessScoreCard
             score={result.readinessScore}
             tier={result.readinessTier}
             tierSummary={result.readinessTierSummary}
           />
+        </div>
+
+        {/* 보조 상태 카드 */}
+        <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
           <PriorityTaskCard
             task={result.priorityTask}
             description={result.priorityTaskDescription}
