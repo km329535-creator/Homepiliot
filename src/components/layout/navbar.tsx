@@ -16,7 +16,7 @@ export default function Navbar() {
           href="/diagnosis"
           className="inline-flex h-10 items-center justify-center rounded-xl bg-primary px-3 text-xs font-medium text-primary-foreground transition-colors hover:bg-brand-700 sm:px-4 sm:text-sm"
         >
-          무료 진단 시작
+          진단 시작
         </Link>
       </div>
     </header>

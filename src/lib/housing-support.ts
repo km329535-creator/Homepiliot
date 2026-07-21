@@ -7,6 +7,8 @@ export const housingSupportItems: HousingSupportItem[] = [
     summary: "혼인 7년 이내 부부 대상, 낮은 금리로 전세보증금을 지원받을 수 있어요.",
     detail:
       "부부합산 소득 및 자산 기준을 충족하면 시중 은행 대비 낮은 금리로 전세자금을 대출받을 수 있습니다. 지역·보증금 한도에 따라 대출 한도가 달라지므로 주택도시기금 사이트에서 사전 자격을 확인하는 것이 좋습니다.",
+    linkLabel: "주택도시기금에서 확인하기",
+    linkUrl: "https://nhuf.molit.go.kr",
   },
   {
     id: "didimdol-bogeumjari",
@@ -14,6 +16,8 @@ export const housingSupportItems: HousingSupportItem[] = [
     summary: "생애최초·신혼부부라면 시세보다 낮은 고정금리로 내 집 마련이 가능해요.",
     detail:
       "디딤돌대출은 무주택 서민 실수요자를 위한 정책모기지로, 신혼부부는 소득·한도 우대를 받습니다. 보금자리론은 고정금리로 장기간 안정적인 상환이 가능해 시세 변동 리스크를 줄이고 싶은 경우에 적합합니다.",
+    linkLabel: "한국주택금융공사에서 확인하기",
+    linkUrl: "https://www.hf.go.kr/ko/sub01/sub01_02_01.do",
   },
   {
     id: "newlywed-hope-town",
@@ -21,6 +25,8 @@ export const housingSupportItems: HousingSupportItem[] = [
     summary: "신혼부부·예비 신혼부부를 위한 공공분양·공공임대 특화 단지예요.",
     detail:
       "LH·SH 등 공공기관이 공급하는 신혼부부 특화 단지로, 시세 대비 저렴한 분양가와 육아 친화적 커뮤니티 시설이 특징입니다. 특별공급 자격과 가점 기준이 별도로 있어 사전에 청약 자격을 확인해야 합니다.",
+    linkLabel: "마이홈포털에서 확인하기",
+    linkUrl: "https://www.myhome.go.kr/hws/portal/cont/selectNewlywedHopeTownView.do",
   },
   {
     id: "local-deposit-support",
@@ -28,6 +34,8 @@ export const housingSupportItems: HousingSupportItem[] = [
     summary: "거주 지역 지자체별로 임차보증금 이자 지원 제도를 운영하기도 해요.",
     detail:
       "서울 각 구를 비롯한 여러 지자체가 신혼부부 임차보증금 대출 이자를 일부 지원합니다. 거주(예정) 지역 구청 홈페이지에서 소득 기준과 지원 한도를 확인해보세요.",
+    linkLabel: "마이홈포털에서 확인하기",
+    linkUrl: "https://www.myhome.go.kr",
   },
   {
     id: "subscription-score",
@@ -35,5 +43,7 @@ export const housingSupportItems: HousingSupportItem[] = [
     summary: "신혼부부 특별공급은 일반공급과 가점 기준이 달라 미리 확인이 필요해요.",
     detail:
       "신혼부부 특별공급은 혼인 기간, 자녀 수, 소득 기준에 따라 가점과 우선순위가 달라집니다. 청약홈에서 본인 조건에 맞는 특별공급 유형과 예상 가점을 미리 계산해보는 것을 추천합니다.",
+    linkLabel: "청약홈에서 가점 계산하기",
+    linkUrl: "https://www.applyhome.co.kr/ap/apg/selectAddpntCalculatorView.do",
   },
 ];

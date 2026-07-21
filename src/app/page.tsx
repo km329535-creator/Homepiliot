@@ -1,5 +1,14 @@
 import Link from "next/link";
-import { ChevronDown, Home as HomeIcon, Landmark, ListChecks, PiggyBank } from "lucide-react";
+import {
+  Building2,
+  ChevronDown,
+  Heart,
+  Home as HomeIcon,
+  KeyRound,
+  Landmark,
+  ListChecks,
+  PiggyBank,
+} from "lucide-react";
 import HowItWorks from "@/components/home/how-it-works";
 import DiagnosisPreview from "@/components/home/diagnosis-preview";
 import HousingSupportPreview from "@/components/home/housing-support-preview";
@@ -11,26 +20,54 @@ import ScoreRing from "@/components/diagnosis/score-ring";
 export default function Home() {
   return (
     <div className="flex flex-col">
-      <section className="aurora-bg flex min-h-[calc(100svh-4rem)] items-center border-b border-border">
-        <div className="mx-auto flex w-full max-w-6xl flex-col items-center px-6 py-8 text-center sm:py-10">
-          <Badge tone="accent" className="mb-4">
+      <section className="aurora-bg relative flex min-h-[calc(100svh-4rem)] items-center overflow-hidden border-b border-border">
+        <div className="pointer-events-none absolute inset-0" aria-hidden>
+          <HomeIcon
+            className="animate-float absolute left-[8%] top-[20%] h-10 w-10 text-brand-300/50 sm:h-14 sm:w-14"
+            strokeWidth={1.5}
+            style={{ animationDelay: "0s" }}
+          />
+          <Heart
+            className="animate-float-alt absolute right-[12%] top-[24%] h-8 w-8 text-brand-300/50 sm:h-10 sm:w-10"
+            strokeWidth={1.5}
+            style={{ animationDelay: "1.2s" }}
+          />
+          <KeyRound
+            className="animate-float-alt absolute left-[14%] bottom-[22%] h-9 w-9 text-brand-300/50 sm:h-12 sm:w-12"
+            strokeWidth={1.5}
+            style={{ animationDelay: "0.6s" }}
+          />
+          <PiggyBank
+            className="animate-float absolute right-[10%] bottom-[18%] h-9 w-9 text-brand-300/50 sm:h-12 sm:w-12"
+            strokeWidth={1.5}
+            style={{ animationDelay: "1.8s" }}
+          />
+          <Building2
+            className="animate-float absolute left-[46%] top-[12%] hidden h-10 w-10 text-brand-300/40 sm:block"
+            strokeWidth={1.5}
+            style={{ animationDelay: "0.9s" }}
+          />
+        </div>
+
+        <div className="relative z-10 mx-auto flex w-full max-w-6xl flex-col items-center px-6 py-8 text-center sm:py-10">
+          <Badge tone="accent" className="mb-5">
             예비 부부를 위한 로드맵 설계
           </Badge>
-          <h1 className="max-w-3xl text-3xl font-bold leading-[1.2] tracking-tight text-foreground sm:text-5xl">
+          <h1 className="max-w-4xl text-4xl font-bold leading-[1.15] tracking-tight text-foreground sm:text-6xl lg:text-7xl">
             우리 부부, 내 집 마련은
             <br />
             어디서부터 시작할까요?
           </h1>
-          <p className="mt-3 max-w-xl text-sm leading-relaxed text-muted-foreground sm:text-lg">
+          <p className="mt-5 max-w-xl text-base leading-relaxed text-muted-foreground sm:text-xl">
             현재 자금과 결혼 계획을 바탕으로
             <br />
             첫 집 준비 상태를 진단하고, 지금 가장 필요한 준비를 알려드려요.
           </p>
 
-          <div className="mt-5 flex flex-col items-center gap-2">
+          <div className="mt-7 flex flex-col items-center gap-2">
             <Link
               href="/diagnosis"
-              className="inline-flex h-12 items-center justify-center gap-2 rounded-xl bg-primary px-7 text-base font-medium text-primary-foreground transition-colors hover:bg-brand-700"
+              className="inline-flex h-14 items-center justify-center gap-2 rounded-xl bg-primary px-9 text-lg font-semibold text-primary-foreground shadow-lg shadow-brand-600/20 transition-colors hover:bg-brand-700"
             >
               3분 무료 진단 시작하기
             </Link>
@@ -117,17 +154,17 @@ export default function Home() {
               </p>
               <div className="divide-y divide-border">
                 <div className="flex items-center justify-between py-2 text-xs sm:py-2.5 sm:text-sm">
-                  <span className="text-muted-foreground">예상 대출</span>
-                  <span className="font-semibold text-foreground">3억 2,000만원</span>
+                  <span className="text-muted-foreground">목표 자금</span>
+                  <span className="font-semibold text-foreground">3억원</span>
                 </div>
                 <div className="flex items-center justify-between py-2 text-xs sm:py-2.5 sm:text-sm">
-                  <span className="text-muted-foreground">예상 지원금</span>
-                  <span className="font-semibold text-foreground">2,600만원</span>
+                  <span className="text-muted-foreground">현재 보유 자금</span>
+                  <span className="font-semibold text-foreground">8,000만원</span>
                 </div>
               </div>
               <div className="mt-2 flex items-center justify-between rounded-xl bg-brand-100 px-3 py-2.5 text-xs sm:text-sm">
-                <span className="font-medium text-foreground">예상 필요 자금</span>
-                <span className="font-bold text-brand-700">4억 7,400만원</span>
+                <span className="font-medium text-foreground">추가로 준비할 자금</span>
+                <span className="font-bold text-brand-700">2억 2,000만원</span>
               </div>
             </div>
           </ScrollReveal>

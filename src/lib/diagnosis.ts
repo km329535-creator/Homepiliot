@@ -13,9 +13,9 @@ export type TopConcern =
   | "필요 자금"
   | "무엇부터 할지";
 
-export type WeddingTimeline = "6개월 이내" | "1년 이내" | "2년 이내";
+export type WeddingTimeline = "6개월 이내" | "1년 이내" | "2년 이내" | "3년 이내";
 
-export type HousingPreference = "전세" | "매매" | "아직 고민중";
+export type HousingPreference = "월세" | "전세" | "매매" | "아직 고민중";
 
 export type SavingsRange =
   | "3천만원 이하"
@@ -89,6 +89,9 @@ export type DiagnosisResult = {
   topConcern: TopConcern;
   answers: DiagnosisAnswers;
   analyzedAt: string; // ISO date
+  targetFundsManwon: number;
+  currentFundsManwon: number;
+  additionalFundsNeededManwon: number;
 };
 
 const SAVINGS_MIDPOINT_MANWON: Record<SavingsRange, number> = {
@@ -128,7 +131,10 @@ export function formatManwon(manwon: number): string {
 }
 
 function targetFundsFor(preference: HousingPreference): number {
-  return preference === "매매" ? 30000 : preference === "전세" ? 15000 : 20000;
+  if (preference === "매매") return 30000;
+  if (preference === "전세") return 15000;
+  if (preference === "월세") return 3000;
+  return 20000;
 }
 
 /** 규칙 기반 준비도 점수 계산. Claude는 이 점수를 재계산하지 않는다. */
@@ -556,5 +562,8 @@ export function analyzeDiagnosis(
     topConcern: answers.concern,
     answers,
     analyzedAt: new Date().toISOString(),
+    targetFundsManwon: targetFunds,
+    currentFundsManwon: funds,
+    additionalFundsNeededManwon: additionalNeeded,
   };
 }

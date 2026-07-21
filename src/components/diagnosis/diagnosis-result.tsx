@@ -1,10 +1,8 @@
 "use client";
 
-import { useRef, useState } from "react";
-import { CircleCheck } from "lucide-react";
+import { useEffect, useRef } from "react";
 import type { DiagnosisResult } from "@/lib/diagnosis";
 import { saveDiagnosisResult } from "@/lib/diagnosis-store";
-import { trackEvent } from "@/lib/mixpanel";
 
 import ResultHeader from "./result-header";
 import InputConditionChips from "./input-condition-chips";
@@ -12,6 +10,7 @@ import AIExecutiveSummary from "./ai-executive-summary";
 import ReadinessScoreCard from "./readiness-score-card";
 import PriorityTaskCard from "./priority-task-card";
 import NextActionCard from "./next-action-card";
+import FundPlanSummary from "./fund-plan-summary";
 import CurrentStateAnalysis from "./current-state-analysis";
 import StrategySteps from "./strategy-steps";
 import ActionRoadmap from "./action-roadmap";
@@ -25,29 +24,38 @@ import SatisfactionRatingPopup from "./satisfaction-rating-popup";
 export default function DiagnosisResultView({
   result,
   onEdit,
-  onRestart,
 }: {
   result: DiagnosisResult;
   onEdit: () => void;
-  onRestart: () => void;
 }) {
-  const [saved, setSaved] = useState(false);
   const shareCardRef = useRef<HTMLDivElement>(null);
 
-  function handleSave() {
+  useEffect(() => {
     saveDiagnosisResult(result.answers, result);
-    setSaved(true);
-    trackEvent("Diagnosis Result Saved", { readiness_score: result.readinessScore });
-  }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const shareText = `우리 부부 첫 집 준비도는 ${result.readinessScore}점(${result.readinessTier})이에요. 지금 가장 중요한 과제는 "${result.priorityTask}"! HomePilot에서 무료로 진단해보세요.`;
 
   return (
     <div className="aurora-bg w-full">
       <div className="mx-auto w-full max-w-[1280px] px-5 py-10 sm:px-8 lg:px-10">
-        <ResultHeader analyzedAt={result.analyzedAt} onRestart={onRestart} />
+        <ResultHeader analyzedAt={result.analyzedAt} />
 
-        <div className="mt-4">
+        <ShareableResultCard
+          ref={shareCardRef}
+          score={result.readinessScore}
+          tier={result.readinessTier}
+          tierSummary={result.readinessTierSummary}
+          priorityTask={result.priorityTask}
+        />
+
+        {/* 공유 및 저장 */}
+        <div className="mt-5">
+          <ResultShareActions targetRef={shareCardRef} shareText={shareText} />
+        </div>
+
+        <div className="mt-6">
           <InputConditionChips answers={result.answers} />
         </div>
 
@@ -72,6 +80,15 @@ export default function DiagnosisResultView({
             description={result.priorityTaskDescription}
           />
           <NextActionCard roadmap={result.roadmap} />
+        </div>
+
+        {/* 예상 자금 계획 요약 */}
+        <div className="mt-4">
+          <FundPlanSummary
+            targetFundsManwon={result.targetFundsManwon}
+            currentFundsManwon={result.currentFundsManwon}
+            additionalFundsNeededManwon={result.additionalFundsNeededManwon}
+          />
         </div>
 
         {/* 현재 상황 분석 */}
@@ -107,43 +124,6 @@ export default function DiagnosisResultView({
         {/* 분석 기준 및 주의사항 */}
         <div className="mt-4">
           <AnalysisDisclaimer analyzedAt={result.analyzedAt} />
-        </div>
-
-        <ShareableResultCard
-          ref={shareCardRef}
-          score={result.readinessScore}
-          tier={result.readinessTier}
-          tierSummary={result.readinessTierSummary}
-          priorityTask={result.priorityTask}
-        />
-
-        {/* 공유 및 저장 */}
-        <div className="mt-6 flex flex-col items-center gap-3">
-          <ResultShareActions targetRef={shareCardRef} shareText={shareText} />
-          <button
-            type="button"
-            onClick={handleSave}
-            disabled={saved}
-            className={`inline-flex h-12 w-full items-center justify-center gap-2 rounded-xl px-6 text-sm font-medium transition-colors sm:w-auto ${
-              saved
-                ? "cursor-default bg-positive/10 text-positive"
-                : "bg-primary text-primary-foreground hover:bg-brand-700"
-            }`}
-          >
-            {saved && <CircleCheck className="h-4 w-4" strokeWidth={1.75} aria-hidden />}
-            {saved ? "저장 완료" : "결과 저장하기"}
-          </button>
-        </div>
-
-        {/* 모바일 전용 하단 액션 버튼 */}
-        <div className="mt-6 sm:hidden">
-          <button
-            type="button"
-            onClick={onRestart}
-            className="h-12 w-full rounded-xl bg-primary px-4 text-sm font-medium text-primary-foreground"
-          >
-            다시 진단하기
-          </button>
         </div>
 
         <SatisfactionRatingPopup />

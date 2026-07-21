@@ -1,6 +1,19 @@
 "use client";
 
 import { useState } from "react";
+import {
+  Building2,
+  CalendarClock,
+  Check,
+  Compass,
+  Gift,
+  HelpCircle,
+  Home,
+  KeyRound,
+  PiggyBank,
+  Wallet,
+  type LucideIcon,
+} from "lucide-react";
 import type {
   DiagnosisAnswers,
   HousingPreference,
@@ -11,54 +24,76 @@ import type {
 } from "@/lib/diagnosis";
 import { trackEvent } from "@/lib/mixpanel";
 
+type StepOption = {
+  label: string;
+  icon: LucideIcon;
+};
+
 type StepConfig = {
   field: keyof DiagnosisAnswers;
   question: string;
   helper?: string;
-  options: string[];
+  options: StepOption[];
 };
+
+const OPTION_ACCENTS = [
+  { text: "text-accent", bg: "bg-accent/10", border: "border-accent" },
+  { text: "text-positive", bg: "bg-positive/10", border: "border-positive" },
+  { text: "text-warning", bg: "bg-warning/10", border: "border-warning" },
+  { text: "text-violet-600", bg: "bg-violet-100", border: "border-violet-400" },
+];
 
 const STEPS: StepConfig[] = [
   {
     field: "concern",
     question: "오늘 가장 알고 싶은 것은 무엇인가요?",
     options: [
-      "매매 여부",
-      "받을 수 있는 지원",
-      "필요 자금",
-      "무엇부터 할지",
-    ] satisfies TopConcern[],
+      { label: "매매 여부", icon: Home },
+      { label: "받을 수 있는 지원", icon: Gift },
+      { label: "필요 자금", icon: PiggyBank },
+      { label: "무엇부터 할지", icon: Compass },
+    ] satisfies { label: TopConcern; icon: LucideIcon }[],
   },
   {
     field: "timeline",
     question: "결혼 예정 시기가 어떻게 되세요?",
-    options: ["6개월 이내", "1년 이내", "2년 이내"] satisfies WeddingTimeline[],
+    options: [
+      { label: "6개월 이내", icon: CalendarClock },
+      { label: "1년 이내", icon: CalendarClock },
+      { label: "2년 이내", icon: CalendarClock },
+      { label: "3년 이내", icon: CalendarClock },
+    ] satisfies { label: WeddingTimeline; icon: LucideIcon }[],
   },
   {
     field: "preference",
     question: "희망하는 주거 형태는 무엇인가요?",
-    options: ["전세", "매매", "아직 고민중"] satisfies HousingPreference[],
+    options: [
+      { label: "월세", icon: KeyRound },
+      { label: "전세", icon: Home },
+      { label: "매매", icon: Building2 },
+      { label: "아직 고민중", icon: HelpCircle },
+    ] satisfies { label: HousingPreference; icon: LucideIcon }[],
   },
   {
     field: "savings",
     question: "현재 보유하고 계신 자금은 어느 정도인가요?",
     helper: "두 분이 합쳐서 준비된 현금성 자산 기준이에요.",
     options: [
-      "3천만원 이하",
-      "3천~5천만원",
-      "5천만원~1억원",
-      "1억원 이상",
-    ] satisfies SavingsRange[],
+      { label: "3천만원 이하", icon: Wallet },
+      { label: "3천~5천만원", icon: Wallet },
+      { label: "5천만원~1억원", icon: Wallet },
+      { label: "1억원 이상", icon: Wallet },
+    ] satisfies { label: SavingsRange; icon: LucideIcon }[],
   },
   {
     field: "income",
     question: "부부 합산 연소득은 어느 정도인가요?",
     options: [
-      "5천만원 이하",
-      "5천~7천만원",
-      "7천만원~1억원",
-      "1억원 이상",
-    ] satisfies IncomeRange[],
+      { label: "5천만원 이하", icon: Wallet },
+      { label: "5천~7천만원", icon: Wallet },
+      { label: "7천만원~1억원", icon: Wallet },
+      { label: "1억원 이상", icon: Wallet },
+    ] satisfies { label: IncomeRange; icon: LucideIcon }[],
   },
 ];
 
@@ -119,20 +154,30 @@ export default function DiagnosisWizard({
       )}
 
       <div className="mt-6 grid gap-3">
-        {step.options.map((option) => {
-          const selected = answers[step.field] === option;
+        {step.options.map((option, i) => {
+          const selected = answers[step.field] === option.label;
+          const accent = OPTION_ACCENTS[i % OPTION_ACCENTS.length];
+          const Icon = option.icon;
           return (
             <button
-              key={option}
+              key={option.label}
               type="button"
-              onClick={() => handleSelect(option)}
-              className={`rounded-2xl border px-5 py-4 text-left text-sm font-medium transition-colors sm:text-base ${
+              onClick={() => handleSelect(option.label)}
+              className={`flex items-center gap-3 rounded-2xl border-2 px-4 py-4 text-left text-sm font-medium transition-colors sm:px-5 sm:text-base ${
                 selected
-                  ? "border-accent bg-accent/10 text-accent"
+                  ? `${accent.border} bg-surface text-foreground`
                   : "border-border bg-surface text-foreground hover:border-accent hover:bg-brand-50"
               }`}
             >
-              {option}
+              <span
+                className={`flex h-10 w-10 flex-none items-center justify-center rounded-full ${accent.bg} ${accent.text}`}
+              >
+                <Icon className="h-5 w-5" strokeWidth={1.75} aria-hidden />
+              </span>
+              <span className="flex-1">{option.label}</span>
+              {selected && (
+                <Check className={`h-5 w-5 flex-none ${accent.text}`} strokeWidth={2} aria-hidden />
+              )}
             </button>
           );
         })}

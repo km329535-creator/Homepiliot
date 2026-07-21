@@ -83,4 +83,6 @@ export type HousingSupportItem = {
   title: string;
   summary: string;
   detail: string;
+  linkLabel: string;
+  linkUrl: string;
 };

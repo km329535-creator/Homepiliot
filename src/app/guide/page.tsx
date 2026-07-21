@@ -1,3 +1,4 @@
+import { ExternalLink } from "lucide-react";
 import { housingSupportItems } from "@/lib/housing-support";
 
 export default function GuidePage() {
@@ -29,6 +30,15 @@ export default function GuidePage() {
             <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
               {item.detail}
             </p>
+            <a
+              href={item.linkUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-4 inline-flex h-10 items-center gap-1.5 rounded-xl border border-border px-4 text-sm font-medium text-foreground transition-colors hover:border-accent hover:text-accent"
+            >
+              {item.linkLabel}
+              <ExternalLink className="h-3.5 w-3.5" strokeWidth={1.75} aria-hidden />
+            </a>
           </section>
         ))}
       </div>

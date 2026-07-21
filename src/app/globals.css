@@ -158,6 +158,34 @@ body {
     var(--gray-50);
 }
 
+@keyframes float-slow {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-16px) rotate(4deg);
+  }
+}
+
+@keyframes float-slow-alt {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(16px) rotate(-4deg);
+  }
+}
+
+.animate-float {
+  animation: float-slow 7s ease-in-out infinite;
+}
+
+.animate-float-alt {
+  animation: float-slow-alt 8s ease-in-out infinite;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

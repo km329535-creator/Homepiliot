@@ -9,13 +9,7 @@ function formatDate(iso: string): string {
   return `${y}.${m}.${day}`;
 }
 
-export default function ResultHeader({
-  analyzedAt,
-  onRestart,
-}: {
-  analyzedAt: string;
-  onRestart: () => void;
-}) {
+export default function ResultHeader({ analyzedAt }: { analyzedAt: string }) {
   return (
     <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
       <div>
@@ -30,20 +24,9 @@ export default function ResultHeader({
         </p>
       </div>
 
-      <div className="flex flex-none flex-col items-start gap-3 sm:items-end">
-        <p className="text-xs text-subtle-foreground">
-          분석 기준일 {formatDate(analyzedAt)}
-        </p>
-        <div className="hidden sm:flex">
-          <button
-            type="button"
-            onClick={onRestart}
-            className="h-10 rounded-xl bg-primary px-4 text-sm font-medium text-primary-foreground transition-colors hover:bg-brand-700"
-          >
-            다시 진단하기
-          </button>
-        </div>
-      </div>
+      <p className="text-xs text-subtle-foreground">
+        분석 기준일 {formatDate(analyzedAt)}
+      </p>
     </div>
   );
 }

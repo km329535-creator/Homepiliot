@@ -54,7 +54,7 @@ export default function DiagnosisPage() {
   }
 
   if (phase === "result" && result) {
-    return <DiagnosisResultView result={result} onEdit={handleEdit} onRestart={handleRestart} />;
+    return <DiagnosisResultView result={result} onEdit={handleEdit} />;
   }
 
   return (
