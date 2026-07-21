@@ -11,7 +11,7 @@ const STATUS_TONE: Record<RoadmapStatusTag, "positive" | "accent" | "neutral"> =
 
 export default function ActionRoadmap({ roadmap }: { roadmap: RoadmapStep[] }) {
   return (
-    <div className="rounded-2xl border border-border bg-surface p-6">
+    <div className="rounded-2xl border border-border bg-surface p-6 shadow-sm">
       <h2 className="mb-5 text-xl font-bold tracking-tight">실행 로드맵</h2>
       <ol className="mx-auto flex max-w-md flex-col items-center">
         {roadmap.map((step, i) => (

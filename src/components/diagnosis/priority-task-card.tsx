@@ -10,7 +10,7 @@ export default function PriorityTaskCard({
   description: string;
 }) {
   return (
-    <div className="flex h-full flex-col rounded-2xl border border-border bg-surface p-6 sm:p-7">
+    <div className="flex h-full flex-col rounded-2xl border border-border bg-surface p-6 shadow-sm sm:p-7">
       <Badge icon={Target} tone="neutral" size="md" className="self-start">
         현재 가장 중요한 과제
       </Badge>

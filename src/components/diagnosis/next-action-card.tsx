@@ -8,7 +8,7 @@ export default function NextActionCard({ roadmap }: { roadmap: RoadmapStep[] }) 
   const next = roadmap[1];
 
   return (
-    <div className="flex h-full flex-col rounded-2xl border border-border bg-surface p-6 sm:p-7">
+    <div className="flex h-full flex-col rounded-2xl border border-border bg-surface p-6 shadow-sm sm:p-7">
       <Badge icon={ClipboardList} tone="neutral" size="md" className="self-start">
         다음 행동
       </Badge>

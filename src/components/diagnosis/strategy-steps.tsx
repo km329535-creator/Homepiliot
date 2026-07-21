@@ -3,7 +3,7 @@ import { highlightNumbers } from "@/lib/highlight-text";
 
 export default function StrategySteps({ steps }: { steps: StrategyStep[] }) {
   return (
-    <div className="rounded-2xl border border-border bg-surface p-6">
+    <div className="rounded-2xl border border-border bg-surface p-6 shadow-sm">
       <h2 className="mb-5 text-xl font-bold tracking-tight">추천 준비 전략</h2>
       <div className="grid gap-4 sm:grid-cols-2">
         {steps.map((step) => (

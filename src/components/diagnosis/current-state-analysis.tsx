@@ -10,7 +10,7 @@ export default function CurrentStateAnalysis({
   gaps: string[];
 }) {
   return (
-    <div className="rounded-2xl border border-border bg-surface p-6">
+    <div className="rounded-2xl border border-border bg-surface p-6 shadow-sm">
       <h2 className="mb-5 text-xl font-bold tracking-tight">현재 상황 분석</h2>
       <div className="grid gap-6 sm:grid-cols-2">
         <div>

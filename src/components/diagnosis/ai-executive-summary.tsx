@@ -14,7 +14,7 @@ export default function AIExecutiveSummary({
   linkUrl: string;
 }) {
   return (
-    <div className="glass-strong rounded-[20px] p-6 sm:p-7">
+    <div className="rounded-[20px] border border-border bg-surface p-6 shadow-sm sm:p-7">
       <Badge icon={Sparkles} tone="accent" className="mb-3">
         분석 요약
       </Badge>
@@ -23,11 +23,11 @@ export default function AIExecutiveSummary({
       </p>
 
       <div className="mt-5 rounded-xl bg-brand-50 p-4 sm:p-5">
-        <p className="mb-1.5 text-[11px] font-semibold uppercase tracking-wide text-brand-600">
+        <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-brand-600">
           다음 행동
         </p>
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-          <p className="text-sm leading-relaxed text-brand-800">{highlightNumbers(action)}</p>
+          <p className="text-base leading-relaxed text-brand-800">{highlightNumbers(action)}</p>
           <a
             href={linkUrl}
             target="_blank"

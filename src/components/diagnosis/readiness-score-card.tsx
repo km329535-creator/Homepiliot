@@ -47,7 +47,7 @@ export default function ReadinessScoreCard({
   const tone = TIER_TONE[tier];
 
   return (
-    <div className="rounded-2xl border border-border bg-surface p-6 sm:p-7">
+    <div className="rounded-2xl border border-border bg-surface p-6 shadow-sm sm:p-7">
       <Badge icon={Gauge} tone="neutral" className="mb-5">
         첫 집 준비도
       </Badge>

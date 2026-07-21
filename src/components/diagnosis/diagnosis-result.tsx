@@ -35,7 +35,7 @@ export default function DiagnosisResultView({
   const shareText = `우리 부부 첫 집 준비도는 ${result.readinessScore}점(${result.readinessTier})이에요. 지금 가장 중요한 과제는 "${result.priorityTask}"! HomePilot에서 무료로 진단해보세요.`;
 
   return (
-    <div className="w-full">
+    <div className="w-full bg-[var(--gray-100)]">
       <div className="mx-auto w-full max-w-[1280px] px-5 py-10 sm:px-8 lg:px-10">
         <ResultHeader
           shareActions={
@@ -98,7 +98,7 @@ export default function DiagnosisResultView({
         </div>
 
         {/* 추천 금융·정책 */}
-        <div className="mt-4 rounded-2xl border border-border bg-surface p-6">
+        <div className="mt-4 rounded-2xl border border-border bg-surface p-6 shadow-sm">
           <h2 className="mb-5 text-xl font-bold tracking-tight">추천 금융·정책</h2>
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
             {result.policies.map((policy) => (
