@@ -20,6 +20,7 @@ import ScenarioComparison from "./scenario-comparison";
 import AnalysisDisclaimer from "./analysis-disclaimer";
 import ResultShareActions from "./result-share-actions";
 import ShareableResultCard from "./shareable-result-card";
+import SatisfactionRatingPopup from "./satisfaction-rating-popup";
 
 export default function DiagnosisResultView({
   result,
@@ -144,6 +145,8 @@ export default function DiagnosisResultView({
             다시 진단하기
           </button>
         </div>
+
+        <SatisfactionRatingPopup />
       </div>
     </div>
   );

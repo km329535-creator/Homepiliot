@@ -22,3 +22,7 @@ export async function submitFeedback(message: string): Promise<SubmitFeedbackRes
 
   return { ok: true };
 }
+
+export async function submitRating(rating: number): Promise<SubmitFeedbackResult> {
+  return submitFeedback(`[만족도 별점] ${rating}/5`);
+}

@@ -18,18 +18,19 @@ export default function Navbar() {
           </span>
         </Link>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1 sm:gap-2">
           <button
             type="button"
             onClick={openFeedback}
-            className="hidden h-10 items-center rounded-xl px-3 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground sm:flex"
+            className="flex h-10 items-center rounded-xl px-2 text-xs font-medium text-muted-foreground transition-colors hover:text-foreground sm:px-3 sm:text-sm"
           >
-            의견 보내기
+            <span className="sm:hidden">의견</span>
+            <span className="hidden sm:inline">의견 보내기</span>
           </button>
 
           <Link
             href="/diagnosis"
-            className="inline-flex h-10 items-center justify-center rounded-xl bg-primary px-4 text-sm font-medium text-primary-foreground transition-colors hover:bg-brand-700"
+            className="inline-flex h-10 items-center justify-center rounded-xl bg-primary px-3 text-xs font-medium text-primary-foreground transition-colors hover:bg-brand-700 sm:px-4 sm:text-sm"
           >
             무료 진단 시작
           </Link>
