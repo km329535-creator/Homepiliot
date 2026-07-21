@@ -22,20 +22,22 @@ export default function AIExecutiveSummary({
         {highlightNumbers(summary)}
       </p>
 
-      <div className="mt-5 rounded-xl bg-brand-50 p-4">
+      <div className="mt-5 rounded-xl bg-brand-50 p-4 sm:p-5">
         <p className="mb-1.5 text-[11px] font-semibold uppercase tracking-wide text-brand-600">
           다음 행동
         </p>
-        <p className="text-sm leading-relaxed text-brand-800">{highlightNumbers(action)}</p>
-        <a
-          href={linkUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="mt-3 inline-flex h-9 items-center gap-1.5 rounded-lg border border-brand-200 bg-surface px-3 text-xs font-medium text-brand-700 transition-colors hover:border-accent"
-        >
-          {linkLabel}
-          <ExternalLink className="h-3.5 w-3.5" strokeWidth={1.75} aria-hidden />
-        </a>
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          <p className="text-sm leading-relaxed text-brand-800">{highlightNumbers(action)}</p>
+          <a
+            href={linkUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex h-11 flex-none items-center justify-center gap-1.5 rounded-lg bg-primary px-5 text-sm font-semibold text-primary-foreground shadow-sm transition-colors hover:bg-brand-700 sm:ml-4"
+          >
+            {linkLabel}
+            <ExternalLink className="h-4 w-4" strokeWidth={1.75} aria-hidden />
+          </a>
+        </div>
       </div>
     </div>
   );

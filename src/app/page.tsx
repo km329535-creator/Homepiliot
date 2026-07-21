@@ -94,65 +94,70 @@ export default async function Home() {
             </h2>
           </div>
 
-          <ScrollReveal className="glass mx-auto w-full max-w-3xl rounded-[24px] p-5 text-left sm:p-8">
-            <div className="grid grid-cols-3 gap-2.5 sm:gap-4">
-              <div className="rounded-2xl border border-border bg-surface p-3 text-center sm:p-5">
-                <p className="text-[11px] text-muted-foreground sm:text-xs">
-                  첫 집 준비도
-                </p>
-                <div className="mt-2 flex justify-center sm:mt-4">
-                  <ScoreRing score={82} size={64} color="var(--brand-600)" />
+          <ScrollReveal className="mx-auto w-full max-w-3xl rounded-[24px] border border-border bg-surface p-5 text-left shadow-xl sm:p-8">
+            {/* 히어로: 첫 집 준비도 */}
+            <div className="rounded-2xl border border-border bg-surface-muted/40 p-4 sm:p-6">
+              <p className="text-xs font-medium text-muted-foreground sm:text-sm">
+                첫 집 준비도
+              </p>
+              <div className="mt-3 flex items-center gap-4 sm:mt-4">
+                <ScoreRing score={82} size={72} color="var(--positive)" />
+                <div>
+                  <p className="flex items-baseline gap-1.5">
+                    <span className="text-3xl font-extrabold tracking-tight text-positive sm:text-4xl">
+                      82
+                    </span>
+                    <span className="text-xs font-semibold text-subtle-foreground sm:text-sm">
+                      / 100점
+                    </span>
+                  </p>
+                  <p className="mt-1 text-xs font-semibold text-positive sm:text-sm">양호해요! 👍</p>
                 </div>
-                <p className="mt-2 text-xs font-semibold text-brand-600 sm:mt-4 sm:text-sm">
-                  양호해요! 👍
-                </p>
-                <p className="mt-1 text-[10px] text-subtle-foreground sm:text-xs">
-                  평균 대비 상위 35%
-                </p>
               </div>
+              <div className="mt-4 h-1.5 w-full overflow-hidden rounded-full bg-surface">
+                <div className="h-full w-[82%] rounded-full bg-positive" />
+              </div>
+            </div>
 
-              <div className="rounded-2xl border border-border bg-surface p-3 text-center sm:p-5">
+            {/* 보조 카드 2단 */}
+            <div className="mt-3 grid grid-cols-2 gap-3 sm:mt-4 sm:gap-4">
+              <div className="rounded-2xl border border-border bg-surface-muted/40 p-3 text-center sm:p-5">
                 <p className="text-[11px] text-muted-foreground sm:text-xs">
                   추천 혜택
                 </p>
-                <p className="mt-2 text-2xl font-bold text-brand-600 sm:mt-4 sm:text-4xl">
+                <p className="mt-2 text-2xl font-bold text-brand-600 sm:mt-3 sm:text-3xl">
                   3<span className="text-xs font-medium text-muted-foreground sm:text-base">개</span>
                 </p>
-                <p className="mt-1 text-[10px] text-subtle-foreground sm:text-xs">
-                  맞춤 정책 추천
-                </p>
-                <div className="mt-2 flex justify-center gap-1.5 sm:mt-4 sm:gap-2">
-                  <span className="flex h-6 w-6 items-center justify-center rounded-full bg-brand-100 sm:h-8 sm:w-8">
-                    <HomeIcon className="h-3 w-3 text-brand-600 sm:h-4 sm:w-4" strokeWidth={1.75} aria-hidden />
+                <div className="mt-2 flex justify-center gap-1.5 sm:mt-3">
+                  <span className="flex h-6 w-6 items-center justify-center rounded-full bg-brand-100 sm:h-7 sm:w-7">
+                    <HomeIcon className="h-3 w-3 text-brand-600 sm:h-3.5 sm:w-3.5" strokeWidth={1.75} aria-hidden />
                   </span>
-                  <span className="flex h-6 w-6 items-center justify-center rounded-full bg-brand-100 sm:h-8 sm:w-8">
-                    <Landmark className="h-3 w-3 text-brand-600 sm:h-4 sm:w-4" strokeWidth={1.75} aria-hidden />
+                  <span className="flex h-6 w-6 items-center justify-center rounded-full bg-brand-100 sm:h-7 sm:w-7">
+                    <Landmark className="h-3 w-3 text-brand-600 sm:h-3.5 sm:w-3.5" strokeWidth={1.75} aria-hidden />
                   </span>
-                  <span className="flex h-6 w-6 items-center justify-center rounded-full bg-brand-100 sm:h-8 sm:w-8">
-                    <PiggyBank className="h-3 w-3 text-brand-600 sm:h-4 sm:w-4" strokeWidth={1.75} aria-hidden />
+                  <span className="flex h-6 w-6 items-center justify-center rounded-full bg-brand-100 sm:h-7 sm:w-7">
+                    <PiggyBank className="h-3 w-3 text-brand-600 sm:h-3.5 sm:w-3.5" strokeWidth={1.75} aria-hidden />
                   </span>
                 </div>
               </div>
 
-              <div className="rounded-2xl border border-border bg-surface p-3 text-center sm:p-5">
+              <div className="rounded-2xl border border-border bg-surface-muted/40 p-3 text-center sm:p-5">
                 <p className="text-[11px] text-muted-foreground sm:text-xs">
                   다음 스텝
                 </p>
-                <p className="mt-2 text-2xl font-bold text-brand-600 sm:mt-4 sm:text-4xl">
+                <p className="mt-2 text-2xl font-bold text-brand-600 sm:mt-3 sm:text-3xl">
                   4<span className="text-xs font-medium text-muted-foreground sm:text-base">단계</span>
                 </p>
-                <p className="mt-1 text-[10px] text-subtle-foreground sm:text-xs">
-                  맞춤 로드맵 제공
-                </p>
-                <div className="mt-2 flex justify-center sm:mt-4">
-                  <span className="flex h-6 w-6 items-center justify-center rounded-full bg-brand-100 sm:h-8 sm:w-8">
-                    <ListChecks className="h-3 w-3 text-brand-600 sm:h-4 sm:w-4" strokeWidth={1.75} aria-hidden />
+                <div className="mt-2 flex justify-center sm:mt-3">
+                  <span className="flex h-6 w-6 items-center justify-center rounded-full bg-brand-100 sm:h-7 sm:w-7">
+                    <ListChecks className="h-3 w-3 text-brand-600 sm:h-3.5 sm:w-3.5" strokeWidth={1.75} aria-hidden />
                   </span>
                 </div>
               </div>
             </div>
 
-            <div className="mt-4 rounded-2xl bg-surface-muted p-4 sm:mt-6 sm:p-5">
+            {/* 분석 요약 */}
+            <div className="mt-3 rounded-2xl bg-brand-50 p-4 sm:mt-4 sm:p-5">
               <p className="mb-2 flex items-center gap-1.5 text-xs font-semibold text-brand-700 sm:mb-3 sm:text-sm">
                 <Sparkles className="h-3.5 w-3.5" strokeWidth={1.75} aria-hidden />
                 분석 요약

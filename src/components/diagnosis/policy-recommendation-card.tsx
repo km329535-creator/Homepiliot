@@ -28,14 +28,14 @@ export default function PolicyRecommendationCard({
   return (
     <div className="flex h-full flex-col rounded-2xl border border-border bg-surface p-5">
       <Badge tone={STATUS_TONE[policy.status]} size="md">{STATUS_LABEL[policy.status]}</Badge>
-      <h3 className="mt-3 text-base font-semibold text-foreground">{policy.title}</h3>
+      <h3 className="mt-3 break-keep text-base font-semibold text-foreground">{policy.title}</h3>
 
       <p className="mt-3 text-xs font-semibold uppercase tracking-wide text-subtle-foreground">
         추천 이유
       </p>
       <ul className="mt-1.5 space-y-1.5">
         {policy.reasons.map((reason) => (
-          <li key={reason} className="flex items-start gap-1.5 text-sm text-muted-foreground">
+          <li key={reason} className="flex items-start gap-1.5 break-keep text-sm text-muted-foreground">
             <span className="mt-0.5 text-accent">·</span>
             {highlightNumbers(reason, "accent")}
           </li>
@@ -47,12 +47,14 @@ export default function PolicyRecommendationCard({
       </p>
       <ul className="mt-1.5 space-y-1.5">
         {policy.checks.map((check) => (
-          <li key={check} className="flex items-start gap-1.5 text-sm text-muted-foreground">
+          <li key={check} className="flex items-start gap-1.5 break-keep text-sm text-muted-foreground">
             <span className="mt-0.5 text-warning">·</span>
             {highlightNumbers(check, "warning")}
           </li>
         ))}
       </ul>
+
+      <div className="flex-1" />
 
       <button
         type="button"
@@ -69,7 +71,7 @@ export default function PolicyRecommendationCard({
 
       {open && (
         <div className="mt-3 rounded-xl bg-brand-50 p-3">
-          <p className="flex items-start gap-1.5 text-sm leading-relaxed text-brand-800">
+          <p className="flex items-start gap-1.5 break-keep text-sm leading-relaxed text-brand-800">
             <Lightbulb className="mt-0.5 h-4 w-4 flex-none" strokeWidth={1.75} aria-hidden />
             {highlightNumbers(policy.nextStep)}
           </p>

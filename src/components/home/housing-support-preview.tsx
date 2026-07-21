@@ -34,7 +34,7 @@ export default function HousingSupportPreview() {
         </div>
 
         <div className="mt-10 flex justify-center">
-          <ButtonLink href="/guide" variant="secondary">
+          <ButtonLink href="/guide" variant="secondary" size="lg" className="px-8 text-base">
             신혼부부 주거 가이드 전체 보기
           </ButtonLink>
         </div>

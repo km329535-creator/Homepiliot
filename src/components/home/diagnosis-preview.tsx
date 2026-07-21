@@ -45,13 +45,13 @@ export default function DiagnosisPreview() {
               delay={i * 100}
               className="rounded-2xl border border-border bg-surface p-6 transition-shadow hover:shadow-md"
             >
-              <span className="flex h-10 w-10 items-center justify-center rounded-full bg-brand-100">
-                <item.icon className="h-5 w-5 text-brand-600" strokeWidth={1.75} aria-hidden />
+              <span className="flex h-11 w-11 items-center justify-center rounded-full bg-brand-100">
+                <item.icon className="h-6 w-6 text-brand-600" strokeWidth={1.75} aria-hidden />
               </span>
-              <h3 className="mt-4 text-sm font-semibold text-foreground">
+              <h3 className="mt-4 text-base font-bold text-foreground">
                 {item.title}
               </h3>
-              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+              <p className="mt-2 text-base leading-relaxed text-muted-foreground">
                 {item.description}
               </p>
             </ScrollReveal>
@@ -61,9 +61,9 @@ export default function DiagnosisPreview() {
         <div className="mt-12 flex justify-center">
           <Link
             href="/diagnosis"
-            className="inline-flex h-12 items-center justify-center gap-2 rounded-xl bg-primary px-6 text-sm font-medium text-primary-foreground transition-colors hover:bg-brand-700"
+            className="inline-flex h-14 items-center justify-center gap-2 rounded-xl bg-primary px-8 text-base font-semibold text-primary-foreground shadow-lg shadow-brand-600/20 transition-colors hover:bg-brand-700"
           >
-            무료 진단 시작하기
+            진단 시작하기
           </Link>
         </div>
       </div>

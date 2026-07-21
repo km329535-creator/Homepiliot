@@ -21,38 +21,44 @@ const ShareableResultCard = forwardRef<
     <div
       ref={ref}
       aria-hidden
-      className="pointer-events-none fixed left-[-9999px] top-0 flex w-[420px] flex-col items-center bg-gradient-to-b from-brand-50 to-white px-8 py-10 text-center"
+      className="pointer-events-none fixed left-[-9999px] top-0 w-[420px] overflow-hidden bg-gradient-to-b from-brand-50 via-white to-white"
     >
-      <div className="flex items-center gap-2">
-        <Logo size={32} />
-        <span className="text-base font-bold tracking-tight text-foreground">HomePilot</span>
-      </div>
+      <div className="pointer-events-none absolute -right-16 -top-20 h-56 w-56 rounded-full bg-brand-100/70 blur-3xl" />
+      <div className="pointer-events-none absolute -bottom-20 -left-16 h-48 w-48 rounded-full bg-brand-100/60 blur-3xl" />
 
-      <p className="mt-8 text-sm font-medium text-muted-foreground">우리 부부의 첫 집 준비도</p>
+      <div className="relative flex flex-col items-center px-9 py-11 text-center">
+        <div className="flex items-center gap-2">
+          <Logo size={34} />
+          <span className="text-lg font-bold tracking-tight text-foreground">HomePilot</span>
+        </div>
 
-      <div className="mt-6">
-        <ScoreRing score={score} size={180} color={TONE_CSS_VAR[tone]} />
-      </div>
+        <Badge tone="neutral" size="sm" className="mt-7">
+          우리 부부의 첫 집 준비도
+        </Badge>
 
-      <Badge tone={tone} size="md" className="mt-6">
-        {tier}
-      </Badge>
+        <div className="mt-6 drop-shadow-sm">
+          <ScoreRing score={score} size={188} color={TONE_CSS_VAR[tone]} />
+        </div>
 
-      <p className="mt-4 max-w-[320px] text-base leading-relaxed text-foreground">
-        {tierSummary}
-      </p>
+        <Badge tone={tone} size="md" className="mt-6">
+          {tier}
+        </Badge>
 
-      <div className="mt-8 w-full rounded-2xl border border-border bg-white p-4 shadow-sm">
-        <p className="flex items-center justify-center gap-1.5 text-xs font-medium text-muted-foreground">
-          <Target className="h-3.5 w-3.5" strokeWidth={1.75} aria-hidden />
-          지금 가장 중요한 과제
+        <p className="mt-4 max-w-[320px] text-base leading-relaxed text-foreground">
+          {tierSummary}
         </p>
-        <p className="mt-1.5 text-base font-bold text-foreground">{priorityTask}</p>
-      </div>
 
-      <div className="mt-8 flex items-center gap-1.5 text-xs text-subtle-foreground">
-        <Logo size={16} />
-        HomePilot에서 무료로 진단해보세요
+        <div className="mt-8 w-full rounded-2xl border border-border bg-white/90 p-5 text-left shadow-[0_8px_24px_-8px_rgba(26,51,108,0.16)]">
+          <div className="flex items-center gap-2">
+            <span className="flex h-8 w-8 flex-none items-center justify-center rounded-full bg-brand-100 text-brand-700">
+              <Target className="h-4 w-4" strokeWidth={1.75} aria-hidden />
+            </span>
+            <p className="text-xs font-semibold uppercase tracking-wide text-subtle-foreground">
+              지금 가장 중요한 과제
+            </p>
+          </div>
+          <p className="mt-2.5 text-lg font-bold leading-snug text-foreground">{priorityTask}</p>
+        </div>
       </div>
     </div>
   );
