@@ -31,6 +31,12 @@ export default function ReadinessScoreCard({
           )}
         </div>
       </div>
+      <div className="mt-4 h-1.5 w-full overflow-hidden rounded-full bg-surface-muted">
+        <div
+          className="h-full rounded-full bg-primary transition-all"
+          style={{ width: `${Math.min(100, Math.max(0, score))}%` }}
+        />
+      </div>
       <div className="mt-4 flex-1 rounded-xl bg-surface-muted p-3">
         <p className="text-sm leading-relaxed text-muted-foreground">
           {tierSummary} 입력 조건을 바탕으로 한 참고 지표예요.

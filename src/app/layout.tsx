@@ -4,6 +4,7 @@ import Navbar from "@/components/layout/navbar";
 import Footer from "@/components/layout/footer";
 import MixpanelProvider from "@/components/analytics/mixpanel-provider";
 import FeedbackModal from "@/components/feedback/feedback-modal";
+import FeedbackFloatingButton from "@/components/feedback/feedback-floating-button";
 import { FavoritesProvider } from "@/lib/favorites-context";
 import { FeedbackProvider } from "@/lib/feedback-context";
 
@@ -37,6 +38,7 @@ export default function RootLayout({
             <main className="flex-1 flex flex-col">{children}</main>
             <Footer />
             <FeedbackModal />
+            <FeedbackFloatingButton />
           </FeedbackProvider>
         </FavoritesProvider>
       </body>

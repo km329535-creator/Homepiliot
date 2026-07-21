@@ -1,12 +1,12 @@
+import Logo from "@/components/ui/logo";
+
 export default function Footer() {
   return (
     <footer className="border-t border-border">
       <div className="mx-auto w-full max-w-6xl px-6 py-10 text-sm text-muted-foreground">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex items-center gap-2">
-            <span className="flex h-6 w-6 items-center justify-center rounded-md bg-primary text-[11px] font-bold text-primary-foreground">
-              H
-            </span>
+            <Logo size={24} />
             <span className="font-semibold text-foreground">HomePilot</span>
           </div>
           <p className="text-xs leading-relaxed sm:text-right">
