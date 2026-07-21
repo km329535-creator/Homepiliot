@@ -2,6 +2,7 @@ import { Gauge } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import ScoreRing from "./score-ring";
 import type { ReadinessTier } from "@/lib/diagnosis";
+import { highlightNumbers } from "@/lib/highlight-text";
 
 export default function ReadinessScoreCard({
   score,
@@ -29,7 +30,7 @@ export default function ReadinessScoreCard({
       </div>
       <div className="mt-4 flex-1 rounded-xl bg-surface-muted p-3">
         <p className="text-sm leading-relaxed text-muted-foreground">
-          {tierSummary} 입력 조건을 바탕으로 한 참고 지표예요.
+          {highlightNumbers(tierSummary)} 입력 조건을 바탕으로 한 참고 지표예요.
         </p>
       </div>
     </div>

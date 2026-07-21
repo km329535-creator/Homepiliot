@@ -1,5 +1,6 @@
 import type { RoadmapStatusTag, RoadmapStep } from "@/lib/diagnosis";
 import { Badge } from "@/components/ui/badge";
+import { highlightNumbers } from "@/lib/highlight-text";
 
 const STATUS_TONE: Record<RoadmapStatusTag, "positive" | "accent" | "neutral"> = {
   "지금": "positive",
@@ -27,7 +28,7 @@ export default function ActionRoadmap({ roadmap }: { roadmap: RoadmapStep[] }) {
                 <Badge tone={STATUS_TONE[step.statusTag]} size="md">{step.statusTag}</Badge>
               </div>
               <p className="mt-1 text-base leading-relaxed text-foreground">
-                {step.title}
+                {highlightNumbers(step.title)}
               </p>
             </div>
           </li>

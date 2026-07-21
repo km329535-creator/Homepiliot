@@ -1,4 +1,5 @@
 import type { StrategyStep } from "@/lib/diagnosis";
+import { highlightNumbers } from "@/lib/highlight-text";
 
 export default function StrategySteps({ steps }: { steps: StrategyStep[] }) {
   return (
@@ -17,7 +18,7 @@ export default function StrategySteps({ steps }: { steps: StrategyStep[] }) {
               {step.title}
             </p>
             <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">
-              {step.description}
+              {highlightNumbers(step.description)}
             </p>
           </div>
         ))}

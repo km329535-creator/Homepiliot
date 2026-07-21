@@ -1,6 +1,7 @@
 import { ClipboardList } from "lucide-react";
 import type { RoadmapStep } from "@/lib/diagnosis";
 import { Badge } from "@/components/ui/badge";
+import { highlightNumbers } from "@/lib/highlight-text";
 
 export default function NextActionCard({ roadmap }: { roadmap: RoadmapStep[] }) {
   const first = roadmap[0];
@@ -28,13 +29,13 @@ export default function NextActionCard({ roadmap }: { roadmap: RoadmapStep[] }) 
               <Badge tone="accent">{first.timeframe}</Badge>
             </div>
             <p className="mt-1.5 text-sm leading-relaxed text-foreground">
-              {first.title}
+              {highlightNumbers(first.title)}
             </p>
           </div>
         )}
         {next && (
           <p className="text-sm leading-relaxed text-subtle-foreground">
-            다음: {next.title}
+            다음: {highlightNumbers(next.title)}
           </p>
         )}
       </div>

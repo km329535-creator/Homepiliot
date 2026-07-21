@@ -4,6 +4,7 @@ import { useState } from "react";
 import { ChevronDown, Lightbulb } from "lucide-react";
 import type { PolicyStatus, RecommendedPolicy } from "@/lib/diagnosis";
 import { Badge } from "@/components/ui/badge";
+import { highlightNumbers } from "@/lib/highlight-text";
 
 const STATUS_LABEL: Record<PolicyStatus, string> = {
   priority: "우선 검토",
@@ -36,7 +37,7 @@ export default function PolicyRecommendationCard({
         {policy.reasons.map((reason) => (
           <li key={reason} className="flex items-start gap-1.5 text-sm text-muted-foreground">
             <span className="mt-0.5 text-accent">·</span>
-            {reason}
+            {highlightNumbers(reason)}
           </li>
         ))}
       </ul>
@@ -48,7 +49,7 @@ export default function PolicyRecommendationCard({
         {policy.checks.map((check) => (
           <li key={check} className="flex items-start gap-1.5 text-sm text-muted-foreground">
             <span className="mt-0.5 text-warning">·</span>
-            {check}
+            {highlightNumbers(check)}
           </li>
         ))}
       </ul>
@@ -70,7 +71,7 @@ export default function PolicyRecommendationCard({
         <div className="mt-3 rounded-xl bg-brand-50 p-3">
           <p className="flex items-start gap-1.5 text-sm leading-relaxed text-brand-800">
             <Lightbulb className="mt-0.5 h-4 w-4 flex-none" strokeWidth={1.75} aria-hidden />
-            {policy.nextStep}
+            {highlightNumbers(policy.nextStep)}
           </p>
         </div>
       )}

@@ -1,4 +1,6 @@
 import type { ScenarioCard } from "@/lib/diagnosis";
+import { Badge } from "@/components/ui/badge";
+import { highlightNumbers } from "@/lib/highlight-text";
 
 function ScenarioCardView({
   title,
@@ -15,12 +17,15 @@ function ScenarioCardView({
         emphasis ? "border-accent/30 bg-accent/[0.04]" : "border-border bg-surface"
       }`}
     >
-      <h3 className="text-base font-semibold text-foreground">{title}</h3>
+      <Badge tone={emphasis ? "accent" : "neutral"} size="sm" className="mb-2">
+        {emphasis ? "대안 시나리오" : "현재 계획"}
+      </Badge>
+      <h3 className="text-lg font-bold tracking-tight text-foreground">{title}</h3>
       <ul className="mt-3 space-y-2">
         {bullets.map((bullet) => (
           <li key={bullet} className="flex items-start gap-1.5 text-sm text-muted-foreground">
             <span className="mt-0.5 text-accent">·</span>
-            {bullet}
+            {highlightNumbers(bullet)}
           </li>
         ))}
       </ul>

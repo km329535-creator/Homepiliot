@@ -1,5 +1,6 @@
 import { CheckCircle2, TriangleAlert } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import { highlightNumbers } from "@/lib/highlight-text";
 
 export default function CurrentStateAnalysis({
   good,
@@ -20,7 +21,7 @@ export default function CurrentStateAnalysis({
             {good.map((item) => (
               <li key={item} className="flex items-start gap-2 text-base text-muted-foreground">
                 <CheckCircle2 className="mt-0.5 h-5 w-5 flex-none text-positive" strokeWidth={1.75} aria-hidden />
-                {item}
+                {highlightNumbers(item)}
               </li>
             ))}
           </ul>
@@ -33,7 +34,7 @@ export default function CurrentStateAnalysis({
             {gaps.map((item) => (
               <li key={item} className="flex items-start gap-2 text-base text-muted-foreground">
                 <TriangleAlert className="mt-0.5 h-5 w-5 flex-none text-warning" strokeWidth={1.75} aria-hidden />
-                {item}
+                {highlightNumbers(item)}
               </li>
             ))}
           </ul>

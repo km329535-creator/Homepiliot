@@ -1,5 +1,6 @@
 import { Target } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import { highlightNumbers } from "@/lib/highlight-text";
 
 export default function PriorityTaskCard({
   task,
@@ -23,7 +24,7 @@ export default function PriorityTaskCard({
       </div>
       <div className="mt-4 flex-1 rounded-xl bg-surface-muted p-3">
         <p className="text-sm leading-relaxed text-muted-foreground">
-          {description}
+          {highlightNumbers(description)}
         </p>
       </div>
     </div>
