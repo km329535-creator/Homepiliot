@@ -10,7 +10,7 @@ export default function BottomCta() {
             우리 부부, 지금부터 뭐부터 준비하면 될까요?
           </h2>
           <p className="mt-4 max-w-xl text-sm leading-relaxed text-primary-foreground/80 sm:text-lg">
-            5개 질문에 답하면 AI가 지금 상황에 맞는 준비도와 다음 단계를
+            5개 질문에 답하면 지금 상황에 맞는 준비도와 다음 단계를
             알려드려요.
           </p>
 

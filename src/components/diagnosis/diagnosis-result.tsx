@@ -37,7 +37,11 @@ export default function DiagnosisResultView({
   return (
     <div className="w-full">
       <div className="mx-auto w-full max-w-[1280px] px-5 py-10 sm:px-8 lg:px-10">
-        <ResultHeader analyzedAt={result.analyzedAt} />
+        <ResultHeader
+          shareActions={
+            <ResultShareActions targetRef={shareCardRef} shareText={shareText} />
+          }
+        />
 
         <ShareableResultCard
           ref={shareCardRef}
@@ -46,11 +50,6 @@ export default function DiagnosisResultView({
           tierSummary={result.readinessTierSummary}
           priorityTask={result.priorityTask}
         />
-
-        {/* 공유 및 저장 */}
-        <div className="mt-5">
-          <ResultShareActions targetRef={shareCardRef} shareText={shareText} />
-        </div>
 
         <div className="mt-6">
           <InputConditionChips answers={result.answers} />

@@ -65,11 +65,20 @@ export default function ResultShareActions({
   }
 
   return (
-    <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row">
+    <div className="flex w-full flex-col-reverse gap-2.5 sm:w-auto sm:flex-row">
+      <button
+        type="button"
+        onClick={handleSaveImage}
+        disabled={saving}
+        className="inline-flex h-11 items-center justify-center gap-1.5 rounded-xl border border-accent/30 bg-accent/10 px-5 text-sm font-semibold text-accent transition-colors hover:border-accent hover:bg-accent/15 disabled:opacity-60"
+      >
+        <Download className="h-4 w-4" strokeWidth={1.75} aria-hidden />
+        {saving ? "이미지 생성 중..." : "이미지로 저장"}
+      </button>
       <button
         type="button"
         onClick={handleShare}
-        className="inline-flex h-12 items-center justify-center gap-2 rounded-xl border border-border bg-surface px-6 text-sm font-medium text-foreground transition-colors hover:border-accent hover:text-accent"
+        className="inline-flex h-11 items-center justify-center gap-1.5 rounded-xl bg-primary px-5 text-sm font-semibold text-primary-foreground shadow-sm transition-colors hover:bg-brand-700"
       >
         {copied ? (
           <Check className="h-4 w-4" strokeWidth={1.75} aria-hidden />
@@ -77,15 +86,6 @@ export default function ResultShareActions({
           <Share2 className="h-4 w-4" strokeWidth={1.75} aria-hidden />
         )}
         {copied ? "링크를 복사했어요" : "결과 공유하기"}
-      </button>
-      <button
-        type="button"
-        onClick={handleSaveImage}
-        disabled={saving}
-        className="inline-flex h-12 items-center justify-center gap-2 rounded-xl border border-border bg-surface px-6 text-sm font-medium text-foreground transition-colors hover:border-accent hover:text-accent disabled:opacity-60"
-      >
-        <Download className="h-4 w-4" strokeWidth={1.75} aria-hidden />
-        {saving ? "이미지 생성 중..." : "이미지로 저장"}
       </button>
     </div>
   );
