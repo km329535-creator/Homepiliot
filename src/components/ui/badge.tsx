@@ -1,7 +1,7 @@
 import type { LucideIcon } from "lucide-react";
 import type { ReactNode } from "react";
 
-type Tone = "neutral" | "accent" | "positive" | "negative" | "warning" | "info";
+type Tone = "neutral" | "accent" | "positive" | "negative" | "warning" | "info" | "violet";
 type Size = "sm" | "md";
 
 const toneClasses: Record<Tone, string> = {
@@ -11,6 +11,7 @@ const toneClasses: Record<Tone, string> = {
   negative: "bg-negative/10 text-negative",
   warning: "bg-warning/10 text-warning",
   info: "bg-info/10 text-info",
+  violet: "bg-violet-100 text-violet-600",
 };
 
 const sizeClasses: Record<Size, string> = {

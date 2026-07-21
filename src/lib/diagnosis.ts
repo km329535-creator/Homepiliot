@@ -74,8 +74,10 @@ export type ScenarioCard = {
 export type DiagnosisResult = {
   readinessScore: number; // 0~100
   readinessTier: ReadinessTier;
-  scoreDelta: number | null;
   executiveSummary: string;
+  executiveSummaryAction: string;
+  executiveSummaryLinkLabel: string;
+  executiveSummaryLinkUrl: string;
   priorityTask: string;
   priorityTaskDescription: string;
   readinessTierSummary: string;
@@ -89,9 +91,6 @@ export type DiagnosisResult = {
   topConcern: TopConcern;
   answers: DiagnosisAnswers;
   analyzedAt: string; // ISO date
-  targetFundsManwon: number;
-  currentFundsManwon: number;
-  additionalFundsNeededManwon: number;
 };
 
 const SAVINGS_MIDPOINT_MANWON: Record<SavingsRange, number> = {
@@ -426,6 +425,36 @@ const PRIORITY_TASK_DESCRIPTIONS: Record<string, string> = {
     "소득·자산 기준을 먼저 확인하면 이용 가능한 정책 범위를 좁힐 수 있어요.",
 };
 
+const PRIORITY_ACTION_GUIDE: Record<
+  string,
+  { action: string; linkLabel: string; linkUrl: string }
+> = {
+  "초기 필요 자금 구체화": {
+    action:
+      "마이홈포털에서 신혼부부 지원 정책과 목표 자금 기준을 확인하고, 통장 잔액증명서 등 보유 자산 증빙 서류를 준비해두세요.",
+    linkLabel: "마이홈포털에서 확인하기",
+    linkUrl: "https://www.myhome.go.kr",
+  },
+  "전세·매매 방향 결정": {
+    action:
+      "마이홈포털에서 전세·매매별 지원 조건을 비교해보고, 방향이 정해지면 계약 형태에 맞는 서류를 준비하면 돼요.",
+    linkLabel: "마이홈포털에서 확인하기",
+    linkUrl: "https://www.myhome.go.kr",
+  },
+  "청약통장 조건 확인": {
+    action:
+      "청약홈에서 가입 기간과 예상 가점을 확인하고, 청약통장 가입증명서를 미리 준비해두세요.",
+    linkLabel: "청약홈에서 가점 확인하기",
+    linkUrl: "https://www.applyhome.co.kr/ap/apg/selectAddpntCalculatorView.do",
+  },
+  "정책대출 자격 조건 확인": {
+    action:
+      "주택도시기금에서 신혼부부 전세자금 대출 자격을 확인하고, 혼인관계증명서와 소득금액증명원을 준비해두세요.",
+    linkLabel: "주택도시기금에서 확인하기",
+    linkUrl: "https://nhuf.molit.go.kr",
+  },
+};
+
 function buildPriorityTask(
   answers: DiagnosisAnswers,
   score: number,
@@ -472,17 +501,13 @@ function buildExecutiveSummary(
   return `${openings[tier]} ${answers.timeline} 내 결혼을 앞두고 있어 ${priorityTaskTitle}${josa} 우선 과제예요. 지금은 ${firstRoadmapTitle.replace(/하기$/, "")}부터 시작해보세요.`;
 }
 
-export function analyzeDiagnosis(
-  answers: DiagnosisAnswers,
-  previousScore: number | null = null
-): DiagnosisResult {
+export function analyzeDiagnosis(answers: DiagnosisAnswers): DiagnosisResult {
   const funds = SAVINGS_MIDPOINT_MANWON[answers.savings];
   const income = INCOME_MIDPOINT_MANWON[answers.income];
   const targetFunds = targetFundsFor(answers.preference);
 
   const readinessScore = computeReadinessScore(funds, income, answers.preference);
   const readinessTier = tierFor(readinessScore);
-  const scoreDelta = previousScore !== null ? readinessScore - previousScore : null;
   const additionalNeeded = Math.max(0, targetFunds - funds);
 
   const readinessGood: string[] = [];
@@ -543,12 +568,15 @@ export function analyzeDiagnosis(
     priorityTask,
     roadmap[0].title
   );
+  const actionGuide = PRIORITY_ACTION_GUIDE[priorityTask];
 
   return {
     readinessScore,
     readinessTier,
-    scoreDelta,
     executiveSummary,
+    executiveSummaryAction: actionGuide.action,
+    executiveSummaryLinkLabel: actionGuide.linkLabel,
+    executiveSummaryLinkUrl: actionGuide.linkUrl,
     priorityTask,
     priorityTaskDescription,
     readinessTierSummary,
@@ -562,8 +590,5 @@ export function analyzeDiagnosis(
     topConcern: answers.concern,
     answers,
     analyzedAt: new Date().toISOString(),
-    targetFundsManwon: targetFunds,
-    currentFundsManwon: funds,
-    additionalFundsNeededManwon: additionalNeeded,
   };
 }

@@ -10,7 +10,6 @@ import AIExecutiveSummary from "./ai-executive-summary";
 import ReadinessScoreCard from "./readiness-score-card";
 import PriorityTaskCard from "./priority-task-card";
 import NextActionCard from "./next-action-card";
-import FundPlanSummary from "./fund-plan-summary";
 import CurrentStateAnalysis from "./current-state-analysis";
 import StrategySteps from "./strategy-steps";
 import ActionRoadmap from "./action-roadmap";
@@ -23,10 +22,8 @@ import SatisfactionRatingPopup from "./satisfaction-rating-popup";
 
 export default function DiagnosisResultView({
   result,
-  onEdit,
 }: {
   result: DiagnosisResult;
-  onEdit: () => void;
 }) {
   const shareCardRef = useRef<HTMLDivElement>(null);
 
@@ -64,7 +61,12 @@ export default function DiagnosisResultView({
         </p>
 
         <div className="mt-6">
-          <AIExecutiveSummary summary={result.executiveSummary} />
+          <AIExecutiveSummary
+            summary={result.executiveSummary}
+            action={result.executiveSummaryAction}
+            linkLabel={result.executiveSummaryLinkLabel}
+            linkUrl={result.executiveSummaryLinkUrl}
+          />
         </div>
 
         {/* 핵심 상태 카드 */}
@@ -73,22 +75,12 @@ export default function DiagnosisResultView({
             score={result.readinessScore}
             tier={result.readinessTier}
             tierSummary={result.readinessTierSummary}
-            scoreDelta={result.scoreDelta}
           />
           <PriorityTaskCard
             task={result.priorityTask}
             description={result.priorityTaskDescription}
           />
           <NextActionCard roadmap={result.roadmap} />
-        </div>
-
-        {/* 예상 자금 계획 요약 */}
-        <div className="mt-4">
-          <FundPlanSummary
-            targetFundsManwon={result.targetFundsManwon}
-            currentFundsManwon={result.currentFundsManwon}
-            additionalFundsNeededManwon={result.additionalFundsNeededManwon}
-          />
         </div>
 
         {/* 현재 상황 분석 */}
@@ -117,7 +109,6 @@ export default function DiagnosisResultView({
           <ScenarioComparison
             currentPlanBullets={result.currentPlanBullets}
             scenarios={result.scenarios}
-            onEdit={onEdit}
           />
         </div>
 

@@ -50,7 +50,7 @@ export default function Home() {
         </div>
 
         <div className="relative z-10 mx-auto flex w-full max-w-6xl flex-col items-center px-6 py-8 text-center sm:py-10">
-          <Badge tone="accent" className="mb-5">
+          <Badge tone="accent" size="md" className="mb-5">
             예비 부부를 위한 로드맵 설계
           </Badge>
           <h1 className="max-w-4xl text-4xl font-bold leading-[1.15] tracking-tight text-foreground sm:text-6xl lg:text-7xl">
@@ -73,7 +73,7 @@ export default function Home() {
             </Link>
           </div>
 
-          <div className="mt-12 flex flex-col items-center gap-1.5 text-subtle-foreground sm:mt-16">
+          <div className="mt-20 flex flex-col items-center gap-1.5 text-subtle-foreground sm:mt-28">
             <p className="text-xs font-medium sm:text-sm">
               스크롤하고 더 알아보기
             </p>

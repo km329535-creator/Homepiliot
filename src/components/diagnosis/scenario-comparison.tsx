@@ -31,24 +31,13 @@ function ScenarioCardView({
 export default function ScenarioComparison({
   currentPlanBullets,
   scenarios,
-  onEdit,
 }: {
   currentPlanBullets: string[];
   scenarios: ScenarioCard[];
-  onEdit: () => void;
 }) {
   return (
     <div className="rounded-2xl border border-border bg-surface p-6">
-      <div className="mb-5 flex items-center justify-between">
-        <h2 className="text-xl font-bold tracking-tight">조건을 바꾸면 어떻게 달라질까요?</h2>
-        <button
-          type="button"
-          onClick={onEdit}
-          className="text-sm font-medium text-accent hover:underline"
-        >
-          조건 바꿔보기
-        </button>
-      </div>
+      <h2 className="mb-5 text-xl font-bold tracking-tight">조건을 바꾸면 어떻게 달라질까요?</h2>
 
       <div className="grid gap-4 sm:grid-cols-3">
         <ScenarioCardView title="현재 계획" bullets={currentPlanBullets} />

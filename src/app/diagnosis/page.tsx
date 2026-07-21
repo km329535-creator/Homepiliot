@@ -8,7 +8,6 @@ import AnalyzingAnimation, {
   ANALYZING_TOTAL_MS,
 } from "@/components/diagnosis/analyzing-animation";
 import { analyzeDiagnosis, type DiagnosisAnswers, type DiagnosisResult } from "@/lib/diagnosis";
-import { getLatestSavedDiagnosis } from "@/lib/diagnosis-store";
 import { trackEvent } from "@/lib/mixpanel";
 
 type Phase = "quiz" | "analyzing" | "result" | "error";
@@ -23,8 +22,7 @@ export default function DiagnosisPage() {
     if (phase !== "analyzing" || !answers) return;
     const timer = setTimeout(() => {
       try {
-        const previous = getLatestSavedDiagnosis();
-        setResult(analyzeDiagnosis(answers, previous?.result.readinessScore ?? null));
+        setResult(analyzeDiagnosis(answers));
         setPhase("result");
       } catch {
         setPhase("error");
@@ -39,12 +37,6 @@ export default function DiagnosisPage() {
     setPhase("analyzing");
   }
 
-  function handleEdit() {
-    trackEvent("Diagnosis Edit Started");
-    setWizardKey((k) => k + 1);
-    setPhase("quiz");
-  }
-
   function handleRestart() {
     trackEvent("Diagnosis Restarted");
     setAnswers(null);
@@ -54,7 +46,7 @@ export default function DiagnosisPage() {
   }
 
   if (phase === "result" && result) {
-    return <DiagnosisResultView result={result} onEdit={handleEdit} />;
+    return <DiagnosisResultView result={result} />;
   }
 
   return (
