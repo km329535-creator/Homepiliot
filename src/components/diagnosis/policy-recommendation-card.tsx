@@ -29,7 +29,9 @@ export default function PolicyRecommendationCard({
       <Badge tone={STATUS_TONE[policy.status]} size="md">{STATUS_LABEL[policy.status]}</Badge>
       <h3 className="mt-3 text-base font-semibold text-foreground">{policy.title}</h3>
 
-      <p className="mt-3 text-sm font-medium text-muted-foreground">추천 이유</p>
+      <p className="mt-3 text-xs font-semibold uppercase tracking-wide text-subtle-foreground">
+        추천 이유
+      </p>
       <ul className="mt-1.5 space-y-1.5">
         {policy.reasons.map((reason) => (
           <li key={reason} className="flex items-start gap-1.5 text-sm text-muted-foreground">
@@ -39,7 +41,9 @@ export default function PolicyRecommendationCard({
         ))}
       </ul>
 
-      <p className="mt-3 text-sm font-medium text-muted-foreground">확인 필요</p>
+      <p className="mt-3 text-xs font-semibold uppercase tracking-wide text-subtle-foreground">
+        확인 필요
+      </p>
       <ul className="mt-1.5 space-y-1.5">
         {policy.checks.map((check) => (
           <li key={check} className="flex items-start gap-1.5 text-sm text-muted-foreground">

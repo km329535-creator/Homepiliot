@@ -1,3 +1,4 @@
+import { Gauge } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import ScoreRing from "./score-ring";
 import type { ReadinessTier } from "@/lib/diagnosis";
@@ -13,7 +14,9 @@ export default function ReadinessScoreCard({
 }) {
   return (
     <div className="flex h-full flex-col rounded-2xl border border-border bg-surface p-5">
-      <p className="text-sm text-muted-foreground">첫 집 준비도</p>
+      <Badge icon={Gauge} tone="neutral" className="self-start">
+        첫 집 준비도
+      </Badge>
       <div className="mt-3 flex items-center gap-4">
         <ScoreRing score={score} />
         <Badge tone="accent">{tier}</Badge>

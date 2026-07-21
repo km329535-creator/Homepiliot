@@ -8,7 +8,9 @@ export default function NextActionCard({ roadmap }: { roadmap: RoadmapStep[] }) 
 
   return (
     <div className="flex h-full flex-col rounded-2xl border border-border bg-surface p-5">
-      <p className="text-sm text-muted-foreground">다음 행동</p>
+      <Badge icon={ClipboardList} tone="neutral" className="self-start">
+        다음 행동
+      </Badge>
       <div className="mt-3 flex items-center gap-3">
         <span className="flex h-10 w-10 flex-none items-center justify-center rounded-full bg-brand-100 text-brand-700">
           <ClipboardList className="h-6 w-6" strokeWidth={1.75} aria-hidden />

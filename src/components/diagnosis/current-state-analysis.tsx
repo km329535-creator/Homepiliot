@@ -1,4 +1,5 @@
 import { CheckCircle2, TriangleAlert } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
 
 export default function CurrentStateAnalysis({
   good,
@@ -12,7 +13,9 @@ export default function CurrentStateAnalysis({
       <h2 className="mb-5 text-xl font-bold tracking-tight">현재 상황 분석</h2>
       <div className="grid gap-6 sm:grid-cols-2">
         <div>
-          <p className="mb-3 text-sm font-semibold text-positive">잘 준비된 부분</p>
+          <Badge icon={CheckCircle2} tone="positive" className="mb-3">
+            잘 준비된 부분
+          </Badge>
           <ul className="space-y-2.5">
             {good.map((item) => (
               <li key={item} className="flex items-start gap-2 text-base text-muted-foreground">
@@ -23,7 +26,9 @@ export default function CurrentStateAnalysis({
           </ul>
         </div>
         <div>
-          <p className="mb-3 text-sm font-semibold text-warning">추가 확인이 필요한 부분</p>
+          <Badge icon={TriangleAlert} tone="warning" className="mb-3">
+            추가 확인이 필요한 부분
+          </Badge>
           <ul className="space-y-2.5">
             {gaps.map((item) => (
               <li key={item} className="flex items-start gap-2 text-base text-muted-foreground">

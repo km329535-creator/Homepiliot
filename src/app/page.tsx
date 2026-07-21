@@ -17,8 +17,13 @@ import HousingSupportPreview from "@/components/home/housing-support-preview";
 import BottomCta from "@/components/home/bottom-cta";
 import ScrollReveal from "@/components/ui/scroll-reveal";
 import ScoreRing from "@/components/diagnosis/score-ring";
+import { getCtaClickCount } from "@/lib/cta-clicks";
 
-export default function Home() {
+export const dynamic = "force-dynamic";
+
+export default async function Home() {
+  const initialCtaCount = await getCtaClickCount();
+
   return (
     <div className="flex flex-col">
       <section className="aurora-bg relative flex min-h-[calc(100svh-4rem)] items-center overflow-hidden border-b border-border">
@@ -51,7 +56,7 @@ export default function Home() {
         </div>
 
         <div className="relative z-10 mx-auto flex w-full max-w-6xl flex-col items-center px-6 py-8 text-center sm:py-10">
-          <CtaCountBadge />
+          <CtaCountBadge initialCount={initialCtaCount} />
           <h1 className="max-w-4xl text-4xl font-bold leading-[1.15] tracking-tight text-foreground sm:text-6xl lg:text-7xl">
             우리 부부, 내 집 마련은
             <br />
