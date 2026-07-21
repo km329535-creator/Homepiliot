@@ -35,7 +35,7 @@ export default function DiagnosisResultView({
   const shareText = `우리 부부 첫 집 준비도는 ${result.readinessScore}점(${result.readinessTier})이에요. 지금 가장 중요한 과제는 "${result.priorityTask}"! HomePilot에서 무료로 진단해보세요.`;
 
   return (
-    <div className="aurora-bg w-full">
+    <div className="w-full">
       <div className="mx-auto w-full max-w-[1280px] px-5 py-10 sm:px-8 lg:px-10">
         <ResultHeader analyzedAt={result.analyzedAt} />
 

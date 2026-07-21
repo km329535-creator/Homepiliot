@@ -36,13 +36,13 @@ export default function HowItWorks() {
         {STEPS.map((item, i) => (
           <ScrollReveal key={item.step} delay={i * 100}>
             <div className="h-full rounded-2xl border border-border bg-surface p-6 transition-shadow hover:shadow-md">
-              <span className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-primary text-sm font-bold text-primary-foreground">
+              <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-primary text-base font-bold text-primary-foreground">
                 {item.step}
               </span>
-              <h3 className="mt-4 text-base font-semibold text-foreground">
+              <h3 className="mt-4 text-lg font-bold text-foreground">
                 {item.title}
               </h3>
-              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+              <p className="mt-2 text-base leading-relaxed text-muted-foreground">
                 {item.description}
               </p>
             </div>

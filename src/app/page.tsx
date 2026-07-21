@@ -1,4 +1,3 @@
-import Link from "next/link";
 import {
   Building2,
   ChevronDown,
@@ -8,12 +7,14 @@ import {
   Landmark,
   ListChecks,
   PiggyBank,
+  Sparkles,
 } from "lucide-react";
+import LandingCtaLink from "@/components/home/landing-cta-link";
+import CtaCountBadge from "@/components/home/cta-count-badge";
 import HowItWorks from "@/components/home/how-it-works";
 import DiagnosisPreview from "@/components/home/diagnosis-preview";
 import HousingSupportPreview from "@/components/home/housing-support-preview";
 import BottomCta from "@/components/home/bottom-cta";
-import { Badge } from "@/components/ui/badge";
 import ScrollReveal from "@/components/ui/scroll-reveal";
 import ScoreRing from "@/components/diagnosis/score-ring";
 
@@ -23,36 +24,34 @@ export default function Home() {
       <section className="aurora-bg relative flex min-h-[calc(100svh-4rem)] items-center overflow-hidden border-b border-border">
         <div className="pointer-events-none absolute inset-0" aria-hidden>
           <HomeIcon
-            className="animate-float absolute left-[8%] top-[20%] h-10 w-10 text-brand-300/50 sm:h-14 sm:w-14"
+            className="animate-float absolute left-[3%] top-[15%] h-10 w-10 text-brand-300/50 sm:h-14 sm:w-14"
             strokeWidth={1.5}
             style={{ animationDelay: "0s" }}
           />
           <Heart
-            className="animate-float-alt absolute right-[12%] top-[24%] h-8 w-8 text-brand-300/50 sm:h-10 sm:w-10"
+            className="animate-float-alt absolute right-[4%] top-[18%] h-8 w-8 text-brand-300/50 sm:h-10 sm:w-10"
             strokeWidth={1.5}
             style={{ animationDelay: "1.2s" }}
           />
           <KeyRound
-            className="animate-float-alt absolute left-[14%] bottom-[22%] h-9 w-9 text-brand-300/50 sm:h-12 sm:w-12"
+            className="animate-float-alt absolute left-[4%] bottom-[12%] h-9 w-9 text-brand-300/50 sm:h-12 sm:w-12"
             strokeWidth={1.5}
             style={{ animationDelay: "0.6s" }}
           />
           <PiggyBank
-            className="animate-float absolute right-[10%] bottom-[18%] h-9 w-9 text-brand-300/50 sm:h-12 sm:w-12"
+            className="animate-float absolute right-[3%] bottom-[10%] h-9 w-9 text-brand-300/50 sm:h-12 sm:w-12"
             strokeWidth={1.5}
             style={{ animationDelay: "1.8s" }}
           />
           <Building2
-            className="animate-float absolute left-[46%] top-[12%] hidden h-10 w-10 text-brand-300/40 sm:block"
+            className="animate-float absolute left-[82%] top-[8%] hidden h-10 w-10 text-brand-300/40 sm:block"
             strokeWidth={1.5}
             style={{ animationDelay: "0.9s" }}
           />
         </div>
 
         <div className="relative z-10 mx-auto flex w-full max-w-6xl flex-col items-center px-6 py-8 text-center sm:py-10">
-          <Badge tone="accent" size="md" className="mb-5">
-            예비 부부를 위한 로드맵 설계
-          </Badge>
+          <CtaCountBadge />
           <h1 className="max-w-4xl text-4xl font-bold leading-[1.15] tracking-tight text-foreground sm:text-6xl lg:text-7xl">
             우리 부부, 내 집 마련은
             <br />
@@ -65,12 +64,12 @@ export default function Home() {
           </p>
 
           <div className="mt-7 flex flex-col items-center gap-2">
-            <Link
+            <LandingCtaLink
               href="/diagnosis"
               className="inline-flex h-14 items-center justify-center gap-2 rounded-xl bg-primary px-9 text-lg font-semibold text-primary-foreground shadow-lg shadow-brand-600/20 transition-colors hover:bg-brand-700"
             >
-              3분 무료 진단 시작하기
-            </Link>
+              클릭하고 시작하기
+            </LandingCtaLink>
           </div>
 
           <div className="mt-20 flex flex-col items-center gap-1.5 text-subtle-foreground sm:mt-28">
@@ -149,23 +148,14 @@ export default function Home() {
             </div>
 
             <div className="mt-4 rounded-2xl bg-surface-muted p-4 sm:mt-6 sm:p-5">
-              <p className="mb-2 text-xs font-semibold text-foreground sm:mb-3 sm:text-sm">
-                예상 자금 계획 요약
+              <p className="mb-2 flex items-center gap-1.5 text-xs font-semibold text-brand-700 sm:mb-3 sm:text-sm">
+                <Sparkles className="h-3.5 w-3.5" strokeWidth={1.75} aria-hidden />
+                분석 요약
               </p>
-              <div className="divide-y divide-border">
-                <div className="flex items-center justify-between py-2 text-xs sm:py-2.5 sm:text-sm">
-                  <span className="text-muted-foreground">목표 자금</span>
-                  <span className="font-semibold text-foreground">3억원</span>
-                </div>
-                <div className="flex items-center justify-between py-2 text-xs sm:py-2.5 sm:text-sm">
-                  <span className="text-muted-foreground">현재 보유 자금</span>
-                  <span className="font-semibold text-foreground">8,000만원</span>
-                </div>
-              </div>
-              <div className="mt-2 flex items-center justify-between rounded-xl bg-brand-100 px-3 py-2.5 text-xs sm:text-sm">
-                <span className="font-medium text-foreground">추가로 준비할 자금</span>
-                <span className="font-bold text-brand-700">2억 2,000만원</span>
-              </div>
+              <p className="text-xs leading-relaxed text-foreground sm:text-sm">
+                기본적인 준비는 시작됐지만 아직 보완할 부분이 남아 있어요. 지금은
+                희망 지역의 전월세 시세와 계약 조건 확인부터 시작해보세요.
+              </p>
             </div>
           </ScrollReveal>
         </div>

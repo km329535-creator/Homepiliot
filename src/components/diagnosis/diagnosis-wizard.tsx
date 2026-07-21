@@ -101,13 +101,13 @@ export default function DiagnosisWizard({
 
   return (
     <div className="w-full max-w-xl">
-      <div className="mb-6 h-1.5 w-full overflow-hidden rounded-full bg-surface-muted">
+      <div className="mb-6 h-2 w-full overflow-hidden rounded-full bg-surface-muted">
         <div
           className="h-full rounded-full bg-accent transition-all duration-300"
           style={{ width: `${progress}%` }}
         />
       </div>
-      <p className="mb-2 text-xs font-medium text-muted-foreground">
+      <p className="mb-2 text-sm font-semibold text-accent">
         {stepIndex + 1} / {STEPS.length}
       </p>
 

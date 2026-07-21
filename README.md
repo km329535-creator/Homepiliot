@@ -51,6 +51,37 @@
    위 정책은 익명 사용자의 **저장(insert)만** 허용하고 조회(select)는 막아, 다른 사람이 anon key로 남의 의견을 읽을 수 없게 합니다.
 4. 환경 변수를 설정하지 않으면 "의견 보내기"는 저장 없이 Mixpanel 이벤트로만 기록되며, 제출 UX는 그대로 정상 동작합니다.
 
+### Supabase 설정 (랜딩 실시간 이용자 수 배지)
+
+랜딩 히어로의 "N명의 사용자가 이용했어요" 배지는 실제로 "3분 무료 진단 시작하기" 버튼을 클릭한 횟수를 집계합니다. 위 `feedback` 테이블 설정에 이어서 아래 스키마도 SQL Editor에서 실행하세요.
+
+```sql
+create table public.cta_clicks (
+  id bigint generated always as identity primary key,
+  created_at timestamptz not null default now()
+);
+
+alter table public.cta_clicks enable row level security;
+
+create policy "Allow public insert"
+  on public.cta_clicks
+  for insert
+  to anon
+  with check (true);
+
+create policy "Allow public read count"
+  on public.cta_clicks
+  for select
+  to anon
+  using (true);
+
+alter publication supabase_realtime add table public.cta_clicks;
+```
+
+- insert 정책은 클릭 기록 저장을, select 정책은 배지에 표시할 집계 수 조회를 허용합니다(개별 행에는 클릭 시각 외 다른 정보가 없어 조회를 허용해도 안전합니다).
+- 마지막 줄은 다른 사용자의 클릭도 배지에 실시간으로 반영되도록 Realtime 복제를 켭니다.
+- 환경 변수 미설정 시 배지는 기존 "예비 부부를 위한 로드맵 설계" 문구로 자동 대체됩니다.
+
 ## 폴더 구조
 
 ```
