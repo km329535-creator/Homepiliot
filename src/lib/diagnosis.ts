@@ -69,6 +69,8 @@ export type ScenarioCard = {
   title: string;
   isCurrent: boolean;
   bullets: string[];
+  /** 현재 준비도 대비 점수 변화. 왼쪽(비추천)/오른쪽(추천) 배치를 결정한다. */
+  delta: number;
 };
 
 export type DiagnosisResult = {
@@ -355,6 +357,7 @@ function buildScenarios(answers: DiagnosisAnswers): ScenarioCard[] {
         ? "주거 안정성과 계약 조건은 별도로 확인이 필요해요."
         : "정책대출 활용 여부를 함께 확인해보세요.",
     ],
+    delta: altDelta,
   };
 
   const nextSavings = NEXT_SAVINGS_TIER[answers.savings];
@@ -374,6 +377,7 @@ function buildScenarios(answers: DiagnosisAnswers): ScenarioCard[] {
         "선택 가능한 자금 전략이 넓어져요.",
         "대출 의존도가 낮아져 월 상환 부담이 줄어들 수 있어요.",
       ],
+      delta: bDelta,
     };
   } else if (nextIncome) {
     const bScore = computeReadinessScore(funds, INCOME_MIDPOINT_MANWON[nextIncome], answers.preference);
@@ -387,6 +391,7 @@ function buildScenarios(answers: DiagnosisAnswers): ScenarioCard[] {
         "정책대출 활용 폭이 넓어질 수 있어요.",
         "다만 특별공급 등 일부 정책은 소득 기준을 초과할 수 있어요.",
       ],
+      delta: bDelta,
     };
   } else {
     scenarioB = {
@@ -397,6 +402,7 @@ function buildScenarios(answers: DiagnosisAnswers): ScenarioCard[] {
         "자금·소득 모두 상위 구간에 해당해요.",
         "이제는 지역·단지 선정에 집중해볼 시점이에요.",
       ],
+      delta: 100,
     };
   }
 

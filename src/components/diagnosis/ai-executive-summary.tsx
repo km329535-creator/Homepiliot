@@ -18,7 +18,7 @@ export default function AIExecutiveSummary({
       <Badge icon={Sparkles} tone="accent" className="mb-3">
         분석 요약
       </Badge>
-      <p className="text-lg font-bold leading-snug tracking-tight text-foreground sm:text-2xl">
+      <p className="text-base font-bold leading-snug tracking-tight text-foreground sm:text-xl">
         {highlightNumbers(summary)}
       </p>
 

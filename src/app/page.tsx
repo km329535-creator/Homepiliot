@@ -4,7 +4,6 @@ import {
   Heart,
   Home as HomeIcon,
   KeyRound,
-  Landmark,
   PiggyBank,
   Sparkles,
 } from "lucide-react";
@@ -110,7 +109,7 @@ export default async function Home() {
                       / 100점
                     </span>
                   </p>
-                  <p className="mt-1 text-xs font-semibold text-positive sm:text-sm">양호해요! 👍</p>
+                  <p className="mt-1 text-xs font-semibold text-positive sm:text-sm">양호해요!</p>
                 </div>
               </div>
               <div className="mt-4 h-1.5 w-full overflow-hidden rounded-full bg-surface">
@@ -127,17 +126,6 @@ export default async function Home() {
                 <p className="mt-2 text-3xl font-bold text-brand-600 sm:mt-3 sm:text-4xl">
                   3<span className="text-sm font-medium text-muted-foreground sm:text-lg">개</span>
                 </p>
-                <div className="mt-2 flex justify-center gap-1.5 sm:mt-3">
-                  <span className="flex h-6 w-6 items-center justify-center rounded-full bg-brand-100 sm:h-7 sm:w-7">
-                    <HomeIcon className="h-3 w-3 text-brand-600 sm:h-3.5 sm:w-3.5" strokeWidth={1.75} aria-hidden />
-                  </span>
-                  <span className="flex h-6 w-6 items-center justify-center rounded-full bg-brand-100 sm:h-7 sm:w-7">
-                    <Landmark className="h-3 w-3 text-brand-600 sm:h-3.5 sm:w-3.5" strokeWidth={1.75} aria-hidden />
-                  </span>
-                  <span className="flex h-6 w-6 items-center justify-center rounded-full bg-brand-100 sm:h-7 sm:w-7">
-                    <PiggyBank className="h-3 w-3 text-brand-600 sm:h-3.5 sm:w-3.5" strokeWidth={1.75} aria-hidden />
-                  </span>
-                </div>
               </div>
 
               <div className="rounded-2xl border border-border bg-surface-muted/40 p-3 text-center sm:p-5">
